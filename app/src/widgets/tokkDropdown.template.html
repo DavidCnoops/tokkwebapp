@@ -1,0 +1,41 @@
+<div class="{{::vm.styles.container}}">
+
+    <span ng-click="vm.toggleDropdown()" class="{{::vm.styles.selectBox}} dropdown-{{::vm.dropdownname}}">
+        <span class="{{::vm.styles.name}}">{{vm.selectedItem[vm.viewname]}}</span>
+        <span class="icon-arrowdown {{::vm.styles.icon}}"></span>
+    </span>
+
+    <div class="animationDropdown {{::vm.styles.dropdown}} dropdown-{{::vm.dropdownname}}" 
+            ng-if="vm.dropdownVisible" 
+            tokk-document-enter="vm.selectHoveredItem($event)" 
+            tokk-document-escape="vm.close()" 
+            tokk-document-arrow-up-down="vm.arrowNavigation($event)" 
+            tokk-click-outside container="dropdown-{{::vm.dropdownname}}" action="vm.close()">
+
+        <ul class="{{::vm.styles.content}}" tokk-prevent-parent-scroll>
+
+            <li ng-repeat="item in vm.localList" 
+                ng-click="vm.select(item)" 
+                ng-mouseenter="vm.hover(item)" 
+                ng-class="{
+                    '{{::vm.styles.selected}}': item.selected === true, 
+                    '{{::vm.styles.hovering}}': item.hovering === true
+                }">
+                {{item[vm.viewname]}}
+            </li>
+
+        </ul>
+
+        <div ng-if="vm.footer === 'true'" class="{{::vm.styles.footer}}">
+            <div class="{{::vm.styles.divider}}"></div>
+            <div class="{{::vm.styles.link}}" 
+                    ng-click="vm.footerclick(); vm.close();" 
+                    ng-mouseenter="vm.unhover()">
+                <span class="{{::vm.footericon}} {{::vm.styles.icon}}" ng-if="vm.footericon"></span>
+                <span class="{{::vm.styles.text}}">{{vm.footertext}}</span>
+            </div>
+        </div>
+
+    </div>
+
+</div>

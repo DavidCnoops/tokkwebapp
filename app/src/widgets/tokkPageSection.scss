@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  margin-bottom: 70px;
+
+  .header {
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: solid 1px #d8d8da;
+
+    > tokk-page-section-header {
+      display: flex;
+      font-weight: 400;
+    }
+  }
+
+  .content {
+    width: 100%;
+  }
+}

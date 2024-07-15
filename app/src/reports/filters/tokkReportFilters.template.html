@@ -1,0 +1,187 @@
+<div class="{{::vm.styles.container}}">
+
+    <div class="animationPageHeader {{::vm.styles.header}}" ng-if="vm.visible">
+		<div class="{{::vm.styles.title}}">{{vm.reportName}}</div>
+		<div class="{{::vm.styles.line}}"></div>
+    </div>
+
+	<div class="animationPageContent {{::vm.styles.content}}" ng-if="vm.visible" tokk-scrollspy scrolling="vm.scrolling(position)">
+
+		<div class="animationAccordion2 {{::vm.styles.filter}} {{::vm.styles.first}}" ng-class="{'expanded': vm.filterOpened['days']}">
+
+			<div class="tokkReportFiltersFilterHeader {{::vm.styles.filterHeader}}" ng-click="vm.toggleCollapse('days')">
+
+				<div class="tokkReportFiltersFilterTitle {{::vm.styles.filterTitle}}">
+					<span class="{{::vm.styles.filterTitleText}}">Days</span>
+					<span class="icon-arrowdown {{::vm.styles.filterTitleIcon}}"></span>
+				</div>
+
+				<div class="tokkReportFiltersFilterValue {{::vm.styles.filterValues}}" 
+						ng-if="!vm.filterOpened['days']" 
+						ng-switch="vm.selectedFilterCollection.days">
+
+					<div ng-switch-when="all">All</div>
+					<div ng-switch-when="none">None</div>
+					<div ng-switch-default>
+						<span ng-if="vm.startDay !== vm.endDay">{{vm.startDay}} - {{vm.endDay}}</span>
+						<span ng-if="vm.startDay === vm.endDay">{{vm.startDay}}</span>
+					</div>
+
+				</div>
+
+			</div>
+
+			<tokk-days-filter 
+				ng-if="vm.filterOpened['days']" 
+				class="tokkReportFiltersFilterContent {{::vm.styles.filterContent}}">
+			</tokk-days-filter>
+
+		</div>
+
+
+		<div class="animationAccordion2 {{::vm.styles.filter}}" ng-class="{'expanded': vm.filterOpened['projects']}">
+
+			<div class="tokkReportFiltersFilterHeader {{::vm.styles.filterHeader}}" ng-click="vm.toggleCollapse('projects')">
+
+				<div class="tokkReportFiltersFilterTitle {{::vm.styles.filterTitle}}">
+					<span class="{{::vm.styles.filterTitleText}}">Lists</span>
+					<span class="icon-arrowdown {{::vm.styles.filterTitleIcon}}"></span>
+				</div>
+
+				<div class="tokkReportFiltersFilterValue {{::vm.styles.filterValues}}" 
+						ng-if="!vm.filterOpened['projects']" 
+						ng-switch="vm.selectedFilterCollection.projects">
+
+					<div ng-switch-when="all">All</div>
+					<div ng-switch-when="none">None</div>
+					<div ng-switch-default>
+						<ul ng-repeat="(index, project) in vm.selectedFilterCollection.projects track by $index">
+							<li>{{project}}</li>
+						</ul>
+					</div>
+
+				</div>
+
+			</div>
+
+			<tokk-list-filter 
+				ng-if="vm.filterOpened['projects']" 
+				class="tokkReportFiltersFilterContent {{::vm.styles.filterContent}}" 
+				type="projects" 
+				property="project_slug" 
+				viewproperty="project_name">
+			</tokk-list-filter>
+
+		</div>
+
+
+		<div class="animationAccordion2 {{::vm.styles.filter}}" ng-class="{'expanded': vm.filterOpened['tasks']}">
+
+			<div class="tokkReportFiltersFilterHeader {{::vm.styles.filterHeader}}" ng-click="vm.toggleCollapse('tasks')">
+
+				<div class="tokkReportFiltersFilterTitle {{::vm.styles.filterTitle}}">
+					<span class="{{::vm.styles.filterTitleText}}">Tasks</span>
+					<span class="icon-arrowdown {{::vm.styles.filterTitleIcon}}"></span>
+				</div>
+
+				<div class="tokkReportFiltersFilterValue {{::vm.styles.filterValues}}" 
+						ng-if="!vm.filterOpened['tasks']" 
+						ng-switch="vm.selectedFilterCollection.tasks">
+
+					<div ng-switch-when="all">All</div>
+					<div ng-switch-when="none">None</div>
+					<div ng-switch-default>
+						<ul ng-repeat="(index, task) in vm.selectedFilterCollection.tasks track by $index">
+							<li>{{task}}</li>
+						</ul>
+					</div>
+
+				</div>
+
+			</div>
+
+			<tokk-list-filter 
+				ng-if="vm.filterOpened['tasks']" 
+				class="tokkReportFiltersFilterContent {{::vm.styles.filterContent}}" 
+				type="tasks" 
+				property="task_slug" 
+				viewproperty="task_name">
+			</tokk-list-filter>
+
+		</div>
+
+
+		<div class="animationAccordion2 {{::vm.styles.filter}}" ng-if="vm.hasBusinessSubscription" ng-class="{'expanded': vm.filterOpened['tags']}">
+
+			<div class="tokkReportFiltersFilterHeader {{::vm.styles.filterHeader}}" ng-click="vm.toggleCollapse('tags')">
+
+				<div class="tokkReportFiltersFilterTitle {{::vm.styles.filterTitle}}">
+					<span class="{{::vm.styles.filterTitleText}}">Tags</span>
+					<span class="icon-arrowdown {{::vm.styles.filterTitleIcon}}"></span>
+				</div>
+
+				<div class="tokkReportFiltersFilterValue {{::vm.styles.filterValues}}" 
+						ng-if="!vm.filterOpened['tags']" 
+						ng-switch="vm.selectedFilterCollection.tags">
+
+					<div ng-switch-when="all">All</div>
+					<div ng-switch-when="none">None</div>
+					<div ng-switch-default>
+						<ul ng-repeat="(index, tag) in vm.selectedFilterCollection.tags track by $index">
+							<li>{{tag}}</li>
+						</ul>
+					</div>
+
+				</div>
+
+			</div>
+
+			<tokk-list-filter 
+				ng-if="vm.filterOpened['tags']" 
+				class="tokkReportFiltersFilterContent {{::vm.styles.filterContent}}" 
+				type="tags" 
+				property="tag_slug" 
+				viewproperty="tag_name">
+			</tokk-list-filter>
+
+		</div>
+
+
+		<div class="animationAccordion2 {{::vm.styles.filter}}" ng-if="vm.hasBusinessSubscription && vm.hasAccessToGroupEntries" ng-class="{'expanded': vm.filterOpened['users']}">
+
+			<div class="tokkReportFiltersFilterHeader {{::vm.styles.filterHeader}}" ng-click="vm.toggleCollapse('users')">
+
+				<div class="tokkReportFiltersFilterTitle {{::vm.styles.filterTitle}}">
+					<span class="{{::vm.styles.filterTitleText}}">Users</span>
+					<span class="icon-arrowdown {{::vm.styles.filterTitleIcon}}"></span>
+				</div>
+
+				<div class="tokkReportFiltersFilterValue {{::vm.styles.filterValues}}" 
+						ng-if="!vm.filterOpened['users']" 
+						ng-switch="vm.selectedFilterCollection.users">
+
+					<div ng-switch-when="all">All</div>
+					<div ng-switch-when="none">None</div>
+					<div ng-switch-default>
+						<ul ng-repeat="(index, user) in vm.selectedFilterCollection.users track by $index">
+							<li>{{user}}</li>
+						</ul>
+					</div>
+
+				</div>
+
+			</div>
+
+			<tokk-list-filter 
+				ng-if="vm.filterOpened['users']" 
+				class="tokkReportFiltersFilterContent {{::vm.styles.filterContent}}" 
+				type="users" 
+				property="$id" 
+				viewproperty="email">
+			</tokk-list-filter>
+
+		</div>
+
+	</div>
+
+</div>

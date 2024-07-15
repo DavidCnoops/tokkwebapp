@@ -1,0 +1,89 @@
+.title {
+  flex: 1;
+  font-size: 23px;
+  line-height: 23px;
+}
+
+.edit {
+  color: #888;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    color: #000;
+  }
+
+  &.cancel:hover {
+    color: #d30915;
+  }
+
+  .icon {
+    font-size: 20px;
+    margin-right: 2px;
+  }
+
+  .text {
+    font-size: 15px;
+  }
+}
+
+.content {
+  width: 320px;
+
+  .line {
+    padding-bottom: 10px;
+
+    .label {
+      color: #777;
+    }
+
+    .bold {
+      color: #000;
+      font-weight: 500;
+    }
+
+    .status {
+      text-transform: capitalize;
+
+      &.green {
+        color: #009900;
+      }
+
+      &.red {
+        color: #d30915;
+      }
+    }
+  }
+}
+
+.modal {
+  text-align: left;
+
+  .titleContainer {
+    display: flex;
+
+    .title {
+      flex: 1;
+      color: #333;
+      font-size: 26px;
+      font-weight: 400;
+      margin-bottom: 18px;
+    }
+  }
+
+  .confirmationMessage {
+    font-size: 17px;
+    line-height: 24px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    .bold {
+      font-weight: 500;
+    }
+  }
+
+  .button {
+    margin-right: 10px;
+  }
+}

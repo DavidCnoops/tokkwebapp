@@ -1,0 +1,23 @@
+<div class="{{::vm.styles.container}}">
+
+        <div class="{{::vm.styles.label}}">Share with</div>
+
+        <div class="{{::vm.styles.selectContainer}}">
+                <tokk-select class="{{::vm.styles.select}}">
+                        <select ng-model="vm.selectedUser"
+                                ng-options="user.full_name disable when !user.selectable for user in vm.usersDropdownList track by user.$id">
+                                <option value='' default selected disabled>Select a user</option>
+                        </select>
+                </tokk-select>
+
+                <tokk-button 
+                        class="{{::vm.styles.addBtn}}" 
+                        text="Send share request" 
+                        type="primary" 
+                        loading="vm.processing" 
+                        disabled="!vm.selectedUser" 
+                        ng-click="vm.addPendingUser(vm.selectedUser.$id, vm.projectID, vm.project, vm.myFullName)">
+                </tokk-button>
+        </div>
+
+</div>

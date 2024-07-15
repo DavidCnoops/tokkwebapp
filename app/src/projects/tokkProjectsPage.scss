@@ -1,0 +1,49 @@
+$backgroundColor: #f6f6f6;
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+
+  .projects {
+    height: 100%;
+    margin-right: 500px;
+    display: flex;
+
+    .sidebar {
+      flex-basis: 240px;
+      flex-shrink: 0;
+      flex-grow: 0;
+      margin-left: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .projectContainer {
+      flex-basis: auto;
+      flex-shrink: 1;
+      flex-grow: 1;
+      display: flex;
+
+      .project {
+        flex: 1;
+      }
+    }
+  }
+
+  .day {
+    width: 500px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    background: $backgroundColor;
+    transition: width 1000ms cubic-bezier(0.19, 1, 0.22, 1);
+    transform: translate3d(0, 0, 0);
+
+    &.fullscreen {
+      width: 100%;
+    }
+  }
+}

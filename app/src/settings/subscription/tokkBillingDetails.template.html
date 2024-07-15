@@ -1,0 +1,82 @@
+<tokk-page-section ng-if="vm.hasBillingInformation">
+
+	<tokk-page-section-header class="{{::vm.styles.header}}">
+		<div class="{{::vm.styles.title}}">Billing details</div>
+
+		<div class="{{::vm.styles.edit}}" ng-if="!vm.editing" ng-click="vm.startEditing()">
+			<span class="icon-edit-outlined {{::vm.styles.icon}}"></span>
+			<span class="{{::vm.styles.text}}">Edit</span>
+		</div>
+	</tokk-page-section-header>
+
+	<tokk-page-section-content class="{{::vm.styles.content}}">
+        <tokk-success visible="vm.success" 
+                        message="vm.successMessage" 
+                        padding-top="0px" 
+                        padding-bottom="15px">
+        </tokk-success>
+
+        <div class="{{::vm.styles.text}}" ng-if="!vm.editing">
+            <div class="{{::vm.styles.line}}">
+                <span class="{{::vm.styles.bold}}">Email:</span> {{vm.email}}
+            </div>
+
+            <div class="{{::vm.styles.line}}">
+                <span class="{{::vm.styles.bold}}">Address:</span> {{vm.address}}
+            </div>
+
+            <div class="{{::vm.styles.line}}">
+                <span class="{{::vm.styles.bold}}">City:</span> {{vm.city}}
+            </div>
+
+            <div class="{{::vm.styles.line}}">
+                <span class="{{::vm.styles.bold}}">Postal code:</span> {{vm.postalCode}}
+            </div>
+
+            <div class="{{::vm.styles.line}}">
+                <span class="{{::vm.styles.bold}}">Country:</span> {{vm.countryName}}
+            </div>
+
+            <div class="{{::vm.styles.line}}" ng-if="vm.isBusiness">
+                <span class="{{::vm.styles.bold}}">Company name:</span> {{vm.companyName}}
+            </div>
+
+            <div class="{{::vm.styles.line}}" ng-if="vm.isBusiness && vm.companyVAT">
+                <span class="{{::vm.styles.bold}}">Company VAT number:</span> {{vm.companyVAT}}
+            </div>
+        </div>
+
+        <div class="{{::vm.styles.form}}" ng-if="vm.editing">
+            <tokk-billing-details-form 
+                broadcast-key="vm.broadcastKey" 
+                fill="true" 
+                billing-details="vm.billingDetails">
+            </tokk-billing-details-form>
+
+            <tokk-error 
+                visible="vm.errorMessage !== null" 
+                message="vm.errorMessage" 
+                padding-top="0px" 
+                padding-bottom="15px">
+            </tokk-error>
+
+            <div class="{{::vm.styles.buttons}}">
+                <tokk-button 
+                    class="{{::vm.styles.button}}" 
+                    text="Save" 
+                    type="primary" 
+                    loading="vm.processing" 
+                    ng-click="vm.save(vm.broadcastKey, vm.processing)">
+                </tokk-button>
+
+                <tokk-button 
+                    text="Cancel" 
+                    type="secondary" 
+                    disabled="vm.processing" 
+                    ng-click="vm.stopEditing(vm.processing)">
+                </tokk-button>
+            </div>
+        </div>
+    </tokk-page-section-content>
+
+</tokk-page-section>

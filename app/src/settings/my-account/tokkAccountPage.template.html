@@ -1,0 +1,18 @@
+<tokk-page>
+
+    <tokk-page-header>
+        <div class="tokkPageHeaderTitle">My account</div>
+
+        <div class="tokkPageHeaderIcon" ng-click="vm.logout()">
+            <span class="text">Log out</span>
+            <span class="icon icon-logout"></span>
+        </div>
+    </tokk-page-header>
+
+    <tokk-page-content>
+        <tokk-name-email ng-if="vm.subscriptionType === 'business'"></tokk-name-email>
+        <tokk-change-password></tokk-change-password>
+        <tokk-delete-account ng-if="vm.canDeleteAccount"></tokk-delete-account>
+    </tokk-page-content>
+
+</tokk-page>

@@ -1,0 +1,29 @@
+<div class="{{::vm.styles.container}}">
+
+    <div class="{{::vm.styles.projects}}" ng-class="{'fullscreen': vm.isDayFullscreen}">
+
+        <tokk-projects-sidebar class="{{::vm.styles.sidebar}}"></tokk-projects-sidebar>
+
+        <div class="{{::vm.styles.projectContainer}}">
+            <tokk-selected-project class="{{::vm.styles.project}}" ng-if="vm.isProjectSelected === true"></tokk-selected-project>
+        </div>
+
+    </div>
+
+    <div class="{{::vm.styles.day}}" ng-class="{'{{::vm.styles.fullscreen}}': vm.isDayFullscreen}">
+        <tokk-day></tokk-day>
+    </div>
+
+</div>
+
+<tokk-unpin-confirmation 
+	opened="vm.unpinModalOpened" 
+	entryid="vm.unpinModalEntryID" 
+	close="vm.closeUnpinModal()">
+</tokk-unpin-confirmation>
+
+<tokk-edit-project 
+	opened="vm.editProjectModalOpened" 
+	projectid="vm.editProjectModalProjectID" 
+	close="vm.closeEditProjectModal()">
+</tokk-edit-project>

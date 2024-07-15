@@ -1,0 +1,97 @@
+.icon {
+  color: #888;
+  font-size: 22px;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.modal {
+  text-align: left;
+
+  .titleContainer {
+    display: flex;
+
+    .titles {
+      flex: 1;
+
+      .title {
+        width: 100%;
+        color: #333;
+        font-size: 26px;
+        font-weight: 400;
+        margin-bottom: 8px;
+      }
+
+      .subtitle {
+        width: 100%;
+        color: #888;
+        font-size: 18px;
+        font-weight: 400;
+        margin-bottom: 16px;
+      }
+    }
+
+    .close {
+      width: 28px;
+      height: 28px;
+      color: #888;
+      font-size: 28px;
+      flex: 0 0 28px;
+      cursor: pointer;
+      transform: rotate(45deg);
+
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+
+  .content {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    .line {
+      width: 100%;
+      display: flex;
+      margin-bottom: 15px;
+
+      .left {
+        flex: 1;
+        margin-top: 5px;
+        margin-right: 20px;
+        line-height: 22px;
+
+        .list {
+          margin-top: 10px;
+
+          > li {
+            color: #666;
+            font-size: 14px;
+            text-indent: 5px;
+            list-style-type: none;
+            list-style-position: inside;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            margin-left: 3px;
+
+            &:before {
+              color: #666;
+              content: "•";
+              font-size: 16px;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+
+      .right {
+        justify-content: flex-end;
+      }
+    }
+  }
+}

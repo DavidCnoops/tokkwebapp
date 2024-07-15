@@ -1,0 +1,45 @@
+$size: 20px;
+$padding: 3px;
+
+.container {
+    height: $size + $padding*2;
+    display: inline-block;
+
+    &.disabled {
+        opacity: 0.25;
+
+        i,
+        i:before {
+            cursor: not-allowed;
+        }
+    }
+
+    input {
+        display: none;
+    }
+
+    i {
+        display: inline-block;
+        cursor: pointer;
+        padding: $padding;
+        padding-right: $size;
+        transition: all ease 0.15s;
+        border-radius: $size + $padding;
+        background: #ccc;
+
+        &:before {
+            display: block;
+            content: '';
+            width: $size;
+            height: $size;
+            border-radius: $size;
+            background: #fff;
+        }
+    }
+
+    :checked + i {
+        padding-right: $padding;
+        padding-left: $size;
+        background: #00cc33;
+    }
+}

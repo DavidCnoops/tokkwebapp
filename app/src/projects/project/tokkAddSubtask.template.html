@@ -1,0 +1,14 @@
+<div class="{{::vm.styles.container}}">
+
+	<span class="icon-add {{::vm.styles.icon}}" 
+			ng-click="vm.add(vm.userUID, vm.tasksProjectID, vm.taskID, vm.project, vm.task, vm.subtaskCount, vm.myFullName, vm.inputText)">
+	</span>
+
+	<input type="text" 
+			maxlength="256" 
+			placeholder="Add a subtask{{vm.nameExtension}}" 
+			ng-model="vm.inputText" 
+			tokk-enter="vm.add(vm.userUID, vm.tasksProjectID, vm.taskID, vm.project, vm.task, vm.subtaskCount, vm.myFullName, vm.inputText)" 
+			class="{{::vm.styles.input}}" />
+
+</div>

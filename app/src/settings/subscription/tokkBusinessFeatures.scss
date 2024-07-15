@@ -1,0 +1,93 @@
+.container {
+
+    :global(.tokkPageSectionContainer) {
+        margin-bottom: 50px !important;
+    }
+
+    .header {
+        .title {
+            flex: 1;
+            font-size: 23px;
+            line-height: 23px;
+        }
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+
+        .row {
+            display: flex;
+            margin-bottom: 30px;
+
+            &.last {
+                margin-right: 0px;
+            }
+
+            .feature {
+                flex: 0 0 173px;
+                display: block;
+                margin-right: 40px;
+
+                &.last {
+                    margin-right: 0px;
+                }
+
+                .featureIcon {
+                    height: 36px;
+                    color: #000;
+                    font-size: 30px;
+                    margin-bottom: 8px;
+                    position: relative;
+
+                    &.multipleUsers {
+                        color: #000;
+                        font-size: 32px;
+                    }
+
+                    &.sharing {
+                        color: #000;
+                        font-size: 33px;
+                        margin-left: -4px;
+                    }
+
+                    &.tags {
+                        color: #000;
+                        margin-left: -1px;
+                    }
+
+                    &.betterReports {
+                        color: #000;
+                        font-size: 32px;
+                        margin-left: -2px;
+                    }
+
+                    &.export {
+                        color: #000;
+                        font-size: 34px;
+                        margin-left: -4px;
+                    }
+
+                    &.notifications {
+                        color: #000;
+                        font-size: 31px;
+                        margin-left: -2px;
+                    }
+                }
+
+                .featureTitle {
+                    color: #000;
+                    font-size: 17px;
+                    font-weight: 500;
+                    margin-bottom: 5px;
+                }
+
+                .featureDescription {
+                    color: #888;
+                    font-size: 15px;
+                    line-height: 19px;
+                }
+            }
+        }
+    }
+}

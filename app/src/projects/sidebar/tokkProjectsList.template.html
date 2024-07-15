@@ -1,0 +1,30 @@
+<ul class="{{::vm.styles.container}}"
+	tokk-dragula 
+	isdraggable="true" 
+	update="vm.updatePositions(oldIndex, newIndex, draggedItemID)" 
+	scrollcontainer=".sidebarContent" 
+	unselectable="on">
+
+	<li ng-repeat="project in vm.filteredProjects track by project.$id" 
+		itemid="{{::project.$id}}" 
+		class="{{::vm.styles.item}}" 
+		ng-class="{'{{::vm.styles.selected}}': project.user_project_id === vm.selectedProjectID}"
+		unselectable="on">
+
+		<div class="{{::vm.styles.outer}}">
+
+			<div class="{{::vm.styles.inner}}" ng-style="{'background-color': vm.getBackgroundColor(vm.colors[project.color])}">
+
+				<tokk-project-list-item 
+					name="{{::project.project_name}}" 
+					projectid="{{::project.user_project_id}}" 
+					color="vm.colors[project.color]">
+				</tokk-project-list-item>
+
+			</div>
+
+		</div>
+
+	</li>
+
+</ul>

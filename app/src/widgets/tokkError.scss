@@ -1,0 +1,35 @@
+.container {
+    .message {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        background: rgba(#d30915, 0.12);
+        position: relative;
+
+        .icon {
+            color: #d30915;
+            // width: 24px;
+            // height: 24px;
+            font-size: 25px;
+            margin-top: -2px;
+            margin-left: 8px;
+            margin-right: 5px;
+        }
+
+        .text {
+            color: #d30915;
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 22px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-right: 10px;
+        }
+    }
+
+    .padding {
+        width: 100%;
+        display: block;
+    }
+}

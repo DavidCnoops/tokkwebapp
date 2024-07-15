@@ -1,0 +1,56 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 500px;
+
+  .header {
+    max-width: 600px;
+    height: 68px;
+    margin-top: 26px;
+    margin-left: 60px;
+
+    tokk-page-header {
+      display: flex;
+
+      :global(.tokkPageHeaderTitle) {
+        flex: 1;
+        font-size: 30px;
+        font-weight: 500;
+      }
+
+      :global(.tokkPageHeaderIcon) {
+        color: #888;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+          color: #000;
+        }
+
+        > :global(.icon) {
+          font-size: 28px;
+        }
+
+        > :global(.text) {
+          font-size: 16px;
+          font-weight: 400;
+          margin-right: 3px;
+        }
+      }
+    }
+  }
+
+  .content {
+    width: 100%;
+    padding-bottom: 40px;
+
+    .inner {
+      max-width: 600px;
+      margin-left: 60px;
+    }
+  }
+}

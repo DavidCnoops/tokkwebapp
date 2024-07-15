@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es2017", "dom"],
+    "removeComments": true,
+    "noUnusedLocals": true,
+    "outFile": "tsapp.js",
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules", "typings", "icon_sources", ".vscode"]
+}

@@ -1,0 +1,38 @@
+{
+  "database": {
+    "rules": "rules.json"
+  },
+  "hosting": {
+    "public": "app",
+    "ignore": [
+      "src",
+      "css"
+    ],
+    "rewrites": [
+      {
+        "source": "/bleh/**",
+        "destination": "/bleh/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source" : "**/*.@(js|svg|css)",
+        "headers" : [
+          {
+            "key" : "Cache-Control",
+            "value" : "max-age=604800"
+          }
+        ]
+      },
+      {
+        "source" : "**/*.@(jpg|jpeg|gif|png)",
+        "headers" : [
+          {
+            "key" : "Cache-Control",
+            "value" : "max-age=2592000"
+          }
+        ]
+      }
+    ]
+  }
+}

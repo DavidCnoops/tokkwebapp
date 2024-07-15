@@ -1,0 +1,98 @@
+<div class="{{::vm.styles.container}}">
+
+    <div class="animationPageHeader {{::vm.styles.header}}" ng-if="vm.visible">
+		<div class="icon-options options-noclose {{::vm.styles.optionsIcon}}" ng-click="vm.toggleOptions()"></div>
+
+		<div class="{{::vm.styles.optionsPanel}}" ng-if="vm.optionsOpened" tokk-click-outside container="options-noclose" action="vm.closeOptions()">
+			<div class="{{::vm.styles.item}}" ng-click="vm.expandAll()">Expand all</div>
+			<div class="{{::vm.styles.item}}" ng-click="vm.collapseAll()">Collapse all</div>
+			<div ng-if="vm.hasBusinessSubscription" class="{{::vm.styles.separator}}"></div>
+			<div ng-if="vm.hasBusinessSubscription" class="{{::vm.styles.item}}" ng-click="vm.downloadPDF()">Export to PDF</div>
+			<div ng-if="vm.hasBusinessSubscription" class="{{::vm.styles.item}}" ng-click="vm.downloadCSV()">Export to CSV</div>
+			<div ng-if="vm.hasBusinessSubscription" class="{{::vm.styles.item}}" ng-click="vm.downloadJSON()">Export to JSON</div>
+		</div>
+
+		<div class="{{::vm.styles.titleContainer}}">
+
+			<div class="{{::vm.styles.dropdownContainer}}">
+				<span>Sort by</span>
+
+				<tokk-dropdown 
+					class="{{::vm.styles.dropdown}}" 
+					dropdownname="resultgrouping1" 
+					list="vm.groupingOptions1" 
+					viewname="name"
+					valuename="value">
+				</tokk-dropdown>
+
+				<span ng-show="vm.hasBusinessSubscription">and</span>
+
+				<tokk-dropdown 
+					ng-show="vm.hasBusinessSubscription"
+					class="{{::vm.styles.dropdown}}" 
+					dropdownname="resultgrouping2" 
+					list="vm.groupingOptions2" 
+					viewname="name"
+					valuename="value">
+				</tokk-dropdown>
+			</div>
+
+		</div>
+
+		<div class="{{::vm.styles.resultTotal}}">{{vm.resultTotal}}</div>
+
+		<div class="{{::vm.styles.line}}"></div>
+    </div>
+
+	<div class="animationPageContent {{::vm.styles.content}}" ng-if="vm.visible" tokk-scrollspy scrolling="vm.scrolling(position)">
+
+		<div class="{{::vm.styles.noResult}}" ng-if="!vm.result || vm.result.length === 0">
+			<div class="{{::vm.styles.paddingTop}}"></div>
+			<div class="{{::vm.styles.text}}">
+				<span>No tracked time was found for the selected filters</span>
+			</div>
+		</div>
+
+		<div class="{{::vm.styles.firstLevel}}" ng-class="{'{{::vm.styles.last}}': $last}" ng-repeat="item in vm.result track by $index">
+			<div class="{{::vm.styles.firstLevelItem}}" ng-click="vm.toggleExpand(item.name)">
+				<span class="{{::vm.styles.left}}">{{item.viewName}}</span>
+				<span class="{{::vm.styles.right}}">{{item.time}}</span>
+			</div>
+
+			<div class="animationAccordion {{::vm.styles.secondLevel}}" ng-if="vm.expanded[item.name]['value']">
+
+				<div ng-class="{'{{::vm.styles.last}}': $last}" ng-repeat="child in item.children track by $index">
+
+					<div class="{{::vm.styles.secondLevelItem}}" ng-click="vm.toggleExpand(child.name, item.name)">
+						<span class="{{::vm.styles.left}}">{{child.viewName}}</span>
+						<span class="{{::vm.styles.right}}">{{child.time}}</span>
+					</div>
+
+					<div class="animationAccordion {{::vm.styles.thirdLevel}}" ng-if="vm.expanded[item.name]['children'][child.name]['value']">
+
+						<div ng-repeat="grandchild in child.children track by $index">
+
+							<div class="{{::vm.styles.thirdLevelItem}}">
+								<span class="{{::vm.styles.left}}">{{grandchild.viewName}}</span>
+								<span class="{{::vm.styles.middle}}">
+									<span class="{{::vm.styles.line}}"></span>
+								</span>
+								<span class="{{::vm.styles.right}}">{{grandchild.time}}</span>
+							</div>
+
+						</div>
+
+						<div class="{{::vm.styles.secondLevelPaddingBottom}}"></div>
+
+					</div>
+
+				</div>
+
+				<div class="{{::vm.styles.firstLevelPaddingBottom}}"></div>
+
+			</div>
+
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,112 @@
+.container {
+    height: 73px;
+    bottom: 8px;
+    z-index: 1;
+    position: fixed;
+
+    &:not(.business) {
+        width: 240px;
+        left: 20px;
+
+        .inner {
+            .item {
+                width: 33%;
+
+                .label {
+                    font-size: 14px;
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+
+    &.business {
+        width: 240px;
+        left: 15px;
+
+        .inner {
+            .item {
+                width: 25%;
+
+                &.timer {
+                    width: 20%;
+                    opacity: 1;
+                }
+
+                .label {
+                    font-size: 12px;
+                    margin-top: 4px;
+                }
+            }
+        }
+    }
+
+    .inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+
+        .item {
+            width: 33%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+
+            &:hover,
+            &.opened,
+            &:global(.active) {
+                .icon,
+                .label {
+                    color: #000;
+                }
+            }
+
+            .icon {
+                width: 33px;
+                height: 33px;
+                color: #888;
+                font-size: 33px;
+                position: relative;
+
+                .notificationCount {
+                    width: 31px;
+                    height: 31px;
+                    color: #fff;
+                    font-size: 19px;
+                    font-weight: 600;
+                    font-family: 'proxima-nova', sans-serif;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: -5px;
+                    right: -12px;
+                    transform: scale(0.7);
+                    background: #e70000;
+
+                    &.twoDigits {
+                        font-size: 15px;
+                    }
+
+                    &.threeDigits {
+                        width: 38px;
+                        border-radius: 5px;
+                        right: -20px;
+                    }
+                }
+            }
+
+            .label {
+                color: #888;
+                font-weight: 400;
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+<div class="{{::vm.styles.container}}" 
+        ng-click="vm.checkboxClicked()" 
+        ng-style="{'font-size': vm.size}" 
+        ng-class="{
+            '{{::vm.styles.checked}}': vm.checked,
+            '{{::vm.styles.unchecked}}': !vm.checked,
+            '{{::vm.styles.disabled}}': vm.disabled
+        }">
+
+    <div class="icon-checkbox-unchecked {{::vm.styles.checkbox}}"></div>
+
+    <div class="icon-checkbox-checked {{::vm.styles.tick}}" ng-class="{
+        '{{::vm.styles.visible}}': vm.checked 
+    }"></div>
+
+</div>

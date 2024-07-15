@@ -1,0 +1,179 @@
+.window {
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+  background: #f6f6f6;
+
+  .logo {
+    fill: #000;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    tokk-logo {
+      height: 40px;
+      display: inline-block;
+    }
+  }
+
+  .contentContainer {
+    width: 840px;
+    padding: 40px;
+    padding-top: 35px;
+    margin-bottom: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.15);
+
+    .title {
+      width: 100%;
+      font-size: 32px;
+      line-height: 36px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .content {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+
+      > .left {
+        width: 370px;
+        padding-right: 40px;
+        position: relative;
+        border-right: solid 1px #d8d8da;
+
+        .paragraph {
+          width: 100%;
+          font-size: 16px;
+          line-height: 20px;
+          margin-bottom: 20px;
+
+          &.last {
+            margin-bottom: 50px;
+          }
+
+          .bold {
+            font-weight: 500;
+          }
+        }
+
+        .summaryTitle {
+          font-size: 16px;
+          font-weight: 500;
+          margin-top: 30px;
+          margin-bottom: 15px;
+        }
+
+        .pricing {
+          font-size: 16px;
+          display: flex;
+          flex-direction: column;
+          margin-top: 10px;
+          margin-bottom: 30px;
+
+          .line {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 12px;
+
+            &.total {
+              border-top: solid 1px #000;
+              padding-top: 12px;
+
+              .right {
+                font-weight: 500;
+              }
+            }
+
+            .left {
+              width: 80%;
+
+              .editUsers {
+                color: #888;
+                font-weight: 400;
+                text-decoration: underline;
+                cursor: pointer;
+
+                &:hover {
+                  color: #000;
+                }
+              }
+            }
+
+            .right {
+              width: 20%;
+              text-align: right;
+            }
+          }
+        }
+
+        .button {
+          width: 100%;
+          display: block;
+        }
+      }
+
+      > .right {
+        width: 450px;
+        margin-left: 35px;
+
+        .billingDetails {
+          :global(.tokkPageSectionContainer) {
+            margin-bottom: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  .successContainer {
+    width: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.15);
+
+    .icon {
+      color: #009900;
+      font-size: 60px;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .content {
+      font-size: 17px;
+      text-align: center;
+      line-height: 24px;
+      flex-basis: auto;
+      flex-shrink: 1;
+      flex-grow: 0;
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .button {
+      margin-bottom: 15px;
+    }
+  }
+}

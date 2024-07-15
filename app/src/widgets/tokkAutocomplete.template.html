@@ -1,0 +1,24 @@
+<div class="autocompleteContainer {{::vm.styles.container}}">
+
+    <div ng-transclude 
+            ng-keyup="vm.keyup($event)" 
+            ng-keydown="vm.keydown($event)" 
+            tokk-tab="vm.setSelected($event)"
+            tokk-enter="vm.setSelected($event)"
+            tokk-escape="vm.closeDropdown()"
+            class="autocompleteTransclude {{::vm.styles.transclude}}">
+    </div>
+
+    <div class="autocompleteDropdownContainer {{::vm.styles.dropdownContainer}}" ng-if="vm.autocompleteOpened">
+        <ul class="autocompleteDropdown {{::vm.styles.dropdown}}" tokk-prevent-parent-scroll tokk-scroll-to-selected>
+            <li ng-repeat="item in vm.matchedItems track by item.$id" 
+                ng-bind-html="item[vm.viewProperty] | highlight:vm.input"
+                ng-click="vm.setSelected($event)" 
+                ng-mouseenter="vm.select(item)" 
+                class="autocomplete-noclose autocompleteItem {{::vm.styles.item}}"
+                ng-class="{'selected {{::vm.styles.selected}}': item.$id === vm.selectedItem.$id}">
+            </li>
+        </ul>
+    </div>
+
+</div>

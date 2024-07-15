@@ -1,0 +1,35 @@
+<span class="icon-unarchive {{::vm.uniqueID}}-noclose {{::vm.styles.icon}}" ng-click="vm.open()">
+    <tokk-tooltip ng-show="!vm.opened" message="Unarchive user" vdistance="40px"></tokk-tooltip>
+</span>
+
+<tokk-modal class="{{::vm.styles.modal}}" opened="vm.opened" close="vm.close()" width="460px">
+
+	<tokk-modal-header>
+		<div class="{{::vm.styles.titleContainer}}">
+			<div class="{{::vm.styles.title}}">Unarchive user</div>
+		</div>
+	</tokk-modal-header>
+
+	<tokk-modal-content>
+		<div class="{{::vm.styles.confirmationMessage}}">
+			Are you sure you want to unarchive <span class="{{::vm.styles.bold}}">{{::vm.user.first_name}} {{::vm.user.last_name}}</span>?
+		</div>
+	</tokk-modal-content>
+
+	<tokk-modal-footer>
+		<tokk-button 
+            class="{{::vm.styles.button}}" 
+			text="Unarchive user" 
+			type="primary" 
+			ng-click="vm.unarchive(vm.user.$id)">
+		</tokk-button>
+
+		<tokk-button 
+            class="{{::vm.styles.button}}" 
+			text="Cancel" 
+			type="secondary" 
+			ng-click="vm.close()">
+		</tokk-button>
+	</tokk-modal-footer>
+
+</tokk-modal>

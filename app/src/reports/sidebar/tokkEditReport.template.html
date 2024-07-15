@@ -1,0 +1,80 @@
+<tokk-modal opened="vm.opened && !vm.confirmationModalOpened" close="vm.close()" background="true" width="500px">
+
+	<tokk-modal-header>
+		<div class="{{::vm.styles.titleContainer}}">
+			<div class="{{::vm.styles.title}}">Edit report</div>
+			<div class="icon-add {{::vm.styles.close}}" ng-click="vm.close()"></div>
+		</div>
+	</tokk-modal-header>
+
+	<tokk-modal-content>
+		<div class="{{::vm.styles.inputContainer}}">
+			<tokk-label>Name</tokk-label>
+            <tokk-input>
+                <input class="{{::vm.styles.input}}" 
+                        type="text" 
+                        maxlength="256" 
+                        placeholder="The name of your report" 
+                        ng-model="vm.inputText" 
+						tokk-enter="vm.update(vm.inputText)" 
+                        autocomplete="off">
+            </tokk-input>
+		</div>
+	</tokk-modal-content>
+
+	<tokk-modal-footer>
+
+		<tokk-button class="{{::vm.styles.doneBtn}}" 
+			text="Save" 
+			type="primary" 
+            disabled="!vm.inputText || vm.inputText.length === 0" 
+			ng-click="vm.update(vm.inputText)">
+		</tokk-button>
+
+		<tokk-button class="{{::vm.styles.cancelBtn}}" 
+			text="Cancel" 
+			type="secondary" 
+			ng-click="vm.close()">
+		</tokk-button>
+
+		<span class="icon-trash {{::vm.styles.deleteBtn}}" ng-click="vm.openConfirmationModal()">
+			<tokk-tooltip message="Delete report" vdistance="-20px"></tokk-tooltip>
+		</span>
+
+	</tokk-modal-footer>
+
+</tokk-modal>
+
+
+
+<tokk-modal opened="vm.opened && vm.confirmationModalOpened" close="vm.openConfirmationModal()" background="true" width="500px">
+
+	<tokk-modal-header>
+		<div class="{{::vm.styles.titleContainer}}">
+			<div class="{{::vm.styles.title}}">Delete report</div>
+		</div>
+	</tokk-modal-header>
+
+	<tokk-modal-content>
+		<div class="{{::vm.styles.confirmationMessage}}">
+			Are you sure you want to delete the report <span  class="{{::vm.styles.reportName}}">{{vm.report.name}}</span>?
+		</div>
+	</tokk-modal-content>
+
+	<tokk-modal-footer>
+		<tokk-button class="{{::vm.styles.doneBtn}}" 
+			text="Delete list" 
+			type="primary" 
+			loading="vm.processing" 
+			ng-click="vm.remove()">
+		</tokk-button>
+
+		<tokk-button class="{{::vm.styles.cancelBtn}}" 
+			text="Cancel" 
+			type="secondary" 
+			disabled="vm.processing" 
+			ng-click="vm.closeConfirmationModal()">
+		</tokk-button>
+	</tokk-modal-footer>
+
+</tokk-modal>

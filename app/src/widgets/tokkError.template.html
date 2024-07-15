@@ -1,0 +1,15 @@
+<div ng-if="vm.visible" class="animationError {{::vm.styles.container}}">
+
+    <div class="{{::vm.styles.padding}}" ng-style="{'height': vm.paddingTop}"></div>
+
+    <div class="{{::vm.styles.message}}">
+
+        <span class="icon-error {{::vm.styles.icon}}"></span>
+
+        <span class="{{::vm.styles.text}}" ng-bind-html="vm.message"></span>
+
+    </div>
+
+    <div class="{{::vm.styles.padding}}" ng-style="{'height': vm.paddingBottom}"></div>
+
+</div>

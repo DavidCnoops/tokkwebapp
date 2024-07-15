@@ -1,0 +1,18 @@
+<div class="animationAddRemove {{::vm.styles.container}}" ng-show="vm.opened">
+
+    <div class="{{::vm.styles.paddingTop}}"></div>
+
+    <div class="{{::vm.styles.inner}}">
+
+        <div class="{{::vm.styles.pikadayContainer}}"></div>
+
+        <div class="{{::vm.styles.buttons}}">
+            <tokk-button class="{{::vm.styles.todayBtn}}" text="Today" type="primary" disabled="vm.isToday" ng-click="vm.goToToday()"></tokk-button>
+            <tokk-button class="{{::vm.styles.closeBtn}}" text="Close" type="secondary" ng-click="vm.close()"></tokk-button>
+        </div>
+
+    </div>
+
+    <div class="{{::vm.styles.paddingBottom}}"></div>
+
+</div>

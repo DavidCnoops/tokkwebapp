@@ -1,0 +1,80 @@
+html,
+body {
+  font-size: 18px;
+  font-weight: 300;
+  font-family: "proxima-nova", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.close {
+  fill: #888;
+  width: 40px;
+  position: fixed;
+  top: 18px;
+  right: 15px;
+  cursor: pointer;
+}
+.close:hover {
+  fill: #000;
+}
+
+.container {
+  width: 100%;
+  max-width: 840px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+}
+.container .title {
+  color: #333;
+  font-size: 40px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 40px;
+}
+@media (max-width: 600px) {
+  .container .title {
+    font-size: 34px;
+    margin-top: 60px;
+  }
+}
+.container .content {
+  color: #333;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 23px;
+  margin-top: 40px;
+  margin-bottom: 80px;
+}
+.container .content .section {
+  margin-bottom: 40px;
+}
+.container .content .section h6 {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 26px;
+  margin-bottom: 15px;
+}
+.container .content .section p {
+  font-size: 17px;
+  line-height: 22px;
+  margin-bottom: 10px;
+}
+.container .content .section ul {
+  list-style: disc;
+  list-style-position: outside;
+  margin-left: 20px;
+}
+.container .content .section ul li {
+  font-size: 17px;
+  line-height: 22px;
+  margin-bottom: 5px;
+}

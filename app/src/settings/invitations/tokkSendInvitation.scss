@@ -1,0 +1,48 @@
+.title {
+    flex: 1;
+    font-size: 23px;
+    line-height: 23px;
+}
+
+.text {
+    margin-bottom: 20px;
+    line-height: 21px;
+
+    .bold {
+        font-weight: 500;
+    }
+}
+
+.form {
+    width: 100%;
+    display: flex;
+
+    .inputContainer {
+        width: 320px;
+        margin-right: 10px;
+
+        .input {
+            opacity: 1;
+        }
+    }
+
+    .button {
+
+        > div {
+            height: 40px !important;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.empty {
+    width: 100%;
+    margin-top: -10px;
+
+    span {
+        color: #999;
+        font-size: 16px;
+        line-height: 21px;
+    }
+}

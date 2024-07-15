@@ -1,0 +1,43 @@
+<div class="{{::vm.styles.noSharing}}" ng-if="(!vm.sharedUsers || vm.sharedUsers.length === 0) && vm.activeUsersCount > 1">
+	You are currently not sharing this list with anyone
+</div>
+
+<div class="{{::vm.styles.noSharing}}" ng-if="(!vm.sharedUsers || vm.sharedUsers.length === 0) && vm.activeUsersCount === 1">
+	It appears there aren't any other users in your group yet.<br />
+	In order to share this list, first <span class="{{::vm.styles.link}}" ng-click="vm.goToInvitationsPage()">invite someone</span> to join your group.
+</div>
+
+<div class="{{::vm.styles.collaborators}}" ng-if="vm.sharedUsers && vm.sharedUsers.length > 0">
+
+	<div class="{{::vm.styles.label}}">Sharing with</div>
+
+	<div class="{{::vm.styles.collaborator}}" ng-repeat="sharedUser in vm.sharedUsers track by sharedUser.sharing_item.$id">
+		<div class="{{::vm.styles.left}}">
+			<span>{{sharedUser.user.first_name}} {{sharedUser.user.last_name}}</span>
+			<span class="{{::vm.styles.pending}}" ng-if="sharedUser.sharing_item.status === 'pending'">pending</span>
+		</div>
+
+		<div class="{{::vm.styles.right}}">
+			<div class="{{::vm.styles.button}}" ng-if="sharedUser.is_pending_receiver" ng-click="vm.acceptProject(vm.myFullName, vm.project, vm.activeProjectsCount, vm.notifications)">
+				<span class="icon-done {{::vm.styles.icon}}"></span>
+				<span class="{{::vm.styles.text}}">accept</span>
+			</div>
+
+			<div class="{{::vm.styles.button}}" ng-if="sharedUser.is_pending_receiver" ng-click="vm.declineProject(vm.myFullName, vm.project, vm.notifications)">
+				<span class="icon-close {{::vm.styles.icon}}"></span>
+				<span class="{{::vm.styles.text}}">decline</span>
+			</div>
+
+			<div class="{{::vm.styles.button}}" ng-if="!sharedUser.is_pending_receiver && sharedUser.sharing_item.status === 'pending'" ng-click="vm.revoke(vm.myFullName, vm.project, sharedUser.sharing_item)">
+				<span class="icon-cancel {{::vm.styles.icon}}"></span>
+				<span class="{{::vm.styles.text}}">revoke</span>
+			</div>
+
+			<div class="{{::vm.styles.button}}" ng-if="!sharedUser.is_pending_receiver && sharedUser.sharing_item.status === 'sharing'" ng-click="vm.revoke(vm.myFullName, vm.project, sharedUser.sharing_item)">
+				<span class="icon-cancel {{::vm.styles.icon}}"></span>
+				<span class="{{::vm.styles.text}}">revoke</span>
+			</div>
+		</div>
+	</div>
+
+</div>

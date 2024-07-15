@@ -1,0 +1,62 @@
+<div class="{{::vm.styles.window}}">
+
+    <div class="{{::vm.styles.logo}}">
+        <tokk-logo></tokk-logo>
+    </div>
+
+    <form class="{{::vm.styles.contentContainer}}">
+
+        <div class="{{::vm.styles.email}}">
+            <input class="{{::vm.styles.input}}" 
+                    type="text" 
+                    autocomplete="email" 
+                    spellcheck="false" 
+                    placeholder="Email" 
+                    ng-model="vm.email" 
+                    ng-change="vm.resetError()" />
+        </div>
+
+        <div class="{{::vm.styles.firstName}}">
+            <input class="{{::vm.styles.input}} {{::vm.styles.firstNameInput}}" 
+                    type="text" 
+                    placeholder="First name" 
+                    ng-model="vm.firstName" 
+                    autocomplete="fname" 
+                    ng-change="vm.resetError()" />
+        </div>
+
+        <div class="{{::vm.styles.lastName}}">
+            <input class="{{::vm.styles.input}}" 
+                    type="text" 
+                    autocomplete="lname" 
+                    placeholder="Last name" 
+                    ng-model="vm.lastName" 
+                    ng-change="vm.resetError()" />
+        </div>
+
+        <div class="{{::vm.styles.password}}">
+            <input class="{{::vm.styles.input}}" 
+                    type="password" 
+                    autocomplete="new-password" 
+                    placeholder="Password" 
+                    ng-model="vm.password" 
+                    ng-change="vm.resetError()"
+                    tokk-enter="vm.signup(vm.firstName, vm.lastName, vm.email, vm.password, vm.invitation)" />
+        </div>
+
+        <tokk-error visible="vm.error !== null" 
+                    message="vm.error.message" 
+                    padding-top="0px" 
+                    padding-bottom="20px">
+        </tokk-error>
+
+        <tokk-button text="Sign up" 
+                        type="primary" 
+                        loading="vm.processing" 
+                        layout="big" 
+                        ng-click="vm.signup(vm.firstName, vm.lastName, vm.email, vm.password, vm.invitation)">
+        </tokk-button>
+
+    </form>
+
+</div>

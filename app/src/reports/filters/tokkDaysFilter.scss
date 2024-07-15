@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
+
+    .item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 6px;
+
+        .radiobutton {
+            flex: 0 0 22px;
+            margin-top: -1px;
+            margin-right: 4px;
+        }
+
+        .text {
+            color: #999;
+            line-height: 22px;
+            display: inline-block;
+            cursor: pointer;
+
+            &.checked, 
+            &.all {
+                color: #000;
+            }
+        }
+    }
+
+    .rangeContent {
+        width: 100%;
+        display: block;
+        margin-top: 10px;
+
+        .line {
+            margin-bottom: 20px;
+        }
+    }
+}

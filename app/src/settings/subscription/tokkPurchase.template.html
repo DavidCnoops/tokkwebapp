@@ -1,0 +1,36 @@
+<tokk-page-section>
+
+	<tokk-page-section-header>
+		<div class="{{::vm.styles.title}}">
+            <span>Purchase Tokk for Business</span>
+        </div>
+	</tokk-page-section-header>
+
+    <tokk-page-section-content>
+        <div class="{{::vm.styles.text}}">
+            Tokk for Business costs <span class="{{::vm.styles.bold}}">$5 USD per user per month</span>, and is charged on a monthly basis</span>.
+            If you purchase this subscription while your trial is still active, you will not be charged until the end of your trial period.
+        </div>
+
+        <div class="{{::vm.styles.form}}">
+            <tokk-payment-details-form broadcast-key="vm.broadcastKey"></tokk-payment-details-form>
+
+            <tokk-billing-details-form broadcast-key="vm.broadcastKey" fill="false" billing-details="null"></tokk-billing-details-form>
+
+            <tokk-error 
+                visible="vm.errorMessage !== null" 
+                message="vm.errorMessage" 
+                padding-top="0px" 
+                padding-bottom="10px">
+            </tokk-error>
+
+            <tokk-button 
+                text="Purchase" 
+                type="primary" 
+                loading="vm.processing" 
+                ng-click="vm.subscribe(vm.broadcastKey, vm.processing)">
+            </tokk-button>
+        </div>
+    </tokk-page-section-content>
+
+</tokk-page-section>

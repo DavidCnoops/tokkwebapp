@@ -1,0 +1,16 @@
+<div class="{{::vm.styles.container}}">
+
+    <div class="{{::vm.styles.user}}" 
+            ng-class="{'{{::vm.styles.selected}}': sharedUser.selected}" 
+            ng-click="vm.selectUser(sharedUser.user_uid)" 
+            ng-repeat="sharedUser in vm.sharedUsers">
+        <span class="{{::vm.styles.text}}">{{sharedUser.name}}</span>
+        <span class="{{::vm.styles.line}}" ng-style="{'background': vm.colorHex}"></span>
+    </div>
+
+    <div class="{{::vm.styles.button}}" ng-click="vm.openSharingModal()">
+        <span class="icon-share {{::vm.styles.icon}}"></span>
+        <tokk-tooltip message="Share this list" vdistance="38px"></tokk-tooltip>
+    </div>
+
+</div>

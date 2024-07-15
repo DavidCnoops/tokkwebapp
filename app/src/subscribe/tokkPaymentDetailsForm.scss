@@ -1,0 +1,85 @@
+.container {
+    width: 100%;
+
+    .line {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+        &.lineExpirationCVC {
+            flex-direction: row;
+
+            .expiration {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                margin-right: 8px;
+
+                .inner {
+                    display: flex;
+                    flex-direction: row;
+
+                    .expMonth {
+                        width: 100%;
+                        margin-right: 2px;
+                    }
+
+                    .expYear {
+                        width: 100%;
+                        margin-left: 2px;
+                    }
+
+                    .separator {
+                        width: 30px;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        display: none;
+
+                        > span {
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+
+            .CVC {
+                width: 210px;
+                display: flex;
+                flex-direction: column;
+                margin-left: 8px;
+            }
+        }
+
+        .lineCardNumberAcceptedCards {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            flex-direction: row;
+
+            .cardNumber {
+                width: 100%;
+                margin-right: 8px;
+            }
+
+            .acceptedCards {
+                width: 180px;
+                margin-left: 8px;
+
+                .logos {
+                    width: 180px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .logo {
+                        height: 35px;
+                    }
+                }
+            }
+        }
+    }
+}

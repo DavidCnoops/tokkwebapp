@@ -1,0 +1,45 @@
+<div class="animationAddRemove {{::vm.styles.container}}" ng-if="vm.opened">
+  <div class="{{::vm.styles.paddingTop}}"></div>
+
+  <div class="{{::vm.styles.inner}}">
+    <div class="{{::vm.styles.project}}">
+      <tokk-label>List</tokk-label>
+      <tokk-select disabled="vm.noProjects">
+        <select
+          ng-model="vm.selectedProject"
+          ng-options="project.project_name group by project.status for project in vm.projects track by project.$id"
+          ng-change="vm.projectSelected(vm.selectedProject)"
+          ng-disabled="vm.noProjects"
+        >
+          <option value="" default selected disabled hidden>Select a list</option>
+        </select>
+      </tokk-select>
+    </div>
+
+    <div class="{{::vm.styles.task}}">
+      <tokk-label>Task</tokk-label>
+      <tokk-select class="{{::vm.styles.task}}" disabled="!vm.tasksLoaded">
+        <select
+          ng-model="vm.selectedTask"
+          ng-options="task.task_name group by task.status disable when !task.selectable for task in vm.tasks track by task.$id"
+          ng-change="vm.taskSelected(vm.selectedTask)"
+          ng-disabled="!vm.tasksLoaded"
+        >
+          <option value="" default selected disabled hidden>Select a task</option>
+        </select>
+      </tokk-select>
+    </div>
+
+    <span class="{{::vm.styles.buttons}}">
+      <tokk-button
+        text="Pin"
+        type="primary"
+        disabled="!vm.selectedTask"
+        ng-click="vm.addEntryToDay(vm.selectedProject, vm.selectedTask)"
+      ></tokk-button>
+      <tokk-button text="Close" type="secondary" ng-click="vm.close()"></tokk-button>
+    </span>
+  </div>
+
+  <div class="{{::vm.styles.paddingBottom}}"></div>
+</div>

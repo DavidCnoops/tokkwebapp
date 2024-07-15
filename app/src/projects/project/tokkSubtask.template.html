@@ -1,0 +1,35 @@
+<div class="{{::vm.styles.subtask}}" 
+		ng-class="{
+			'{{::vm.styles.editing}}': vm.editing,
+			'{{::vm.styles.completed}}': vm.subtask.subtask_completed
+		}">
+
+	<span ng-if="vm.editing" 
+			class="icon-trash {{::vm.styles.remove}} noclose-{{::vm.subtask.$id}}" 
+			ng-click="vm.remove(vm.userUID, vm.tasksProjectID, vm.taskID, vm.subtask, $event)">
+		<tokk-tooltip message="Remove" vdistance="40px"></tokk-tooltip>
+	</span>
+
+	<tokk-checkbox 
+		ng-if="!vm.editing" 
+		size="22px"
+		checked="vm.subtask.subtask_completed" 
+		disabled="!vm.editable" 
+		click="vm.toggleStatus()" 
+		class="{{::vm.styles.checkbox}}">
+	</tokk-checkbox>
+
+	<div contenteditable="{{vm.editing}}" 
+			spellcheck="false" 
+			tokk-contenteditable set-input="vm.setSubtaskName(text)"
+			tokk-click-outside container="noclose-{{::vm.subtask.$id}}" action="vm.save(vm.userUID, vm.tasksProjectID, vm.taskID, vm.subtaskID)" noevalasync
+			ng-bind="vm.subtaskName" 
+			ng-readonly="!vm.editable" 
+			ng-click="vm.startEditing()" 
+			tokk-enter="vm.save(vm.userUID, vm.tasksProjectID, vm.taskID, vm.subtaskID)" 
+			tokk-escape="vm.reset()" 
+			max-length="256"
+			class="subtask-input noclose-{{::vm.subtask.$id}} {{::vm.styles.input}}">
+	</div>
+
+</div>

@@ -1,0 +1,148 @@
+<div class="{{::vm.styles.day}}" ng-class="{'{{::vm.styles.fullscreen}}': vm.isDayFullscreen}">
+  <span
+    class="{{::vm.styles.toggleFullscreen}}"
+    ng-click="vm.toggleFullscreen()"
+    ng-class="{
+                'icon-fullscreen-enter': !vm.isDayFullscreen,
+                'icon-fullscreen-exit': vm.isDayFullscreen
+            }"
+  >
+  </span>
+
+  <div class="{{::vm.styles.inner}}">
+    <div class="animationPageHeader {{::vm.styles.headerContainer}}" ng-if="vm.loaded">
+      <div class="{{::vm.styles.header}}">
+        <span class="{{::vm.styles.line}}"></span>
+
+        <div class="{{::vm.styles.lineOne}}">
+          <div class="{{::vm.styles.titleContainer}}" ng-click="vm.toggleCalendar()">
+            <div class="{{::vm.styles.title}}">{{vm.humanDay}}</div>
+
+            <div class="{{::vm.styles.dateContainer}}">
+              <span class="{{::vm.styles.date}}">{{vm.humanDate}}</span>
+            </div>
+          </div>
+
+          <div class="{{::vm.styles.prevDayIconContainer}}" ng-click="vm.gotoPreviousDay()">
+            <svg class="{{::vm.styles.prevDayIcon}}" width="22.007" height="40.008" viewBox="0 0 22.007 40.008">
+              <path
+                d="M.282 19.998l1.72 1.722.14.138 17.86 17.865 1.72-1.72L3.86 20.14l-.142-.142.142-.142L21.724 2 20.004.28"
+              />
+            </svg>
+
+            <tokk-tooltip message="Previous day" vdistance="50px"></tokk-tooltip>
+          </div>
+
+          <div class="{{::vm.styles.todayIconContainer}}" ng-if="!vm.isToday" ng-click="vm.gotoToday()">
+            <svg class="{{::vm.styles.todayIcon}}" width="21.188" height="21.187" viewBox="0 0 21.188 21.187">
+              <path
+                d="M10.594 3.5c3.911 0 7.094 3.182 7.094 7.093s-3.183 7.094-7.094 7.094c-3.912 0-7.094-3.183-7.094-7.094S6.682 3.5 10.594 3.5m0-3.5C4.742 0 0 4.743 0 10.593s4.743 10.594 10.594 10.594c5.851 0 10.594-4.743 10.594-10.594S16.444 0 10.594 0z"
+              />
+            </svg>
+
+            <tokk-tooltip message="Today" vdistance="50px"></tokk-tooltip>
+          </div>
+
+          <div class="{{::vm.styles.nextDayIconContainer}}" ng-click="vm.gotoNextDay()">
+            <svg class="{{::vm.styles.nextDayIcon}}" width="22.007" height="40.008" viewBox="0 0 22.007 40.008">
+              <path
+                d="M21.724 20.005l-1.722-1.723-.14-.137L2.005.28.284 2l17.86 17.863.142.142-.142.14L.282 38.006l1.72 1.718"
+              />
+            </svg>
+
+            <tokk-tooltip message="Next day" vdistance="50px"></tokk-tooltip>
+          </div>
+
+          <div class="icon-pin-outlined {{::vm.styles.pinnerIcon}}" ng-click="vm.togglePinner()">
+            <tokk-tooltip message="Pin task" vdistance="50px"></tokk-tooltip>
+          </div>
+        </div>
+
+        <div class="{{::vm.styles.lineTwo}}">
+          <div class="{{::vm.styles.stopwatch}}" ng-if="vm.isTiming">
+            <svg class="{{::vm.styles.animated}}" width="19" height="19" viewBox="0 0 19 19">
+              <g fill="#000" fill-rule="evenodd">
+                <circle cx="9.5" cy="9.5" r="1.5" />
+                <path d="M9 4h1v5H9z" />
+              </g>
+            </svg>
+
+            <div class="{{::vm.styles.static}}"></div>
+          </div>
+
+          <div class="{{::vm.styles.totalTime}}" ng-class="{'{{::vm.styles.active}}': vm.isTiming}">
+            {{vm.humanTotalSeconds}}
+          </div>
+        </div>
+
+        <div class="{{::vm.styles.paddingBottom}}"></div>
+
+        <div
+          class="animationWidget {{::vm.styles.widget}}"
+          ng-class="{
+                    'noEntries': vm.noEntries,
+                    'opened': vm.pinnerOpened || vm.calendarOpened
+                }"
+        >
+          <tokk-calendar
+            opened="vm.calendarOpened"
+            ondatechange="vm.gotoDay(date)"
+            close="vm.closeCalendar()"
+          ></tokk-calendar>
+
+          <tokk-pinner opened="vm.pinnerOpened" close="vm.closePinner()"></tokk-pinner>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="dayEntries animationPageContent {{::vm.styles.entriesContainer}}"
+      ng-if="vm.loaded"
+      tokk-scrollspy
+      scrolling="vm.scrolling(position)"
+    >
+      <div class="tokkDayEntriesContainerPaddingLeft {{::vm.styles.paddingLeft}}"></div>
+
+      <div class="{{::vm.styles.entries}}">
+        <div
+          tokk-dragula
+          isdraggable="true"
+          update="vm.updatePositions(oldIndex, newIndex, draggedItemID)"
+          scrollcontainer=".dayEntries"
+          key="{{::vm.dragKey}}"
+          unselectable="on"
+        >
+          <div
+            class="{{::vm.styles.entry}} {{vm.animationClass}} {{vm.noEntriesClass}}"
+            ng-repeat="entry in vm.entries track by entry.$id"
+            itemid="{{::entry.$id}}"
+            unselectable="on"
+          >
+            <div class="{{::vm.styles.messageContainer}}" ng-if="vm.noEntries">
+              <div class="{{::vm.styles.message}}">
+                <div class="{{::vm.styles.text}}">You don't have any task<br />for {{vm.humanDate2}}</div>
+
+                <tokk-button text="Pin a task" type="secondary" disabled="vm.pinnerOpened" ng-click="vm.openPinner()">
+                </tokk-button>
+              </div>
+            </div>
+
+            <!-- <div class="{{::vm.styles.lineTop}}"></div>
+                        <div class="{{::vm.styles.lineBottom}}"></div> -->
+
+            <tokk-entry
+              ng-if="!vm.noEntries"
+              isodate="{{::vm.isoDate}}"
+              entryid="{{::entry.$id}}"
+              projectslug="{{::entry.project_slug}}"
+              dragkey="{{::vm.dragKey}}"
+            >
+            </tokk-entry>
+          </div>
+        </div>
+
+        <div class="{{::vm.styles.paddingBottom}}"></div>
+      </div>
+    </div>
+  </div>
+</div>

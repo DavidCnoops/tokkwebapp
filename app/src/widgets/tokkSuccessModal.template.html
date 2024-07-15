@@ -1,0 +1,26 @@
+<div ng-if="vm.opened" class="{{::vm.styles.modalContainer}}">
+
+    <div class="{{::vm.styles.paddingTop}}"></div>
+
+    <div class="modal modal-noclose {{::vm.styles.modal}}">
+
+        <div class="icon-success {{::vm.styles.icon}}"></div>
+
+        <div class="{{::vm.styles.title}}" ng-transclude="title"></div>
+
+        <div class="{{::vm.styles.content}}" ng-transclude="content"></div>
+
+        <div class="{{::vm.styles.footer}}">
+
+            <tokk-button 
+                class="{{::vm.styles.button}}" 
+                text="Close" 
+                type="primary" 
+                ng-click="vm.close()">
+            </tokk-button>
+
+        </div>
+
+    </div>
+
+</div>

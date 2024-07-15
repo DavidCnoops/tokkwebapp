@@ -1,0 +1,11 @@
+<div class="{{::vm.styles.item}}" ng-click="vm.select(vm.projectID)">
+
+    <span class="projectListItemName {{::vm.styles.name}}" ng-style="{'color': vm.color}">{{::vm.name}}</span>
+
+    <span class="{{::vm.styles.buttonContainer}}" ng-click="vm.edit(vm.projectID, $event)">
+        <span class="icon-edit-outlined modal-noclose {{::vm.styles.button}}" ng-if="vm.showButton">
+            <tokk-tooltip message="Edit" vdistance="40px"></tokk-tooltip>
+        </span>
+    </span>
+
+</div>

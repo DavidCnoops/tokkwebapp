@@ -1,0 +1,53 @@
+<ul class="{{::vm.styles.container}}" ng-if="vm.loaded" ng-class="{'{{::vm.styles.business}}': vm.subscriptionType === 'business'}">
+
+	<div class="{{::vm.styles.inner}}">
+
+		<li class="{{::vm.styles.item}} {{::vm.styles.timer}}" ui-sref-active="active" ui-sref="loggedin.projects">
+			<span class="{{::vm.styles.icon}}" ng-class="{
+				'icon-stopwatch-outlined': !vm.$state.includes('loggedin.projects'),
+				'icon-stopwatch-filled': vm.$state.includes('loggedin.projects')
+			}"></span>
+			<span class="{{::vm.styles.label}}">Timer</span>
+		</li>
+
+		<li class="{{::vm.styles.item}}" ui-sref-active="active" ui-sref="loggedin.reports">
+			<span class="{{::vm.styles.icon}}" ng-class="{
+				'icon-report-outlined': !vm.$state.includes('loggedin.reports'),
+				'icon-report-filled': vm.$state.includes('loggedin.reports')
+			}"></span>
+			<span class="{{::vm.styles.label}}">Reports</span>
+		</li>
+
+		<li class="{{::vm.styles.item}}" ng-class="{'active': vm.$state.includes('loggedin.settings')}" ui-sref="loggedin.settings.account">
+			<span class="{{::vm.styles.icon}}" ng-class="{
+				'icon-settings-outlined': !vm.$state.includes('loggedin.settings'),
+				'icon-settings-filled': vm.$state.includes('loggedin.settings')
+			}"></span>
+			<span class="{{::vm.styles.label}}">Settings</span>
+		</li>
+
+		<li class="notifications-noclose {{::vm.styles.item}}" 
+			ng-class="{'{{::vm.styles.opened}}': vm.notificationsOpened}"
+			ui-sref-active="active" 
+			ng-click="vm.toggleNotifications()" 
+			ng-if="vm.subscriptionType === 'business'">
+
+			<span class="icon-notifications-outlined {{::vm.styles.icon}}">
+				<span class="{{::vm.styles.notificationCount}}" 
+						ng-if="vm.unviewedNotificationsCount" 
+						ng-class="{
+							'{{::vm.styles.twoDigits}}': vm.unviewedNotificationsCount > 9 && vm.unviewedNotificationsCount < 100,
+							'{{::vm.styles.threeDigits}}': vm.unviewedNotificationsCount > 99
+						}">
+					{{vm.unviewedNotificationsCount}}
+				</span>
+			</span>
+			<span class="{{::vm.styles.label}}">Notifications</span>
+
+		</li>
+
+	</div>
+
+</ul>
+
+<tokk-notifications opened="vm.notificationsOpened" close="vm.closeNotifications()"></tokk-notifications>

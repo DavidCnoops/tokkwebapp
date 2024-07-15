@@ -1,0 +1,44 @@
+.titleContainer {
+  display: flex;
+
+  .title {
+    flex: 1;
+    color: #333;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 18px;
+  }
+
+  .close {
+    width: 28px;
+    height: 28px;
+    color: #888;
+    font-size: 28px;
+    flex: 0 0 28px;
+    cursor: pointer;
+    transform: rotate(45deg);
+
+    &:hover {
+      color: #000;
+    }
+  }
+}
+
+.inputContainer {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 40px;
+
+  tokk-input {
+    width: 100%;
+    display: block;
+
+    .input {
+      height: 44px !important;
+    }
+  }
+}
+
+.button {
+  margin-right: 8px;
+}

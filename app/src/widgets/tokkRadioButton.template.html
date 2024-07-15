@@ -1,0 +1,14 @@
+<div class="{{::vm.styles.container}}" 
+        ng-click="vm.radiobuttonClicked()" 
+        ng-style="{'font-size': vm.size}" 
+        ng-class="{'{{::vm.styles.disabled}}': vm.disabled}">
+
+    <div class="icon-radiobutton-background {{::vm.styles.background}}"></div>
+
+    <div class="icon-radiobutton-unchecked {{::vm.styles.unchecked}}"></div>
+
+    <div class="icon-radiobutton-checked {{::vm.styles.checked}}" ng-class="{
+        '{{::vm.styles.visible}}': vm.checked 
+    }"></div>
+
+</div>

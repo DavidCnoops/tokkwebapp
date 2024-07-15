@@ -1,0 +1,35 @@
+.container {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 50px;
+
+    .label {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .selectContainer {
+        display: flex;
+
+        .select {
+            flex: 1;
+            margin-right: 10px;
+
+            select {
+                padding: 10px;
+            }
+        }
+
+        .addBtn {
+            visibility: visible;
+
+            > div {
+                padding-top: 11px;
+                padding-bottom: 11px;
+            }
+        }
+    }
+}

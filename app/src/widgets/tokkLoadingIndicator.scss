@@ -1,0 +1,23 @@
+.loading {
+    font-size: 19px;
+
+    &:after {
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: bottom;
+        text-align: left;
+        animation: ellipsis 1200ms infinite steps(4);
+        content: '…';
+    }
+}
+
+@keyframes ellipsis {
+    from {
+        width: 0;
+        margin-right: 0;
+    }
+    to {
+        width: 18px;
+        margin-right: -18px;
+    }
+}

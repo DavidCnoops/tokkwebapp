@@ -1,0 +1,64 @@
+<div class="entry {{::vm.styles.entry}}" 
+        ng-class="[
+            vm.styles[vm.colorName], 
+            vm.entry.active ? '{{::vm.styles.active}}' : '',
+            vm.editing ? '{{::vm.styles.editing}}' : '',
+            vm.entry.position === 0 ? '{{::vm.styles.last}}' : '',
+            vm.isDayFullscreen ? '{{::vm.styles.fullscreen}}' : '',
+            vm.isToday ? '{{::vm.styles.today}}' : ''
+        ]">
+
+    <div class="{{::vm.styles.background}}" ng-style="{'border-color': vm.colorHex, 'background': vm.colorHex}"></div>
+
+    <div class="{{::vm.styles.titles}}" ng-click="vm.expandTask(vm.project.user_project_id, vm.entry.task_slug)">
+        <span class="{{::vm.styles.task}}">{{vm.entry.task_name}}</span>
+        <span class="{{::vm.styles.project}}" ng-style="{'color': vm.colorHex}">{{::vm.entry.project_name}}</span>
+    </div>
+
+    <div class="{{::vm.styles.time}}" ng-click="vm.expandTask(vm.project.user_project_id, vm.entry.task_slug)">
+
+        <div class="{{::vm.styles.inputContainer}}" ng-class="{'{{::vm.styles.safari}}': vm.isSafari}">
+            <div contenteditable="{{!vm.entry.active}}" 
+                    spellcheck="false" 
+                    ng-bind="::vm.hhmm"
+                    ng-focus="vm.startEditing()" 
+                    ng-click="vm.startEditing(); $event.stopPropagation();" 
+                    tokk-enter="vm.stopEditing()" 
+                    ng-blur="vm.stopEditing()" 
+                    tokk-escape="vm.stopEditing()" 
+                    tokk-click-outside 
+                    container="noclose-{{::vm.entry.$id}}" action="vm.stopEditing()" noevalasync 
+                    class="noclose-{{::vm.entry.$id}} {{::vm.styles.input}}">
+            </div>
+
+            <span class="{{::vm.styles.ss}}" ng-if="vm.entry.active">:{{vm.ss}}</span>
+
+            <span class="icon-increment {{::vm.styles.increment}}" 
+                    ng-click="vm.incrementTime(); $event.stopPropagation();" 
+                    ng-mousedown="vm.mouseDown('increment')" 
+                    ng-mouseup="vm.mouseUp()">
+            </span>
+
+            <span class="icon-decrement {{::vm.styles.decrement}}" 
+                    ng-click="vm.decrementTime(); $event.stopPropagation();" 
+                    ng-mousedown="vm.mouseDown('decrement')" 
+                    ng-mouseup="vm.mouseUp()">
+            </span>
+        </div>
+
+        <div class="{{::vm.styles.playpause}}" 
+                ng-class="{'{{::vm.styles.active}}': vm.entry.active}"
+                ng-if="vm.isToday" 
+                ng-click="vm.toggleTimer(vm.isoDate, vm.entry, $event)">
+            <svg class="icon-play {{::vm.styles.icon}} {{::vm.styles.play}}" width="70" height="70" viewBox="0 0 70 70"><path d="M44 35l-14 9V26z" fill-rule="evenodd"/></svg>
+            <svg class="icon-play {{::vm.styles.icon}} {{::vm.styles.pause}}" width="70" height="70" viewBox="0 0 70 70"><g fill-rule="evenodd"><path d="M27 26h5v18h-5zM39 26h5v18h-5z"/></g></svg>
+            <div class="{{::vm.styles.circle}}"></div>
+        </div>
+
+    </div>
+
+    <span class="icon-close {{::vm.styles.remove}}" ng-click="vm.remove(vm.entry, $event)">
+        <tokk-tooltip message="Unpin" vdistance="38px"></tokk-tooltip>
+    </span>
+
+</div>

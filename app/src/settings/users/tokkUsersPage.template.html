@@ -1,0 +1,44 @@
+<tokk-page class="{{::vm.styles.container}}" ng-if="vm.loaded">
+
+    <tokk-page-header>
+        <div class="tokkPageHeaderTitle">Users</div>
+        <div class="tokkPageHeaderIcon" ng-click="vm.toggleHelp()">
+            <span class="text">Help</span>
+            <span class="icon icon-help-outlined"></span>
+        </div>
+    </tokk-page-header>
+
+    <tokk-page-content>
+        <div class="animationAccordion {{::vm.styles.helpContainer}}" ng-if="vm.helpOpened">
+            <div class="{{::vm.styles.help}}">
+                <div class="{{::vm.styles.header}}">
+                    <div class="{{::vm.styles.title}}">Help</div>
+                    <div class="icon-close {{::vm.styles.icon}}" ng-click="vm.closeHelp()"></div>
+                </div>
+
+                <p>
+                    <span class="{{::vm.styles.bold}}">Users</span> are members of your Tokk group. 
+                    You can share to-do lists with them, and generate reports for their tracked time if your account has the permission to do so. 
+                    You can invite new users via <a href="/settings/invitations" class="{{::vm.styles.link}}">Settings › Invitations</span>.
+                </p>
+
+                <p>
+                    <span class="{{::vm.styles.bold}}">Active users</span> are users that can log in and use their account.<br />
+                    Each active user costs $5 USD per month.
+                </p>
+
+                <p>
+                    <span class="{{::vm.styles.bold}}">Archived users</span> are users whose account is disabled. 
+                    They cannot log in, but their tracked time can still be included in reports. Archived users are free of charge.
+                </p>
+            </div>
+
+            <div class="{{::vm.styles.paddingBottom}}"></div>
+        </div>
+
+        <tokk-active-users></tokk-active-users>
+
+        <tokk-archived-users></tokk-archived-users>
+    </tokk-page-content>
+
+</tokk-page>

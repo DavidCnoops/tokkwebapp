@@ -1,0 +1,439 @@
+html,
+body {
+  font-size: 18px;
+  font-weight: 300;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header,
+.content .section {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #333;
+  background-image: url("/static/img/header.jpg");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+}
+@media only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .header {
+    background-image: url("/static/img/header@2x.jpg");
+  }
+}
+.header .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  right: 30px;
+}
+.header .top .logo {
+  fill: #fff;
+  width: 105px;
+}
+.header .top .login {
+  color: #fff;
+  font-size: 19px;
+  font-weight: 400;
+  text-decoration: none;
+  padding: 13px 22px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 100ms ease;
+}
+.header .top .login:hover {
+  color: #333;
+  background: #fff;
+}
+.header .title {
+  color: #fff;
+  font-size: 56px;
+  font-weight: 600;
+  text-align: center;
+  padding-top: 160px;
+  margin-bottom: 10px;
+  -webkit-font-smoothing: antialiased;
+}
+.header .subtitle {
+  max-width: 800px;
+  color: #fff;
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.header .subtitle .highlight {
+  color: #00a2fe;
+}
+.header .signup {
+  color: #fff;
+  font-size: 23px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 6px;
+  padding: 20px 34px;
+  cursor: pointer;
+  white-space: nowrap;
+  background: #00a2fe;
+  transition: all 100ms ease-out;
+}
+.header .signup:hover {
+  color: #f0f0f0;
+  background: #055fb1;
+}
+.header .screenshot {
+  max-width: 100%;
+  height: auto;
+  margin-top: 70px;
+  margin-bottom: -100px;
+  border-radius: 7px;
+  z-index: 1;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+}
+
+.content {
+  width: 100%;
+}
+.content .section {
+  padding-top: 120px;
+  padding-bottom: 120px;
+  /*
+      &.features .inner {
+          display: flex;
+          flex-direction: column;
+
+          h2 {
+              margin-bottom: 80px;
+          }
+
+          .row {
+              display: flex;
+              justify-content: center;
+
+              &.one {
+                  margin-bottom: 60px;
+              }
+
+              .feature {
+                  max-width: 220px;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  margin-right: 35px;
+                  margin-left: 35px;
+
+                  .icon {
+                      width: 40px;
+                      height: 40px;
+
+                      &.multiple-users {
+                          padding-top: 6px;
+                          width: 46px;
+                      }
+
+                      &.list-sharing {
+                          padding-top: 3px;
+                          width: 60px;
+                      }
+
+                      &.team-reports {
+                          width: 50px;
+                      }
+                  }
+
+                  .title {
+                      color: #555;
+                      font-size: 21px;
+                      font-weight: 600;
+                      margin-top: 14px;
+                      margin-bottom: 8px;
+                  }
+
+                  .description {
+                      color: #888;
+                      font-size: 18px;
+                      line-height: 24px;
+                      text-align: center;
+                      display: block;
+                  }
+              }
+          }
+      }
+      */
+}
+.content .section.features {
+  padding-top: 130px;
+  padding-bottom: 130px;
+}
+.content .section.first {
+  padding-top: 240px;
+}
+.content .section.uneven {
+  background: #fff;
+}
+.content .section.even {
+  background: #fff;
+}
+.content .section .inner {
+  max-width: 860px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.content .section .inner .left,
+.content .section .inner .right {
+  width: 360px;
+}
+.content .section .inner .left {
+  margin-right: 40px;
+}
+.content .section .inner h2 {
+  color: #444;
+  font-size: 38px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.content .section .inner p {
+  color: #777;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 30px;
+}
+.content .section.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  background: #033b6e;
+}
+.content .section.footer h2 {
+  color: #fff;
+  font-size: 48px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+.content .section.footer .signup {
+  color: #f6f6f6;
+  font-size: 26px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 6px;
+  background: #00b900;
+  padding: 20px 60px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s;
+}
+.content .section.footer .signup:hover {
+  color: #fff;
+  background: #00a2fe;
+}
+.content .section.footer .login {
+  color: #fff;
+  font-size: 20px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.content .section.footer .login a {
+  color: #eee;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.content .section.footer .login a:hover {
+  color: #fff;
+}
+.content .gutter {
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+}
+.content .gutter a {
+  color: #888;
+  font-size: 19px;
+  text-decoration: none;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+.content .gutter a:hover {
+  color: #000;
+}
+
+@media (max-width: 1400px) {
+  .header {
+    background-position: center top;
+  }
+}
+@media (max-width: 600px) {
+  .header,
+.content .section {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .header .top {
+    top: 20px;
+    left: 20px;
+    right: 20px;
+  }
+  .header .title {
+    font-size: 38px;
+    line-height: 44px;
+    padding-top: 120px;
+  }
+  .header .subtitle {
+    font-size: 20px;
+    line-height: 26px;
+  }
+  .header .signup {
+    font-size: 22px;
+    margin-bottom: 60px;
+  }
+  .header .screenshot {
+    display: none;
+  }
+
+  .content .section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    /*
+          &.features .inner {
+              flex-direction: column;
+
+              h2 {
+                  margin-bottom: 60px;
+              }
+
+              .row {
+                  flex-direction: column;
+
+                  &.one {
+                      margin-bottom: 0;
+                  }
+
+                  .feature {
+                      margin-bottom: 55px;
+
+                      .icon {
+                          width: 40px - 4px;
+                          height: 40px - 4px;
+
+                          &.multiple-users {
+                              padding-top: 4px;
+                              width: 46px - 4px;
+                          }
+
+                          &.list-sharing {
+                              padding-top: 0px;
+                              width: 60px - 4px;
+                          }
+
+                          &.team-reports {
+                              width: 50px - 4px;
+                          }
+                      }
+
+                      .title {
+                          font-size: 18px;
+                          font-weight: 600;
+                          margin-top: 15px;
+                          margin-bottom: 5px;
+                      }
+
+                      .description {
+                          font-size: 16px;
+                          line-height: 23px;
+                      }
+                  }
+              }
+          }
+          */
+  }
+  .content .section.first {
+    padding-top: 60px;
+  }
+  .content .section .inner {
+    flex-direction: column-reverse;
+  }
+  .content .section .inner.time {
+    flex-direction: column;
+  }
+  .content .section .inner .left,
+.content .section .inner .right {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .content .section .inner .left {
+    margin-right: 0px;
+  }
+  .content .section .inner h2 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .content .section .inner p {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  .content .section .inner .imgContainer {
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: solid 1px #eee;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+    background: #fff;
+  }
+  .content .section .inner .imgContainer img {
+    width: 100%;
+    display: block;
+    height: auto;
+    padding: 25px 25px;
+  }
+  .content .section.footer h2 {
+    font-size: 30px;
+  }
+  .content .section.footer .signup {
+    font-size: 22px;
+  }
+  .content .gutter a {
+    font-size: 18px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+@media (max-width: 400px) {
+  .header {
+    background-position: -250px top;
+  }
+}
+@media (max-width: 320px) {
+  .header {
+    background-position: -400px top;
+  }
+}

@@ -1,0 +1,86 @@
+<tokk-modal opened="vm.opened" close="vm.close()">
+
+	<tokk-modal-header>
+		<div class="{{::vm.styles.titleContainer}}">
+			<div class="{{::vm.styles.title}}">New list</div>
+			<div class="icon-add {{::vm.styles.close}}" ng-click="vm.close()"></div>
+		</div>
+	</tokk-modal-header>
+
+	<tokk-modal-content>
+		<div class="{{::vm.styles.nameContainer}}">
+
+			<tokk-label>Name</tokk-label>
+
+			<div ng-if="vm.subscriptionType === 'business'">
+				<tokk-autocomplete group="projects" 
+									search-property="project_slug"
+									view-property="project_name" 
+									key="{{::vm.autocompleteKey}}"
+									set-input="vm.setInputText(text)" 
+									opened="vm.autocompleteOpened"
+									class="{{::vm.styles.inputContainer}}">
+
+					<tokk-input>
+						<input class="autocomplete-input" 
+								type="text" 
+								maxlength="256" 
+								placeholder="The name of your list" 
+								ng-model="vm.inputText" 
+								ng-change="vm.resetError()" 
+								autocomplete="off" />
+					</tokk-input>
+
+				</tokk-autocomplete>
+			</div>
+
+			<div ng-if="vm.subscriptionType === 'free'">
+				<tokk-input>
+					<input class="autocomplete-input" 
+							type="text" 
+							maxlength="256" 
+							placeholder="The name of your list" 
+							ng-model="vm.inputText" 
+							ng-change="vm.resetError()" 
+							autocomplete="off" />
+				</tokk-input>
+			</div>
+
+			<tokk-error visible="vm.projectExists" 
+						message="vm.errorMessage" 
+						padding-top="10px" 
+						padding-bottom="0px">
+			</tokk-error>
+
+		</div>
+
+		<div class="{{::vm.styles.colorContainer}}">
+			<tokk-label>Color</tokk-label>
+
+			<div class="colors">
+				<div class="color" 
+					ng-repeat="(key, value) in vm.colors" 
+					ng-class="{'{{::vm.styles.checked}}': vm.projectColor === key}" 
+					ng-style="{
+						'border-color': value, 
+						'background': (vm.projectColor === key ? value : '#fff')
+					}"
+					ng-click="vm.selectColor(key)">
+					<div class="icon-done {{::vm.styles.check}}" ng-style="{'color': (vm.projectColor === key ? '#fff' : value)}"></div>
+				</div>
+			</div>
+		</div>
+
+	</tokk-modal-content>
+
+	<tokk-modal-footer>
+		<tokk-button class="{{::vm.styles.addBtn}}" 
+			text="Create list" 
+			type="primary" 
+			disabled="!vm.inputText || vm.inputText.length < 1 || !vm.projectColor || !vm.loaded" 
+			ng-click="vm.addProject(vm.inputText, vm.projectColor, vm.projects, vm.groupProjects, vm.notifications, vm.loaded)">
+		</tokk-button>
+		<tokk-button text="Cancel" type="secondary" ng-click="vm.close()"></tokk-button>
+	</tokk-modal-footer>
+
+</tokk-modal>

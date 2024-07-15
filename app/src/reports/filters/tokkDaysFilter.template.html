@@ -1,0 +1,63 @@
+<div class="{{::vm.styles.container}}">
+
+	<div class="{{::vm.styles.item}}">
+
+		<tokk-radio-button 
+			class="{{::vm.styles.radiobutton}}" 
+			size="22px"
+			checked="vm.selectedFilterCollection.days === 'all'" 
+			click="vm.selectAllDays()">
+		</tokk-radio-button>
+
+		<span class="{{::vm.styles.text}}" 
+				ng-class="{'{{::vm.styles.checked}}': vm.selectedFilterCollection.days === 'all'}" 
+				ng-click="vm.selectAllDays()">
+			All
+		</span>
+
+	</div>
+
+	<div class="{{::vm.styles.item}}">
+
+		<tokk-radio-button 
+			class="{{::vm.styles.radiobutton}}" 
+			size="22px"
+			checked="vm.selectedFilterCollection.days !== 'all'" 
+			click="vm.selectDateRange(vm.todayISODate, vm.todayISODate)">
+		</tokk-radio-button>
+
+		<span class="{{::vm.styles.text}}" 
+				ng-class="{'{{::vm.styles.checked}}': vm.selectedFilterCollection.days !== 'all'}" 
+				ng-click="vm.selectDateRange(vm.todayISODate, vm.todayISODate)">
+			Range
+		</span>
+
+	</div>
+
+	<div class="{{::vm.styles.rangeContent}}" ng-if="vm.selectedFilterCollection.days !== 'all'">
+
+		<div class="{{::vm.styles.line}}">
+			<tokk-label>From</tokk-label>
+
+			<tokk-date-input 
+				iso-date="vm.startDate" 
+				iso-min-date="vm.startMinDate" 
+				iso-max-date="vm.startMaxDate" 
+				on-date-selected="vm.selectStartDate(date)">
+			</tokk-date-input>
+		</div>
+
+		<div class="{{::vm.styles.line}}">
+			<tokk-label>To</tokk-label>
+
+			<tokk-date-input 
+				iso-date="vm.endDate" 
+				iso-min-date="vm.endMinDate" 
+				iso-max-date="vm.endMaxDate" 
+				on-date-selected="vm.selectEndDate(date)">
+			</tokk-date-input>
+		</div>
+
+	</div>
+
+</div>

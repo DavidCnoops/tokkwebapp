@@ -1,0 +1,155 @@
+<tokk-page-section>
+
+	<tokk-page-section-header>
+		<div class="{{::vm.styles.title}}">Subscription details</div>
+
+		<div class="{{::vm.styles.edit}} {{::vm.styles.cancel}}" 
+                ng-if="vm.subscriptionType === 'business' && vm.subscriptionStatus === 'active'" 
+                ng-click="vm.openCancellationModal()">
+			<span class="icon-cancel {{::vm.styles.icon}}"></span>
+			<span class="{{::vm.styles.text}}">Cancel subscription</span>
+		</div>
+
+		<div class="{{::vm.styles.edit}} {{::vm.styles.reactivate}}" 
+                ng-if="vm.subscriptionType === 'business' && vm.subscriptionStatus === 'cancelled'" 
+                ng-click="vm.openReactivationModal()">
+			<span class="icon-renew {{::vm.styles.icon}}"></span>
+			<span class="{{::vm.styles.text}}">Reactivate subscription</span>
+		</div>
+	</tokk-page-section-header>
+
+    <tokk-page-section-content class="{{::vm.styles.content}}">
+        <div ng-if="vm.subscriptionType === 'free'">
+            <div class="{{::vm.styles.line}}">
+                <span class="{{::vm.styles.label}}">Plan:</span> Tokk
+            </div>
+
+            <div class="{{::vm.styles.line}}">
+                <span class="{{::vm.styles.label}}">Price:</span> Free
+            </div>
+        </div>
+
+        <div ng-if="vm.subscriptionType === 'business'">
+            <tokk-success visible="vm.cancellationSuccessful" 
+                            message="vm.cancellationSuccessfulMessage" 
+                            padding-top="0px" 
+                            padding-bottom="20px">
+            </tokk-success>
+
+            <tokk-success visible="vm.reactivationSuccessful" 
+                            message="vm.reactivationSuccessfulMessage" 
+                            padding-top="0px" 
+                            padding-bottom="20px">
+            </tokk-success>
+
+            <div ng-if="vm.subscriptionStatus === 'trial'">
+                <div class="{{::vm.styles.line}}">
+                    <span class="{{::vm.styles.label}}">Plan:</span> Tokk for Business - Trial version
+                </div>
+
+                <div class="{{::vm.styles.line}}">
+                    <span class="{{::vm.styles.label}}">Trial expires on:</span> {{vm.trialExpirationDate}} <span class="{{::vm.styles.bold}}">({{vm.daysLeft}})</span>
+                </div>
+            </div>
+
+            <div ng-if="vm.subscriptionStatus === 'active' || vm.subscriptionStatus === 'cancelled'">
+                <div class="{{::vm.styles.line}}">
+                    <span class="{{::vm.styles.label}}">Plan:</span> Tokk for Business
+                </div>
+
+                <div class="{{::vm.styles.line}}">
+                    <span class="{{::vm.styles.label}}">Price:</span> $5 per user per month
+                </div>
+
+                <div class="{{::vm.styles.line}}">
+                    <span class="{{::vm.styles.label}}">Status:</span> <span class="{{::vm.styles.status}}" ng-class="{
+                        '{{::vm.styles.green}}': vm.subscriptionStatus === 'active',
+                        '{{::vm.styles.red}}': vm.subscriptionStatus === 'cancelled'
+                    }">{{vm.subscriptionStatus}}</span>
+                </div>
+
+                <div class="{{::vm.styles.line}}" ng-if="vm.subscriptionStatus === 'active'">
+                    <span class="{{::vm.styles.label}}">Renews on:</span> {{vm.nextBillingDate}}
+                </div>
+
+                <div class="{{::vm.styles.line}}" ng-if="vm.subscriptionStatus === 'cancelled'">
+                    <span class="{{::vm.styles.label}}">Expires on:</span> {{vm.nextBillingDate}}
+                </div>
+            </div>
+        </div>
+    </tokk-page-section-content>
+
+</tokk-page-section>
+
+
+<tokk-modal class="{{::vm.styles.modal}}" opened="vm.cancellationModalOpened" close="vm.closeCancellationModal()" width="460px">
+
+	<tokk-modal-header>
+		<div class="{{::vm.styles.titleContainer}}">
+			<div class="{{::vm.styles.title}}">Cancel subscription</div>
+		</div>
+	</tokk-modal-header>
+
+	<tokk-modal-content>
+		<div class="{{::vm.styles.confirmationMessage}}">
+            Cancelling your subscription will result in the deactivation of your group at the end of your current billing period on <span class="{{::vm.styles.bold}}">{{vm.nextBillingDate}}</span>.<br /><br />
+            Are you sure you want to cancel your subscription?
+		</div>
+	</tokk-modal-content>
+
+	<tokk-modal-footer>
+		<tokk-button 
+            class="{{::vm.styles.button}}" 
+			text="Cancel subscription" 
+			type="primary" 
+            loading="vm.processing" 
+            layout="red" 
+			ng-click="vm.cancelSubscription()">
+		</tokk-button>
+
+		<tokk-button 
+            class="{{::vm.styles.button}}" 
+			text="Cancel" 
+			type="secondary" 
+            disabled="vm.processing" 
+			ng-click="vm.closeCancellationModal()">
+		</tokk-button>
+	</tokk-modal-footer>
+
+</tokk-modal>
+
+
+
+<tokk-modal class="{{::vm.styles.modal}}" opened="vm.reactivationModalOpened" close="vm.closeReactivationModal()" width="460px">
+
+	<tokk-modal-header>
+		<div class="{{::vm.styles.titleContainer}}">
+			<div class="{{::vm.styles.title}}">Reactivate subscription</div>
+		</div>
+	</tokk-modal-header>
+
+	<tokk-modal-content>
+		<div class="{{::vm.styles.confirmationMessage}}">
+            Are you sure you want to reactivate your subscription?
+		</div>
+	</tokk-modal-content>
+
+	<tokk-modal-footer>
+		<tokk-button 
+            class="{{::vm.styles.button}}" 
+			text="Reactivate subscription" 
+			type="primary" 
+            loading="vm.processing" 
+			ng-click="vm.reactivateSubscription()">
+		</tokk-button>
+
+		<tokk-button 
+            class="{{::vm.styles.button}}" 
+			text="Cancel" 
+			type="secondary" 
+            disabled="vm.processing" 
+			ng-click="vm.closeReactivationModal()">
+		</tokk-button>
+	</tokk-modal-footer>
+
+</tokk-modal>

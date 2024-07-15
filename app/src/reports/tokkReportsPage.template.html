@@ -1,0 +1,9 @@
+<div class="{{::vm.styles.loading}}" ng-if="!vm.loaded">
+    <tokk-spinner size="26px" color="#333" thickness="3px"></tokk-spinner>
+</div>
+
+<div class="{{::vm.styles.container}}" ng-if="vm.loaded">
+    <tokk-reports-sidebar class="{{::vm.styles.sidebar}}"></tokk-reports-sidebar>
+    <tokk-report-filters ng-if="vm.hasReports" class="{{::vm.styles.filters}}"></tokk-report-filters>
+    <tokk-report-result ng-if="vm.hasReports" class="{{::vm.styles.result}}"></tokk-report-result>
+</div>

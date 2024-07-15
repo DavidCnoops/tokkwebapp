@@ -1,0 +1,18 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+
+    .sidebar {
+        flex-basis: 240px;
+        flex-shrink: 0;
+        flex-grow: 0;
+        margin-left: 20px;
+    }
+
+    .page {
+        flex-basis: auto;
+        flex-shrink: 1;
+        flex-grow: 1;
+    }
+}

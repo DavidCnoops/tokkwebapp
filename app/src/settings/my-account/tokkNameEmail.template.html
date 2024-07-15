@@ -1,0 +1,77 @@
+<tokk-page-section>
+
+	<tokk-page-section-header class="{{::vm.styles.header}}">
+		<div class="{{::vm.styles.title}}">Name & Email</div>
+	</tokk-page-section-header>
+
+	<tokk-page-section-content class="{{::vm.styles.content}}" ng-if="vm.loaded">
+		<div class="{{::vm.styles.form}}">
+			<div class="{{::vm.styles.line}}">
+				<tokk-label>First name</tokk-label>
+
+				<tokk-input>
+					<input type="text" 
+							ng-model="vm.newFirstName"
+							ng-change="vm.resetError()" />
+				</tokk-input>
+			</div>
+
+			<div class="{{::vm.styles.line}}">
+				<tokk-label>Last name</tokk-label>
+
+				<tokk-input>
+					<input type="text" 
+							ng-model="vm.newLastName"
+							ng-change="vm.resetError()" />
+				</tokk-input>
+			</div>
+
+			<div class="{{::vm.styles.line}}">
+				<tokk-label>Email</tokk-label>
+
+				<tokk-input>
+					<input type="text" 
+							ng-model="vm.newEmail"
+							ng-change="vm.resetError()" />
+				</tokk-input>
+			</div>
+
+			<div class="{{::vm.styles.line}}">
+				<tokk-label>Confirm change</tokk-label>
+
+				<tokk-input>
+					<input type="password" 
+							placeholder="Type your password" 
+							ng-model="vm.password"
+							ng-change="vm.resetError()"
+							tokk-enter="vm.save(vm.newFirstName, vm.newLastName, vm.oldEmail, vm.newEmail, vm.password, vm.tokkSubscription.type)" />
+				</tokk-input>
+			</div>
+
+			<tokk-error 
+				visible="vm.error !== null" 
+				message="vm.error.message" 
+				padding-top="0px" 
+				padding-bottom="15px">
+			</tokk-error>
+
+			<tokk-success 
+				visible="vm.success" 
+				message="vm.successMessage" 
+				padding-top="0px" 
+				padding-bottom="20px">
+			</tokk-success>
+
+			<div class="{{::vm.styles.buttons}}">
+				<tokk-button 
+					class="{{::vm.styles.saveBtn}}" 
+					text="Save changes" 
+					type="primary" 
+					loading="vm.processing" 
+					ng-click="vm.save(vm.newFirstName, vm.newLastName, vm.oldEmail, vm.newEmail, vm.password, vm.tokkSubscription.type)">
+				</tokk-button>
+			</div>
+		</div>
+	</tokk-page-section-content>
+
+</tokk-page-section>

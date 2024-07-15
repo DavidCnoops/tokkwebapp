@@ -1,0 +1,70 @@
+.titleContainer {
+  display: flex;
+
+  .title {
+    flex: 1;
+    color: #333;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 18px;
+  }
+
+  .close {
+    width: 28px;
+    height: 28px;
+    color: #888;
+    font-size: 28px;
+    flex: 0 0 28px;
+    cursor: pointer;
+    transform: rotate(45deg);
+
+    &:hover {
+      color: #000;
+    }
+  }
+}
+
+.inputContainer {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 40px;
+
+  tokk-input {
+    width: 100%;
+    display: block;
+
+    .input {
+      height: 44px !important;
+    }
+  }
+}
+
+.confirmationMessage {
+  font-size: 18px;
+  line-height: 24px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  .reportName {
+    font-weight: 500;
+  }
+}
+
+.doneBtn {
+  margin-right: 8px;
+}
+
+.deleteBtn {
+  color: #888;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 6px;
+  top: 4px;
+  font-size: 25px;
+  cursor: pointer;
+
+  &:hover {
+    color: #000;
+  }
+}

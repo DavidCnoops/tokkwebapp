@@ -1,0 +1,106 @@
+.container {
+  position: relative;
+  display: inline-block;
+  pointer-events: auto;
+  transform-origin: left top -20px;
+
+  .selectBox {
+    color: #888;
+    cursor: pointer;
+    display: flex;
+
+    &:hover {
+      color: #000;
+    }
+
+    .name {
+      font-size: 17px;
+      font-weight: 400;
+    }
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+      font-size: 16px;
+      margin-top: 1px;
+      margin-left: 0px;
+    }
+  }
+
+  .dropdown {
+    min-width: 200px;
+    max-height: 500px;
+    display: block;
+    z-index: 3;
+    position: absolute;
+    top: 22px;
+    left: 0px;
+    background: white;
+    border-radius: 5px;
+    border: solid 1px black;
+
+    .content {
+      max-height: 300px;
+      overflow: auto;
+      margin-top: 6px;
+      margin-bottom: 6px;
+
+      li {
+        color: #666;
+        font-size: 17px;
+        font-weight: 400;
+        white-space: nowrap;
+        padding: 8px;
+        padding-left: 10px;
+        padding-right: 20px;
+        cursor: pointer;
+
+        &.selected {
+          color: #000;
+          font-weight: 500;
+        }
+
+        &.hovering {
+          background: #eee;
+        }
+      }
+    }
+
+    .footer {
+      .divider {
+        height: 1px;
+        width: 100%;
+        background: #ccc;
+      }
+
+      .link {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 4px;
+        padding-left: 10px;
+        padding-right: 12px;
+        margin-top: 7px;
+        margin-bottom: 7px;
+
+        &:hover {
+          background: #eee;
+        }
+
+        .icon {
+          color: #333;
+          font-size: 18px;
+          margin-right: 8px;
+        }
+
+        .text {
+          color: #333;
+          font-size: 17px;
+          font-weight: 400;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<div class="{{::vm.styles.loading}}" ng-if="!vm.loaded">
+    <tokk-spinner size="26px" color="#333" thickness="3px"></tokk-spinner>
+</div>
+
+<div class="{{::vm.styles.noInvitation}}" ng-if="vm.loaded && vm.invitation === null">
+    Invitation not found
+</div>
+
+<tokk-invitation-redeemer 
+    invitation="vm.invitation" 
+    ng-if="vm.loaded && vm.invitation !== null">
+</tokk-invitation-redeemer>

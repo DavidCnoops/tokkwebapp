@@ -1,0 +1,27 @@
+<div class="{{::vm.styles.container}}">
+
+    <div class="{{::vm.styles.dropdown}}"> 
+        <tokk-dropdown 
+            dropdownname="sharing" 
+            list="vm.sharedUsers" 
+            viewname="name"
+            valuename="user_uid"
+            footer="true" 
+            footertext="Share list" 
+            footericon="icon-share" 
+            footerclick="vm.openSharingModal()">
+        </tokk-dropdown>
+    </div>
+
+    <!--
+    <div class="{{::vm.styles.button}}" ng-click="vm.openSharingModal()">Share</div>
+    -->
+
+    <!--
+    <div class="{{::vm.styles.button}}" ng-click="vm.openSharingModal()">
+        <span class="icon-share {{::vm.styles.icon}}"></span>
+        <tokk-tooltip message="Share list" vdistance="46px"></tokk-tooltip>
+    </div>
+    -->
+
+</div>

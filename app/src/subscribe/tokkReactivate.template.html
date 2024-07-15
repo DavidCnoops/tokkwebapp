@@ -1,0 +1,90 @@
+<div class="{{::vm.styles.window}}">
+
+    <div class="{{::vm.styles.logo}}">
+        <tokk-logo></tokk-logo>
+    </div>
+
+	<div class="{{::vm.styles.contentContainer}}" ng-if="!vm.success">
+
+		<div class="{{::vm.styles.title}}">Reactivate your subscription</div>
+
+		<div class="{{::vm.styles.content}}" ng-if="!vm.success">
+
+			<div class="{{::vm.styles.left}}">
+
+				<div class="{{::vm.styles.paragraph}}">
+					Your Tokk for Business subscription expired on {{::vm.subscriptionExpiration}}.
+				</div>
+
+				<div class="{{::vm.styles.paragraph}}">
+					All your data is saved. To renew your subscription and continue where you left off, 
+					simply press the 'Reactive subscription' button below.
+				</div>
+
+				<div class="{{::vm.styles.summaryTitle}}">
+					Subscription summary: 
+				</div>
+
+				<div class="{{::vm.styles.pricing}}">
+					<div class="{{::vm.styles.line}}">
+						<span class="{{::vm.styles.left}}">Price per user per month</span>
+						<span class="{{::vm.styles.right}}">${{vm.unitPrice}}</span>
+					</div>
+
+					<div class="{{::vm.styles.line}}">
+						<span class="{{::vm.styles.left}}">Number of users in your group</span>
+						<span class="{{::vm.styles.right}}">{{vm.activeUserCount}}</span>
+					</div>
+
+					<div class="{{::vm.styles.line}} {{::vm.styles.total}}">
+						<span class="{{::vm.styles.left}}">Total price per month</span>
+						<span class="{{::vm.styles.right}}">${{vm.unitPrice * vm.activeUserCount}}</span>
+					</div>
+				</div>
+
+				<div class="{{::vm.styles.button}}">
+					<tokk-button 
+						text="Reactivate subscription" 
+						type="primary" 
+						loading="vm.processing" 
+						layout="big" 
+						ng-click="vm.reactivateSubscription()">
+					</tokk-button>
+				</div>
+
+				<tokk-error 
+					visible="vm.errorMessage !== null" 
+					message="vm.errorMessage" 
+					padding-top="10px" 
+					padding-bottom="10px">
+				</tokk-error>
+			</div>
+
+			<div class="{{::vm.styles.right}}">
+				<tokk-payment-details></tokk-payment-details>
+				<tokk-billing-details class="{{::vm.styles.billingDetails}}"></tokk-billing-details>
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<div class="{{::vm.styles.successContainer}}" ng-if="vm.success">
+
+		<div class="icon-success {{::vm.styles.icon}}"></div>
+
+		<div class="{{::vm.styles.title}}">Reactivation Successful</div>
+
+		<div class="{{::vm.styles.content}}">You successfully reactivated your Tokk for Business subscription.</div>
+
+		<tokk-button 
+			class="{{::vm.styles.button}}" 
+			text="Continue to your account" 
+			type="primary" 
+			ng-click="vm.$state.go('loggedin.projects')">
+		</tokk-button>
+
+	</div>
+
+</div>

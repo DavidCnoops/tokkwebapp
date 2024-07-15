@@ -1,0 +1,46 @@
+<tokk-page-section class="{{::vm.styles.container}}" ng-if="vm.loaded">
+
+	<tokk-page-section-header>
+		<div class="{{::vm.styles.title}}">Invoice history</div>
+	</tokk-page-section-header>
+
+    <tokk-page-section-content>
+        <div class="{{::vm.styles.empty}}" ng-if="!vm.invoices || vm.invoices.length === 0">
+            <span>There are no invoices</span>
+        </div>
+
+        <tokk-table class="{{::vm.styles.table}}" ng-if="vm.invoices && vm.invoices.length > 0">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="alignLeft">Date</th>
+                        <th width="100">Status</th>
+                        <th width="200">Amount</th>
+                        <th width="60">Invoice</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="invoice in vm.invoices track by invoices.$id">
+                        <td class="alignLeft">
+                            <span>{{::vm.getDate(invoice.invoice_timestamp)}}</span>
+                        </td>
+
+                        <td class="{{::vm.styles.status}}">
+                            <span>Paid</span>
+                        </td>
+
+                        <td>
+                            <span>${{::invoice.invoice_amount}}</span>
+                        </td>
+
+                        <td class="icon">
+                            <tokk-download-invoice invoiceid="{{::invoice.invoice_id}}"></tokk-download-invoice>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </tokk-table>
+    </tokk-page-section-content>
+
+</tokk-page-section>

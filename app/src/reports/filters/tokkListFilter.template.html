@@ -1,0 +1,32 @@
+<div class="{{::vm.styles.container}}">
+
+	<div class="{{::vm.styles.item}} {{::vm.styles.all}}">
+		<tokk-checkbox 
+			class="{{::vm.styles.checkbox}}"
+			size="22px"
+			checked="vm.allChecked" 
+			click="vm.selectAll()">
+		</tokk-checkbox>
+
+		<span class="{{::vm.styles.text}}" ng-class="{'{{::vm.styles.checked}}': vm.allChecked}" ng-click="vm.selectAll()">All</span>
+	</div>
+
+	<div class="{{::vm.styles.item}}" ng-repeat="item in vm.list track by item.$id">
+		<tokk-checkbox 
+			class="{{::vm.styles.checkbox}}"
+			size="22px"
+			checked="vm.itemsCheckedStateList[item[vm.property]]" 
+			click="vm.toggleCheckbox(item[vm.property], vm.itemsCheckedStateList[item[vm.property]], vm.selectedFilterCollection, vm.type)">
+		</tokk-checkbox>
+
+		<span class="{{::vm.styles.text}}" 
+			ng-class="{'{{::vm.styles.checked}}': vm.itemsCheckedStateList[item[vm.property]]}" 
+			ng-click="vm.toggleCheckbox(item[vm.property], vm.itemsCheckedStateList[item[vm.property]], vm.selectedFilterCollection, vm.type)">
+
+			<span ng-if="vm.type !== 'users'">{{::item[vm.viewproperty]}}</span>
+			<span ng-if="vm.type === 'users'">{{::item.first_name}} {{::item.last_name}}</span>
+
+		</span>
+	</div>
+
+</div>

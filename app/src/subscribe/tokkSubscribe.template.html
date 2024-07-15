@@ -1,0 +1,92 @@
+<div class="{{::vm.styles.window}}">
+
+    <div class="{{::vm.styles.logo}}">
+        <tokk-logo></tokk-logo>
+    </div>
+
+	<div class="{{::vm.styles.contentContainer}}" ng-if="!vm.success">
+
+		<div class="{{::vm.styles.title}}">Your trial has expired</div>
+
+		<div class="{{::vm.styles.content}}">
+
+			<div class="{{::vm.styles.left}}">
+
+				<div class="{{::vm.styles.paragraph}}">
+					Your free 30-day trial has expired. 
+					Please purchase a subscription if you would like to keep using Tokk for Business.
+				</div>
+
+				<!--
+				<div class="{{::vm.styles.summaryTitle}}">
+					Subscription summary: 
+				</div>
+				-->
+
+				<div class="{{::vm.styles.pricing}}">
+					<div class="{{::vm.styles.line}}">
+						<span class="{{::vm.styles.left}}">Price / user / month</span>
+						<span class="{{::vm.styles.right}}">${{vm.unitPrice}}</span>
+					</div>
+
+					<div class="{{::vm.styles.line}}">
+						<span class="{{::vm.styles.left}}">Number of users</span>
+						<span class="{{::vm.styles.right}}">{{vm.activeUserCount}}</span>
+					</div>
+
+					<div class="{{::vm.styles.line}} {{::vm.styles.total}}">
+						<span class="{{::vm.styles.left}}">Total price / month</span>
+						<span class="{{::vm.styles.right}}">${{vm.unitPrice * vm.activeUserCount}}</span>
+					</div>
+				</div>
+
+				<div class="{{::vm.styles.paragraph}} {{::vm.styles.last}}">
+					Your subscription will automatically be renewed each month, and can be cancelled at any time free of charge.
+				</div>
+
+				<tokk-error 
+					visible="vm.errorMessage !== null" 
+					message="vm.errorMessage" 
+					padding-top="0px" 
+					padding-bottom="20px">
+				</tokk-error>
+
+				<div class="{{::vm.styles.button}}">
+					<tokk-button 
+						text="Purchase" 
+						type="primary" 
+						loading="vm.processing" 
+						layout="big" 
+						ng-click="vm.subscribe(vm.broadcastKey, vm.processing)">
+					</tokk-button>
+				</div>
+			</div>
+
+
+			<div class="{{::vm.styles.right}}">
+				<form>
+					<tokk-payment-details-form broadcast-key="vm.broadcastKey"></tokk-payment-details-form>
+					<tokk-billing-details-form broadcast-key="vm.broadcastKey" fill="false" billing-details="null"></tokk-billing-details-form>
+				</form>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="{{::vm.styles.successContainer}}" ng-if="vm.success">
+
+		<div class="icon-success {{::vm.styles.icon}}"></div>
+		<div class="{{::vm.styles.title}}">Purchase Successful</div>
+		<div class="{{::vm.styles.content}}">You successfully purchased a Tokk for Business subscription.</div>
+
+		<tokk-button 
+			class="{{::vm.styles.button}}" 
+			text="Continue to your account" 
+			type="primary" 
+			ng-click="vm.$state.go('loggedin.projects')">
+		</tokk-button>
+
+	</div>
+
+</div>

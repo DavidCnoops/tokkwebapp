@@ -1,0 +1,56 @@
+.header {
+    .title {
+        flex: 1;
+        font-size: 23px;
+        line-height: 23px;
+    }
+
+    .edit {
+        color: #888;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        &:hover {
+            color: #333;
+        }
+
+        .icon {
+            font-size: 20px;
+            margin-right: 2px;
+        }
+
+        .text {
+            font-size: 15px;
+        }
+    }
+}
+
+.content {
+    .text {
+        .line {
+            margin-bottom: 10px;
+
+            .bold {
+                color: #777;
+            }
+        }
+    }
+
+    .form {
+        width: 320px;
+
+        .line {
+            padding-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            padding-top: 5px;
+
+            .saveBtn {
+                margin-right: 10px;
+            }
+        }
+    }
+}

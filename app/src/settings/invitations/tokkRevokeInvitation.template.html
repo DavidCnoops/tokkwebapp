@@ -1,0 +1,35 @@
+<span class="icon-cancel {{::vm.styles.icon}}" ng-click="vm.open()">
+    <tokk-tooltip ng-show="!vm.opened" message="Revoke invitation" vdistance="40px"></tokk-tooltip>
+</span>
+
+<tokk-modal class="{{::vm.styles.modal}}" opened="vm.opened" close="vm.close()" width="460px">
+
+	<tokk-modal-header>
+		<div class="{{::vm.styles.titleContainer}}">
+			<div class="{{::vm.styles.title}}">Revoke invitation</div>
+		</div>
+	</tokk-modal-header>
+
+	<tokk-modal-content>
+		<div class="{{::vm.styles.confirmationMessage}}">
+			Are you sure you want to revoke the invitation sent out to <span class="{{::vm.styles.bold}}">{{::vm.invitation.email}}</span>?
+		</div>
+	</tokk-modal-content>
+
+	<tokk-modal-footer>
+		<tokk-button 
+            class="{{::vm.styles.button}}" 
+			text="Revoke invitation" 
+			type="primary" 
+			ng-click="vm.revoke(vm.invitation)">
+		</tokk-button>
+
+		<tokk-button 
+            class="{{::vm.styles.button}}" 
+			text="Cancel" 
+			type="secondary" 
+			ng-click="vm.close()">
+		</tokk-button>
+	</tokk-modal-footer>
+
+</tokk-modal>

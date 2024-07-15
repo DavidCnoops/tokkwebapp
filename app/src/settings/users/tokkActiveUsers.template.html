@@ -1,0 +1,40 @@
+<tokk-page-section ng-if="vm.loaded">
+
+	<tokk-page-section-header>
+		<div class="{{::vm.styles.title}}">Active</div>
+	</tokk-page-section-header>
+
+    <tokk-page-section-content>
+        <tokk-table class="{{::vm.styles.table}}">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="alignLeft">Name</th>
+                        <th width="200" ng-if="vm.me.admin">Permissions</th>
+                        <th width="60" ng-if="vm.me.admin">Archive</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="user in vm.activeUsers track by user.$id">
+                        <td class="alignLeft {{::vm.styles.name}}">
+                            <span>
+                                {{user.first_name}} {{user.last_name}}
+                                <span class="{{::vm.styles.adminLabel}}" ng-if="user.admin">Admin</span>
+                            </span>
+                        </td>
+
+                        <td class="icon" ng-if="vm.me.admin">
+                            <tokk-user-permissions useruid="{{::user.$id}}"></tokk-user-permissions>
+                        </td>
+
+                        <td class="icon" ng-if="vm.me.admin">
+                            <tokk-archive-user useruid="{{::user.$id}}"></tokk-archive-user>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </tokk-table>
+    </tokk-page-section-content>
+
+</tokk-page-section>

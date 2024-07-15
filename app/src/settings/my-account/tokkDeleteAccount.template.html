@@ -1,0 +1,51 @@
+<tokk-page-section ng-if="vm.loaded">
+
+	<tokk-page-section-header class="{{::vm.styles.header}}">
+		<div class="{{::vm.styles.title}}">Delete my account</div>
+	</tokk-page-section-header>
+
+	<tokk-page-section-content class="{{::vm.styles.content}}">
+        <div class="{{::vm.styles.text}}">
+            <span ng-if="!vm.billingInformation">
+                Deleting your account will permanently remove all your data. 
+            </span>
+
+            <span ng-if="vm.billingInformation">
+                Deleting your account will permanently remove all your data, including payment and billing information.
+            </span>
+        </div>
+
+        <div class="{{::vm.styles.form}}">
+			<div class="{{::vm.styles.line}}">
+				<tokk-label>Confirm account deletion</tokk-label>
+
+				<tokk-input>
+					<input type="password" 
+							placeholder="Type your password" 
+							ng-model="vm.password" 
+							ng-change="vm.resetError()" 
+							tokk-enter="vm.deleteAccount(vm.password)" />
+				</tokk-input>
+			</div>
+
+			<tokk-error 
+				visible="vm.error !== null" 
+				message="vm.error.message" 
+				padding-top="0px" 
+				padding-bottom="15px">
+			</tokk-error>
+
+            <div class="{{::vm.styles.buttons}}">
+				<tokk-button 
+					class="{{::vm.styles.button}}" 
+					text="Delete my account" 
+					type="primary" 
+                    layout="red" 
+					loading="vm.processing" 
+					ng-click="vm.deleteAccount(vm.password)">
+				</tokk-button>
+            </div>
+        </div>
+	</tokk-page-section-content>
+
+</tokk-page-section>

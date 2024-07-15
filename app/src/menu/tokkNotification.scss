@@ -1,0 +1,74 @@
+$lineColor: #d8dadd;
+
+.notification {
+    padding: 22px;
+    position: relative;
+    background: #fff;
+    border-bottom: solid 1px $lineColor;
+
+    &.viewed {
+        background: #f8f8f8;
+    }
+
+    .meta {
+        width: 100%;
+        margin-bottom: 8px;
+        position: relative;
+
+        .timeAgo,
+        .separator,
+        .remove {
+            color: #999;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .remove {
+            text-decoration: underline;
+            cursor: pointer;
+
+            &:hover {
+                color: #000;
+            }
+        }
+    }
+
+    .content {
+        color: #666;
+        font-size: 16px;
+        line-height: 22px;
+
+        > span {
+            color: #000;
+            font-weight: 500;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        margin-top: 10px;
+
+        .button {
+            margin-right: 10px;
+        }
+    }
+
+    .accepted,
+    .declined {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        .icon {
+            color: #333;
+            font-size: 22px;
+            display: inline-block;
+        }
+
+        .text {
+            margin-top: 2px;
+            margin-left: 4px;
+            font-weight: 500;
+        }
+    }
+}

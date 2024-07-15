@@ -1,0 +1,39 @@
+<div class="{{::vm.styles.container}}">
+
+    <div class="{{::vm.styles.lineTop}}"></div>
+    <div class="{{::vm.styles.lineBottom}}"></div>
+
+	<div class="{{::vm.styles.lineOne}}">
+		<div ng-click="vm.add(vm.userUID, vm.tasksProjectID, vm.project, vm.tasks, vm.tasksLoaded, vm.groupTasks, vm.myFullName, vm.inputText)"
+				class="icon-add {{::vm.styles.addBtn}}"
+				ng-class="{'{{::vm.styles.disabled}}': !vm.inputText || vm.inputText.length < 1}">
+		</div>
+
+		<tokk-autocomplete group="tasks" 
+							search-property="task_slug"
+							view-property="task_name" 
+							key="{{::vm.autocompleteKey}}"
+							set-input="vm.setInputText(text)"
+							opened="vm.autocompleteOpened"
+							class="{{::vm.styles.inputContainer}}">
+
+			<input class="autocomplete-input {{::vm.styles.input}}"
+					name="taskTitle"
+					type="text" 
+					maxlength="256" 
+					placeholder="Add a task{{vm.nameExtension}}" 
+					ng-model="vm.inputText" 
+					tokk-enter="vm.add(vm.userUID, vm.tasksProjectID, vm.project, vm.tasks, vm.tasksLoaded, vm.groupTasks, vm.myFullName, vm.inputText)" 
+					autocomplete="off">
+
+		</tokk-autocomplete>
+	</div>
+
+	<tokk-error 
+		visible="vm.taskExists" 
+		message="vm.taskExistsMessage" 
+		padding-top="0px" 
+		padding-bottom="10px">
+	</tokk-error>
+
+</div>

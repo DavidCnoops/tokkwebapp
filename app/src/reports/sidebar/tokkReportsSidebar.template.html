@@ -1,0 +1,60 @@
+<div class="{{::vm.styles.container}}">
+
+    <div class="{{::vm.styles.header}}">
+
+		<div class="{{::vm.styles.titleContainer}}">
+			<div class="{{::vm.styles.title}}">Report</div>
+		</div>
+
+		<div class="icon-add {{::vm.styles.headerIcon}}" ng-click="vm.openModal()">
+			<tokk-tooltip message="New report" vdistance="50px"></tokk-tooltip>
+		</div>
+
+    </div>
+
+    <div class="{{::vm.styles.content}}" ng-class="{'{{::vm.styles.noReports}}': !vm.hasReports}" ng-if="vm.loaded">
+
+		<div class="{{::vm.styles.item}}" 
+				ng-class="{'{{::vm.styles.selected}}': report.filtercollection_id === vm.selectedFilterCollection.$id}"
+				ng-repeat="report in vm.reports track by report.filtercollection_id"
+				ng-click="vm.selectReport(report.filtercollection_id)">
+
+			<span class="{{::vm.styles.name}}">{{report.name}}</span>
+
+			<span class="icon-edit-outlined {{::vm.styles.icon}}" ng-click="vm.openReportEditing(report, $event)">
+				<tokk-tooltip message="Edit" vdistance="40px"></tokk-tooltip>
+			</span>
+
+		</div>
+
+        <div class="{{::vm.styles.messageContainer}}" ng-if="!vm.hasReports">
+
+            <div class="{{::vm.styles.message}}">
+
+                <div class="{{::vm.styles.text}}">You don't have any reports</div>
+
+                <tokk-button 
+                    text="Create a report" 
+                    type="secondary" 
+                    class="modal-noclose" 
+                    ng-click="vm.openModal()">
+                </tokk-button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<tokk-add-report 
+	opened="vm.modalOpened" 
+	close="vm.closeModal()">
+</tokk-add-report>
+
+<tokk-edit-report 
+	report="vm.reportToEdit" 
+	opened="vm.editing" 
+	close="vm.closeReportEditing()">
+</tokk-edit-report>

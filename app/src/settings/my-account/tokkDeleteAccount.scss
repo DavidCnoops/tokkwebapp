@@ -1,0 +1,37 @@
+.header {
+    .title {
+        flex: 1;
+        font-size: 23px;
+        line-height: 23px;
+    }
+}
+
+.content {
+    width: 100%;
+
+    .text {
+        margin-bottom: 20px;
+        line-height: 21px;
+
+        .bold {
+            font-weight: 500;
+        }
+    }
+
+    .form {
+        width: 320px;
+
+        .line {
+            padding-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            padding-top: 5px;
+
+            .saveBtn {
+                margin-right: 10px;
+            }
+        }
+    }
+}

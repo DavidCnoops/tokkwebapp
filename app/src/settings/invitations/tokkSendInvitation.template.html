@@ -1,0 +1,56 @@
+<tokk-page-section ng-if="vm.loaded">
+
+	<tokk-page-section-header>
+		<div class="{{::vm.styles.title}}">Invite someone</div>
+	</tokk-page-section-header>
+
+	<tokk-page-section-content>
+        <div class="{{::vm.styles.text}}">
+			Invite someone to become a member of your group.
+        </div>
+
+		<div class="{{::vm.styles.form}}" ng-if="vm.canInvite">
+			<div class="{{::vm.styles.inputContainer}}">
+				<tokk-input>
+					<input 
+						class="{{::vm.styles.input}}" 
+						type="text" 
+						placeholder="Email of the person you want to invite" 
+						ng-model="vm.email" 
+						spellcheck="false" 
+						ng-keydown="vm.resetError()"
+						tokk-enter="vm.sendInvitation(vm.invitations, vm.users, vm.email, vm.canInvite)">
+				</tokk-input>
+
+				<tokk-success 
+					visible="vm.success" 
+					message="vm.successMessage" 
+					padding-top="10px" 
+					padding-bottom="0px">
+				</tokk-success>
+
+				<tokk-error 
+					visible="vm.error !== null" 
+					message="vm.error.message" 
+					padding-top="10px" 
+					padding-bottom="0px">
+				</tokk-error>
+			</div>
+
+			<tokk-button 
+				class="{{::vm.styles.button}}" 
+				text="Send invitation" 
+				type="primary" 
+				loading="vm.processing" 
+				ng-click="vm.sendInvitation(vm.invitations, vm.users, vm.email, vm.canInvite, vm.processing)">
+			</tokk-button>
+		</div>
+
+        <div class="{{::vm.styles.empty}}" ng-if="!vm.canInvite">
+            <span>
+				You don't have the permission to invite people
+			</span>
+        </div>
+	<tokk-page-section-content>
+
+</tokk-page-section>

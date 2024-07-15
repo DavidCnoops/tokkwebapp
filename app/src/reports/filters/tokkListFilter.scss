@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
+
+    .item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 7px;
+
+        &.all {
+            margin-bottom: 25px;
+        }
+
+        .radiobutton {
+            flex: 0 0 22px;
+            margin-top: -1px;
+            margin-right: 4px;
+        }
+
+        .checkbox {
+            flex: 0 0 22px;
+            margin-top: -1px;
+            margin-right: 6px;
+        }
+
+        .text {
+            color: #999;
+            line-height: 22px;
+            display: inline-block;
+            cursor: pointer;
+
+            &.checked, 
+            &.all {
+                color: #000;
+            }
+        }
+    }
+}

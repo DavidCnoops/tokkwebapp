@@ -1,0 +1,19 @@
+.title {
+    flex: 1;
+    font-size: 23px;
+    line-height: 23px;
+}
+
+.text {
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 35px;
+
+    .bold {
+        font-weight: 500;
+    }
+}
+
+.form {
+    width: 500px;
+}

@@ -1,0 +1,44 @@
+<tokk-page-section ng-if="vm.loaded">
+
+	<tokk-page-section-header>
+		<div class="{{::vm.styles.title}}">Pending invitations</div>
+	</tokk-page-section-header>
+
+    <tokk-page-section-content>
+        <div class="{{::vm.styles.empty}}" ng-if="!vm.invitations || vm.invitations.length === 0">
+            <span>There are no pending invitations</span>
+        </div>
+
+        <tokk-table class="{{::vm.styles.table}}" ng-if="vm.invitations && vm.invitations.length > 0">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="alignLeft">Email</th>
+                        <th width="100">Sent on</th>
+                        <th width="50" ng-if="vm.user.admin"></th>
+                        <th width="60" ng-if="vm.user.admin">Revoke</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="invitation in vm.invitations track by invitation.$id">
+                        <td class="alignLeft">
+                            <span>{{invitation.email}}</span>
+                        </td>
+
+                        <td>
+                            <span>{{::vm.getDate(invitation.added)}}</span>
+                        </td>
+
+                        <td ng-if="vm.user.admin"></td>
+
+                        <td class="icon" ng-if="vm.user.admin">
+                            <tokk-revoke-invitation invitationid="{{::invitation.$id}}"></tokk-revoke-invitation>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </tokk-table>
+    </tokk-page-section-content>
+
+</tokk-page-section>

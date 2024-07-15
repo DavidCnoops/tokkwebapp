@@ -1,0 +1,67 @@
+<tokk-page-section ng-if="vm.loaded">
+
+	<tokk-page-section-header>
+		<div class="{{::vm.styles.title}}">
+            <span>Payment details</span>
+        </div>
+
+		<div class="{{::vm.styles.edit}}" ng-if="!vm.editing" ng-click="vm.startEditing()">
+			<span class="icon-edit-outlined {{::vm.styles.icon}}"></span>
+			<span class="{{::vm.styles.text}}">Edit</span>
+		</div>
+	</tokk-page-section-header>
+
+    <tokk-page-section-content>
+        <tokk-success 
+            visible="vm.success" 
+            message="vm.successMessage" 
+            padding-top="0px" 
+            padding-bottom="15px">
+        </tokk-success>
+
+        <div class="{{::vm.styles.text}}" ng-if="!vm.editing">
+            <div class="{{::vm.styles.line}}">
+                <span class="{{::vm.styles.bold}}">Card:</span> {{vm.cardProvider}} ending in {{vm.cardLastDigits}}
+            </div>
+
+            <div class="{{::vm.styles.line}}">
+                <span class="{{::vm.styles.bold}}">Name on card:</span> {{vm.billingInformation.cardholder_name}}
+            </div>
+
+            <div class="{{::vm.styles.line}}">
+                <span class="{{::vm.styles.bold}}">Expiry:</span> {{vm.cardExpirationDate}}
+            </div>
+        </div>
+
+        <div class="{{::vm.styles.form}}" ng-if="vm.editing">
+            <tokk-payment-details-form broadcast-key="vm.broadcastKey" reset="vm.resetErrorMessage()"></tokk-payment-details-form>
+
+            <tokk-error 
+                visible="vm.errorMessage !== null" 
+                message="vm.errorMessage" 
+                padding-top="0px" 
+                padding-bottom="15px">
+            </tokk-error>
+
+            <div class="{{::vm.styles.buttons}}">
+                <tokk-button 
+                    class="{{::vm.styles.button}}" 
+                    text="Save" 
+                    type="primary" 
+                    disabled="!vm.loaded" 
+                    loading="vm.processing" 
+                    ng-click="vm.update(vm.broadcastKey, vm.processing, vm.loaded)">
+                </tokk-button>
+
+                <tokk-button 
+                    class="{{::vm.styles.button}}" 
+                    text="Cancel" 
+                    type="secondary" 
+                    disabled="vm.processing" 
+                    ng-click="vm.stopEditing(vm.processing)">
+                </tokk-button>
+            </div>
+        </div>
+    </tokk-page-section-content>
+
+</tokk-page-section>

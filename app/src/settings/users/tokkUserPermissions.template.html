@@ -1,0 +1,66 @@
+<span class="icon-edit-outlined modal-noclose {{::vm.styles.icon}}" ng-click="vm.openModal()">
+	<tokk-tooltip message="Edit permissions" vdistance="40px"></tokk-tooltip>
+</span>
+
+<tokk-modal class="{{::vm.styles.modal}}" opened="vm.modalOpened" close="vm.closeModal()">
+
+    <tokk-modal-header>
+        <div class="{{::vm.styles.titleContainer}}">
+            <div class="{{::vm.styles.titles}}">
+                <div class="{{::vm.styles.title}}">Permissions</div>
+                <div class="{{::vm.styles.subtitle}}">For {{vm.user.first_name}} {{vm.user.last_name}}</div>
+            </div>
+            <div class="icon-add {{::vm.styles.close}}" ng-click="vm.closeModal()"></div>
+        </div>
+    </tokk-modal-header>
+
+    <tokk-modal-content>
+        <div class="{{::vm.styles.content}}">
+            <div class="{{::vm.styles.line}}">
+                <div class="{{::vm.styles.left}}">
+                    Administrator
+                    <ul class="{{::vm.styles.list}}">
+                        <li>Archive, unarchive and delete users</li>
+                        <li>Edit user permissions</li>
+                        <li>Revoke invitations</li>
+                        <li>Edit subscription details</li>
+                    </ul>
+                </div>
+                <div class="{{::vm.styles.right}}">
+                    <tokk-switch 
+                        checked="vm.user.admin" 
+                        disabled="vm.user.$id === vm.Auth.userUID" 
+                        click="vm.toggleAdminRole(vm.user)">
+                    </tokk-switch>
+                </div>
+            </div>
+
+            <div class="{{::vm.styles.line}}">
+                <div class="{{::vm.styles.left}}">Can invite people</div>
+                <div class="{{::vm.styles.right}}">
+                    <tokk-switch 
+                        checked="vm.user.can_invite" 
+                        disabled="vm.user.admin" 
+                        click="vm.toggleInvitationPermission(vm.user)">
+                    </tokk-switch>
+                </div>
+            </div>
+
+            <div class="{{::vm.styles.line}}">
+                <div class="{{::vm.styles.left}}">Can include time entries from other users in reports</div>
+                <div class="{{::vm.styles.right}}">
+                    <tokk-switch 
+                        checked="vm.user.can_access_all_entries" 
+                        disabled="vm.user.admin" 
+                        click="vm.toggleReportPermission(vm.user)">
+                    </tokk-switch>
+                </div>
+            </div>
+        </div>
+    </tokk-modal-content>
+
+    <tokk-modal-footer>
+		<tokk-button text="Close" type="primary" ng-click="vm.closeModal()"></tokk-button>
+    </tokk-modal-footer>
+
+</tokk-modal>

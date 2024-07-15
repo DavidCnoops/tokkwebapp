@@ -1,0 +1,44 @@
+$lineColor: #d8dadd;
+
+.container {
+  width: 100%;
+
+  &:global(.ng-enter-prepare),
+  &:global(.ng-enter) {
+    height: 0;
+    opacity: 0;
+  }
+
+  .paddingTop {
+    height: 0px;
+  }
+
+  .paddingBottom {
+    height: 20px;
+  }
+
+  .inner {
+    width: 100%;
+    display: block;
+    padding: 15px;
+    border-radius: 10px;
+    border: solid 1px $lineColor;
+    background: #fff;
+
+    .project {
+      margin-bottom: 20px;
+    }
+
+    .task {
+      margin-bottom: 24px;
+    }
+
+    .buttons {
+      display: flex;
+
+      tokk-button {
+        margin-right: 10px;
+      }
+    }
+  }
+}

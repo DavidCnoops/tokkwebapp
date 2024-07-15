@@ -1,0 +1,105 @@
+$fontSize: 21px;
+$iconSize: 24px;
+$lineColor: #d8dadd;
+
+.container {
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+
+  .lineTop,
+  .lineBottom {
+    width: 100%;
+    height: 1px;
+    background: $lineColor;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+
+  .lineTop {
+    top: 0px;
+  }
+
+  .lineBottom {
+    bottom: -1px;
+  }
+
+  .lineOne,
+  .lineTwo {
+    width: 100%;
+  }
+
+  .lineOne {
+    height: 52px;
+    display: flex;
+    align-items: center;
+
+    .addBtn {
+      flex: 0 0 $iconSize;
+      color: #888;
+      font-size: $iconSize;
+      cursor: pointer;
+
+      &:not(.disabled):hover {
+        color: #000;
+      }
+
+      &.disabled {
+        cursor: auto;
+      }
+    }
+
+    .inputContainer {
+      flex: 1;
+      display: flex;
+
+      .input {
+        height: 52px;
+        font-size: $fontSize;
+        font-weight: 400;
+        font-family: "Inter", sans-serif;
+        flex: 1;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        padding-left: 14px;
+        background: transparent;
+      }
+
+      :global(.autocompleteDropdownContainer) {
+        top: 48px;
+        left: -25px;
+        right: -25px;
+
+        :global(.autocompleteDropdown) {
+          max-height: 205px;
+
+          :global(.autocompleteItem) {
+            font-size: $fontSize;
+            line-height: 24px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-right: 8px;
+            padding-left: 36px;
+          }
+        }
+      }
+    }
+
+    .showlistBtn {
+      width: $iconSize;
+      height: $iconSize;
+      color: #888;
+      font-size: $iconSize;
+      cursor: pointer;
+      flex: 0 0 $iconSize;
+      position: relative;
+
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+<div class="{{::vm.styles.loading}}" ng-if="!vm.loaded">
+    <tokk-spinner size="26px" color="#333" thickness="3px"></tokk-spinner>
+</div>
+
+<div ng-if="vm.loaded">
+    <tokk-subscribe ng-if="vm.code==='TOKK_TRIAL_EXPIRED'"></tokk-subscribe>
+    <tokk-subscription-error ng-if="vm.code==='TOKK_SUBSCRIPTION_ERROR'"></tokk-subscription-error>
+    <tokk-reactivate ng-if="vm.code==='TOKK_SUBSCRIPTION_CANCELLED'"></tokk-reactivate>
+</div>

@@ -1,0 +1,32 @@
+<tokk-modal class="{{::vm.styles.container}}" opened="vm.opened" close="vm.close()" width="460px">
+
+	<tokk-modal-header>
+		<div class="{{::vm.styles.titleContainer}}">
+			<div class="{{::vm.styles.title}}">Unpin {{vm.taskName}}?</div>
+			<div class="icon-add {{::vm.styles.close}}" ng-click="vm.close()"></div>
+		</div>
+	</tokk-modal-header>
+
+	<tokk-modal-content>
+		<div class="{{::vm.styles.message}}">			
+			Unpinning <span class="{{::vm.styles.bold}}">{{vm.taskName}}</span> from {{vm.humanDate}} 
+			will remove <span class="{{::vm.styles.bold}}">{{vm.humanTime}}</span> of tracked time. Unpin this task?
+		</div>
+	</tokk-modal-content>
+
+	<tokk-modal-footer>
+		<tokk-button
+			class="{{::vm.styles.button}}"
+			text="Unpin" 
+			type="primary" 
+			ng-click="vm.unpin(vm.entry)">
+		</tokk-button>
+
+		<tokk-button
+			text="Cancel" 
+			type="secondary" 
+			ng-click="vm.close()">
+		</tokk-button>
+	</tokk-modal-footer>
+
+</tokk-modal>

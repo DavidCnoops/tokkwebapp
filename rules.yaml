@@ -1,0 +1,697 @@
+functions:
+  - createOnly():                                                 next.exists() && !prev.exists()
+  - deleteOnly():                                                 (prev.exists() || !prev.exists()) && !next.exists()
+  - updateOnly():                                                 prev.exists() && next.exists()
+  - createOrDelete():                                             createOnly() || deleteOnly()
+  - createOrUpdate():                                             createOnly() || updateOnly()
+  - updateOrDelete():                                             updateOnly() || deleteOnly()
+  - createOrUpdateOrDelete():                                     createOnly() || updateOnly() || deleteOnly()
+  - userEmailExists(groupid, userid, email):                      root['group'][groupid]['users'][userid]['email'] === email
+  - isNow(timestamp):                                             timestamp === now
+  - groupExists(groupid):                                         root['group'][groupid].exists()
+  - groupAndUserExist(groupid, userid):                           root['group'][groupid]['users'][userid].exists()
+  - groupAndActiveUserExist(groupid, userid):                     groupAndUserExist(groupid, userid) && isActive(groupid, userid)
+  - usergroupExists(userid):                                      root['users_groups'][userid].exists()
+  - usergroupMatchesGroupID(userid, groupid):                     root['users_groups'][userid]['group_id'] === groupid
+  - userMatchesAuth(userid):                                      auth.uid === userid
+  - hasActiveStatus(groupid, userid):                             root['group'][groupid]['users'][userid]['status'] === 'active' && root['users_groups'][userid]['status'] === 'active'
+  - hasBusinessSubscription(groupid):                             root['subscriptions'][groupid]['type'] === 'business'
+  - hasActiveBusinessSubscription(groupid):                       hasBusinessSubscription(groupid) && root['subscriptions'][groupid]['subscription_ends_on'].exists() && root['subscriptions'][groupid]['subscription_ends_on'] > now
+  - hasTrialBusinessSubscription(groupid):                        hasBusinessSubscription(groupid) && root['subscriptions'][groupid]['status'] === 'trial'
+  - hasActiveTrialPeriod(trialstart):                             now < (trialstart + 2592000000)
+  - hasExpiredTrialPeriod(trialstart):                            now >= (trialstart + 2592000000)
+  - hasActiveTrialBusinessSubscription(groupid):                  hasTrialBusinessSubscription(groupid) && root['subscriptions'][groupid]['trial_started_on'].exists() && hasActiveTrialPeriod(root['subscriptions'][groupid]['trial_started_on'])
+  - hasExpiredTrialBusinessSubscription(groupid):                 hasTrialBusinessSubscription(groupid) && root['subscriptions'][groupid]['trial_started_on'].exists() && hasExpiredTrialPeriod(root['subscriptions'][groupid]['trial_started_on'])
+  - hasFreeSubscription(groupid):                                 root['subscriptions'][groupid]['type'] === 'free'
+  - hasActiveSubscription(groupid):                               hasFreeSubscription(groupid) || hasActiveTrialBusinessSubscription(groupid) || hasActiveBusinessSubscription(groupid)
+  - hasActiveCancelledBusinessSubscription(groupid):              hasActiveBusinessSubscription(groupid) && root['subscriptions'][groupid]['status'] === 'cancelled'
+  - canInvite(groupid, userid):                                   root['group'][groupid]['users'][userid]['can_invite'] === true && (hasActiveBusinessSubscription(groupid) || hasActiveTrialBusinessSubscription(groupid))
+  - isActive(groupid, userid):                                    hasActiveSubscription(groupid) && hasActiveStatus(groupid, userid)
+  - isArchived(groupid, userid):                                  root['group'][groupid]['users'][userid]['status'] === 'archived' && root['users_groups'][userid]['status'] === 'archived'
+  - isAdmin(groupid, userid):                                     root['group'][groupid]['users'][userid]['admin'] === true
+  - belongsToGroup(groupid, userid):                              root['users_groups'][userid]['group_id'] === groupid && root['group'][groupid]['users'][userid].exists()
+  - belongsToGroupIsActive(groupid, userid):                      belongsToGroup(groupid, userid) && isActive(groupid, userid)
+  - belongsToGroupIsActiveCanInvite(groupid, userid):             belongsToGroup(groupid, userid) && isActive(groupid, userid) && canInvite(groupid, userid)
+  - belongsToGroupIsActiveIsAdmin(groupid, userid):               belongsToGroup(groupid, userid) && isActive(groupid, userid) && isAdmin(groupid, userid)
+  - belongsToGroupIsActiveIsAdminCanInvite(groupid, userid):      belongsToGroup(groupid, userid) && isActive(groupid, userid) && isAdmin(groupid, userid) && canInvite(groupid, userid)
+  - belongsToGroupIsArchived(groupid, userid):                    belongsToGroup(groupid, userid) && isArchived(groupid, userid)
+  - isAuthAsUserBelongsToGroup(groupid, userid):                  userMatchesAuth(userid) && belongsToGroup(groupid, userid)
+  - isAuthAsUserBelongsToGroupIsActive(groupid, userid):          userMatchesAuth(userid) && belongsToGroupIsActive(groupid, userid)
+  - isAuthAsUserBelongsToGroupIsActiveIsAdmin(groupid, userid):   isAuthAsUserBelongsToGroupIsActive(groupid, userid) && isAdmin(groupid, userid)
+  - isAuthAsUserBelongsToGroupIsArchived(groupid, userid):        userMatchesAuth(userid) && belongsToGroupIsArchived(groupid, userid)
+  - invitationExists(groupid, invitationid):                      root['group'][groupid]['invitations'][invitationid].exists()
+  - invitationTokenExists(groupid, invitationid, token):          root['group'][groupid]['invitations'][invitationid]['token'] === token
+  - invitationLimitNotReached(groupid):                           (!root['group'][groupid]['group_meta_data']['invitation_count'].exists()) || (root['group'][groupid]['group_meta_data']['invitation_count'] < 100)
+
+
+schema:
+  type: object
+  properties:
+
+    emails_invites:
+      type: object
+      $email:
+        type: object
+        properties:
+          group_id: {type: string}
+          invitation_id: {type: string}
+        required: [group_id, invitation_id]
+        additionalProperties: false
+
+    emails_users:
+      type: object
+      $email: {type: string}
+
+    group:
+      type: object
+      $groupid:
+        type: object
+        properties:
+          group_meta_data:
+            type: object
+            properties:
+              active_user_count: {type: number}
+              archived_user_count: {type: number}
+              invitation_count: {type: number}
+            additionalProperties: false
+          group_projects:
+            type: object
+            $groupproject:
+              type: object
+              properties:
+                count: {type: number}
+                project_name: {type: string}
+                project_slug: {type: string}
+              required: [count, project_name, project_slug]
+              additionalProperties: false
+          group_tags:
+            type: object
+            $grouptag:
+              type: object
+              properties:
+                count: {type: number}
+                tag_name: {type: string}
+                tag_slug: {type: string}
+              required: [count, tag_name, tag_slug]
+              additionalProperties: false
+          group_tasks:
+            type: object
+            $grouptask:
+              type: object
+              properties:
+                count: {type: number}
+                task_name: {type: string}
+                task_slug: {type: string}
+              required: [count, task_name, task_slug]
+              additionalProperties: false
+          invitations:
+            type: object
+            $invitation:
+              type: object
+              properties:
+                added: {type: number}
+                email: {type: string}
+                sender_uid: {type: string}
+                token: {type: string}
+              required: [added, email, sender_uid, token]
+              additionalProperties: false
+          user:
+            type: object
+            $userid:
+              type: object
+              properties:
+                filtercollections:
+                  type: object
+                  ~$filtercollection:
+                    type: object
+                    properties:
+                      days: {}
+                      projects: {}
+                      users: {}
+                      tasks: {}
+                      tags: {}
+                    required: [days, projects, users, tasks, tags]
+                    additionalProperties: false
+                reports_list:
+                  type: object
+                  ~$report:
+                    type: object
+                    properties:
+                      name: {type: string}
+                      filtercollection_id: {type: string}
+                      added: {type: number}
+                    required: [name, filtercollection_id, added]
+                    additionalProperties: false
+                notifications:
+                  type: object
+                  indexOn: [type]
+                  ~$notification:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        enum: [entry, projectrequest, projectdeclined, projectaccepted, projectrevoked, taskassigned, subtaskassigned, tagassigned, invitationaccepted]
+                      sender_uid: {type: string}
+                      sender_name: {type: string}
+                      sender_project_id: {type: string}
+                      project_name: {type: string}
+                      project_slug: {type: string}
+                      project_color: {type: string}
+                      status:
+                        type: string
+                        enum: [pending, accepted, declined]
+                      task_name: {type: string}
+                      task_slug: {type: string}
+                      subtask_name: {type: string}
+                      subtask_slug: {type: string}
+                      tag_name: {type: string}
+                      tag_slug: {type: string}
+                      entry_ID: {type: string}
+                      entry_date: {type: number}
+                      invitation_email: {type: string}
+                      created: {type: number}
+                      viewed1: {type: boolean}
+                      viewed2: {type: boolean}
+                    required: [type]
+                    additionalProperties: false
+                time_entries:
+                  type: object
+                  indexOn: [entry_date, active, project_slug, task_slug]
+                  ~$timeentry:
+                    type: object
+                    properties:
+                      active: {type: boolean}
+                      created_at: {type: number}
+                      entry_date: {type: string}
+                      last_started: {}
+                      last_paused: {}
+                      seconds: {type: number}
+                      user_uid: {type: string}
+                      project_name: {type: string}
+                      project_slug: {type: string}
+                      task_name: {type: string}
+                      task_slug: {type: string}
+                      position: {type: number}
+                      tags:
+                        type: object
+                        ~$tag: {type: string}
+                    required: [active, created_at, entry_date, last_started, last_paused, seconds, user_uid, project_name, project_slug, task_name, task_slug]
+                    additionalProperties: false
+                user_projects:
+                  type: object
+                  ~$userproject:
+                    type: object
+                    properties:
+                      details:
+                        type: object
+                        properties:
+                          added: {type: number}
+                          color: {type: string}
+                          completed: {type: boolean}
+                          project_name: {type: string}
+                          project_slug: {type: string}
+                        required: [added, color, completed, project_name, project_slug]
+                        additionalProperties: false
+                      tags:
+                        type: object
+                        ~$task:
+                          type: object
+                          ~$tag:
+                            type: object
+                            properties:
+                              tag_added: {type: number}
+                              tag_name: {type: string}
+                              tag_slug: {type: string}
+                            required: [tag_added, tag_name, tag_slug]
+                            additionalProperties: false
+                      tasks:
+                        type: object
+                        ~$task:
+                          type: object
+                          properties:
+                            position: {type: number}
+                            task_added: {type: number}
+                            task_completed: {type: boolean}
+                            task_name: {type: string}
+                            task_slug: {type: string}
+                          required: [task_added, task_completed, task_name, task_slug]
+                          additionalProperties: false
+                      subtasks:
+                        type: object
+                        ~$task:
+                          type: object
+                          ~$subtask:
+                            type: object
+                            properties:
+                              position: {type: number}
+                              subtask_added: {type: number}
+                              subtask_completed: {type: boolean}
+                              subtask_name: {type: string}
+                              subtask_slug: {type: string}
+                            required: [position, subtask_added, subtask_completed, subtask_name, subtask_slug]
+                            additionalProperties: false
+                      sharing:
+                        type: object
+                        indexOn: [user_uid]
+                        ~$sharingid:
+                          type: object
+                          properties:
+                            user_uid: {type: string}
+                            user_project_id: {}
+                            status:
+                              type: string
+                              enum: [pending, sharing]
+                            added: {type: number}
+                          required: [user_uid, user_project_id, status, added]
+                          additionalProperties: false
+                    additionalProperties: false
+                user_projects_list:
+                  type: object
+                  indexOn: [project_slug]
+                  ~$userprojectlistitem:
+                    type: object
+                    properties:
+                      added: {type: number}
+                      color: {type: string}
+                      completed: {type: boolean}
+                      project_name: {type: string}
+                      project_slug: {type: string}
+                      user_project_id: {type: string}
+                      position: {type: number}
+                    required: [added, color, completed, project_name, project_slug, user_project_id]
+                    additionalProperties: false
+                user_tags_list:
+                  type: object
+                  indexOn: [tag_slug]
+                  ~$usertagslistitem:
+                    type: object
+                    properties:
+                      count: {type: number}
+                      tag_name: {type: string}
+                      tag_slug: {type: string}
+                    required: [count, tag_name, tag_slug]
+                    additionalProperties: false
+                user_tasks_list:
+                  type: object
+                  indexOn: [task_slug]
+                  ~$usertaskslistitem:
+                    type: object
+                    properties:
+                      count: {type: number}
+                      task_name: {type: string}
+                      task_slug: {type: string}
+                    required: [count, task_name, task_slug]
+                    additionalProperties: false
+          users:
+            type: object
+            indexOn: [status]
+            $userid:
+              type: object
+              properties:
+                email: {type: string}
+                joined: {type: number}
+                first_name: {type: string}
+                last_name: {type: string}
+                admin: {type: boolean}
+                can_invite: {type: boolean}
+                can_access_all_entries: {type: boolean}
+                status:
+                  type: string
+                  enum: [active, archived]
+                invitation_id: {type: string}
+                token: {type: string}
+              required: [email, joined, admin, can_invite, can_access_all_entries, status]
+              additionalProperties: false
+          billing_information:
+            type: object
+            properties:
+              card_type: {type: string}
+              card_last_digits: {type: string}
+              exp_month: {type: number}
+              exp_year: {type: number}
+              cardholder_name: {type: string}
+              email: {type: string}
+              address: {type: string}
+              city: {type: string}
+              postal_code: {type: string}
+              country_code: {type: string}
+              is_business: {type: boolean}
+              company_name: {type: string}
+              company_vat_number: {type: string}
+            additionalProperties: false
+          invoices:
+            type: object
+            $invoice:
+              type: object
+              properties:
+                invoice_id: {type: string}
+                invoice_timestamp: {type: number}
+                invoice_amount: {type: number}
+                invoice_quantity: {type: number}
+              required: [invoice_id, invoice_timestamp, invoice_amount]
+              additionalProperties: false
+
+    invitation_references:
+      type: object
+      indexOn: [processed]
+      $invitationreference:
+        type: object
+        properties:
+          email: {type: string}
+          group_id: {type: string}
+          invitation_id: {type: string}
+          sender_uid: {type: string}
+          processed: {type: boolean}
+        required: [email, group_id, invitation_id, sender_uid, processed]
+        additionalProperties: false
+
+    users_groups:
+      type: object
+      indexOn: [processed]
+      $userid:
+        type: object
+        properties:
+          group_id: {type: string}
+          status:
+            type: string
+            enum: [active, archived]
+          processed: {type: boolean}
+          invitation_id: {type: string}
+          token: {type: string}
+        required: [group_id, status, processed]
+        additionalProperties: false
+
+    subscriptions:
+        type: object
+        indexOn: [processed]
+        $groupid:
+          type: object
+          properties:
+            type:
+              type: string
+              enum: [free, business]
+            status:
+              type: string
+              enum: [trial, active, cancelled, error]
+            trial_started_on: {type: number}
+            subscription_ends_on: {type: number}
+            stripe_customer_id: {type: string}
+            processed: {type: boolean}
+          required: [type, status]
+          additionalProperties: false
+
+  additionalProperties: false
+
+
+access:
+  - location: /emails_users/$email/
+    read:     true
+    write:    >
+              (
+                createOnly()
+                && belongsToGroupIsActive(root['users_groups'][auth.uid]['group_id'], next)
+                && userEmailExists(root['users_groups'][next]['group_id'], next, $email.replace(',', '.'))
+              )
+              ||
+              (
+                deleteOnly() && isAuthAsUserBelongsToGroupIsActive(root['users_groups'][prev]['group_id'], prev)
+              )
+              ||
+              (
+                deleteOnly()
+                && isArchived(root['users_groups'][prev]['group_id'], prev)
+                && belongsToGroupIsActiveIsAdmin(root['users_groups'][prev]['group_id'], auth.uid)
+              )
+
+
+  - location: /emails_invites/$email/
+    read:     true
+    write:    >
+              (
+                createOnly()
+                && belongsToGroupIsActiveCanInvite(next.group_id, auth.uid)
+                && invitationExists(next.group_id, next.invitation_id)
+                && invitationLimitNotReached(next.group_id)
+              )
+              ||
+              (
+                deleteOnly() && belongsToGroupIsActive(prev.group_id, auth.uid)
+              )
+
+
+  - location: /group/$groupid/
+    read:     belongsToGroupIsActive($groupid, auth.uid)
+
+
+  - location: /group/$groupid/group_meta_data/
+    read:     belongsToGroup($groupid, auth.uid)
+
+
+  - location: /group/$groupid/group_projects/$groupproject/
+    write:    >
+              (
+                createOnly() && belongsToGroupIsActive($groupid, auth.uid) && next.count === 1
+              )
+              ||
+              (
+                deleteOnly() && belongsToGroupIsActive($groupid, auth.uid) && prev.count === 1
+              )
+
+
+  - location: /group/$groupid/group_projects/$groupproject/count/
+    write:    updateOnly() && belongsToGroupIsActive($groupid, auth.uid) && next > 0
+
+
+  - location: /group/$groupid/group_tags/$grouptag/
+    write:    >
+              (
+                createOnly() && belongsToGroupIsActive($groupid, auth.uid) && hasBusinessSubscription($groupid) && next.count === 1
+              )
+              ||
+              (
+                deleteOnly() && belongsToGroupIsActive($groupid, auth.uid) && hasBusinessSubscription($groupid)
+              )
+
+
+  - location: /group/$groupid/group_tags/$grouptag/count/
+    write:    updateOnly() && belongsToGroupIsActive($groupid, auth.uid) && hasBusinessSubscription($groupid) && next > 0
+
+
+  - location: /group/$groupid/group_tasks/$grouptask/
+    write:    >
+              (
+                createOnly() && belongsToGroupIsActive($groupid, auth.uid) && next.count === 1
+              )
+              ||
+              (
+                deleteOnly() && belongsToGroupIsActive($groupid, auth.uid)
+              )
+
+
+  - location: /group/$groupid/group_tasks/$grouptask/task_name/
+    write:    updateOnly() && belongsToGroupIsActive($groupid, auth.uid)
+
+
+  - location: /group/$groupid/group_tasks/$grouptask/count/
+    write:    updateOnly() && belongsToGroupIsActive($groupid, auth.uid) && next > 0
+
+
+  - location: /group/$groupid/invitations/$invitation/
+    write:    >
+              (
+                createOnly() && belongsToGroupIsActiveCanInvite($groupid, auth.uid) && invitationLimitNotReached($groupid)
+              )
+              ||
+              (
+                deleteOnly() && belongsToGroupIsActive($groupid, auth.uid)
+              )
+
+
+  - location: /group/$groupid/user/$userid/
+    write:    >
+              (
+                isAuthAsUserBelongsToGroupIsActive($groupid, $userid)
+              )
+              ||
+              (
+                deleteOnly()
+                && isArchived($groupid, $userid)
+                && belongsToGroupIsActiveIsAdmin($groupid, auth.uid)
+              )
+
+
+  - location: /group/$groupid/user/$userid/notifications/$notification/
+    write:    belongsToGroupIsActive($groupid, auth.uid)
+
+
+  - location: /group/$groupid/user/$userid/time_entries/$timeentry/tags/
+    write:    createOrUpdate() && belongsToGroupIsActive($groupid, auth.uid) && hasBusinessSubscription($groupid)
+
+
+  - location: /group/$groupid/user/$userid/user_projects/$userproject/
+    write:    createOrUpdate() && belongsToGroupIsActive($groupid, auth.uid)
+
+
+  - location: /group/$groupid/user/$userid/user_tags_list/$usertagslistitem/
+    write:    createOrUpdate() && belongsToGroupIsActive($groupid, auth.uid) && hasBusinessSubscription($groupid)
+
+
+  - location: /group/$groupid/user/$userid/user_tasks_list/$usertaskslistitem/
+    write:    createOrUpdate() && belongsToGroupIsActive($groupid, auth.uid)
+
+
+  - location: /group/$groupid/user/$userid/user_tasks_list/$usertaskslistitem/task_name/
+    write:    updateOnly() && belongsToGroupIsActive($groupid, auth.uid)
+
+
+  - location: /group/$groupid/users/
+    read:     belongsToGroup($groupid, auth.uid) && hasExpiredTrialBusinessSubscription($groupid)
+
+
+  - location: /group/$groupid/users/$userid/
+    write:    >
+              (
+                createOnly()
+                && userMatchesAuth($userid)
+                && !usergroupExists($userid)
+                && next.status === 'active'
+                &&
+                (
+                  (
+                    !groupExists($groupid)
+                    && next.admin === true
+                    && next.can_invite === true
+                    && next.can_access_all_entries === true
+                  )
+                  ||
+                  (
+                    invitationTokenExists($groupid, next.invitation_id, next.token)
+                    && next.admin === false
+                    && next.can_invite === true
+                    && next.can_access_all_entries === false
+                  )
+                )
+              )
+              ||
+              (
+                deleteOnly()
+                && belongsToGroupIsActiveIsAdmin($groupid, auth.uid)
+                && belongsToGroupIsArchived($groupid, $userid)
+              )
+
+
+  - location: /group/$groupid/users/$userid/status/
+    read:     isAuthAsUserBelongsToGroup($groupid, auth.uid)
+    write:    >
+              updateOnly()
+              && next !== root['users_groups'][$userid]['status']
+              && (next === 'active' || (next === 'archived' && !isAdmin($groupid, $userid)))
+              && belongsToGroupIsActiveIsAdmin($groupid, auth.uid)
+
+
+  - location: /group/$groupid/users/$userid/first_name/
+    write:    createOrUpdate() && isAuthAsUserBelongsToGroupIsActive($groupid, $userid)
+
+
+  - location: /group/$groupid/users/$userid/last_name/
+    write:    createOrUpdate() && isAuthAsUserBelongsToGroupIsActive($groupid, $userid)
+
+
+  - location: /group/$groupid/users/$userid/email/
+    write:    updateOnly() && isAuthAsUserBelongsToGroupIsActive($groupid, $userid)
+
+
+  - location: /group/$groupid/users/$userid/admin/
+    write:    updateOnly() && belongsToGroupIsActiveIsAdmin($groupid, auth.uid) && belongsToGroupIsActive($groupid, $userid) && !userMatchesAuth($userid)
+
+
+  - location: /group/$groupid/users/$userid/can_invite/
+    write:    updateOnly() && belongsToGroupIsActiveIsAdmin($groupid, auth.uid) && belongsToGroupIsActive($groupid, $userid)
+
+
+  - location: /group/$groupid/users/$userid/can_access_all_entries/
+    write:    updateOnly() && belongsToGroupIsActiveIsAdmin($groupid, auth.uid) && belongsToGroupIsActive($groupid, $userid)
+
+
+  - location: /group/$groupid/billing_information/
+    read:     belongsToGroup($groupid, auth.uid)
+
+
+  - location: /invitation_references/$invitationreference/
+    read:     true
+    write:    >
+              (
+                createOnly() && belongsToGroupIsActiveCanInvite(next.group_id, auth.uid) && invitationLimitNotReached(next.group_id)
+              )
+              ||
+              (
+                deleteOnly() && belongsToGroupIsActive(prev.group_id, auth.uid)
+              )
+
+
+  - location: /users_groups/$userid/
+    read:     userMatchesAuth($userid)
+    write:    >
+              (
+                createOnly()
+                && userMatchesAuth($userid)
+                && next.status === 'active'
+                && next.processed === false
+                && !usergroupExists($userid)
+                && (!groupExists(next.group_id) || (invitationTokenExists(next.group_id, next.invitation_id, next.token)))
+              )
+              ||
+              (
+                updateOnly()
+                && next.group_id === prev.group_id
+                && next.processed === false
+                && (next.status === 'active' || (next.status === 'archived' && !isAdmin(root['users_groups'][$userid]['group_id'], $userid)))
+                && root['group'][root['users_groups'][$userid]['group_id']]['users'][$userid]['status'] !== next.status
+                && belongsToGroupIsActiveIsAdmin(root['users_groups'][$userid]['group_id'], auth.uid)
+              )
+              ||
+              (
+                deleteOnly()
+                && belongsToGroupIsActiveIsAdmin(prev.group_id, auth.uid)
+                && belongsToGroupIsArchived(prev.group_id, $userid)
+              )
+
+
+  - location: /users_groups/$userid/token/
+    write:    deleteOnly() && userMatchesAuth($userid)
+
+
+  - location: /subscriptions/$groupid/
+    read:     belongsToGroup($groupid, auth.uid)
+    write:    >
+              !next.subscription_ends_on.exists()
+              &&
+              !next.stripe_customer_id.exists()
+              && 
+              (
+                (
+                  next.type === 'free'
+                  && next.status === 'active'
+                )
+                ||
+                (
+                  next.type === 'business'
+                  && next.status === 'trial'
+                  && isNow(next.trial_started_on)
+                )
+              )
+              &&
+              (
+                (
+                  createOnly()
+                  && !usergroupExists(auth.uid)
+                  && !groupExists($groupid)
+                )
+                ||
+                (
+                  updateOnly()
+                  && belongsToGroupIsActiveIsAdmin($groupid, auth.uid)
+                  && prev.type === 'free'
+                  && next.type === 'business'
+                )
+              )

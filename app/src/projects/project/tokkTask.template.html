@@ -1,0 +1,169 @@
+<div class="{{::vm.styles.task}} task-{{::vm.task.$id}}" ng-class="{'{{::vm.styles.editing}}': vm.task.editing}">
+  <div
+    class="animationVline {{::vm.styles.vline}}"
+    ng-if="vm.task.expanded"
+    ng-style="{'background': vm.colorHex}"
+  ></div>
+
+  <div class="{{::vm.styles.header}}">
+    <div class="{{::vm.styles.left}}">
+      <span
+        ng-if="vm.task.editing"
+        class="icon-trash {{::vm.styles.remove}}"
+        ng-click="vm.remove(vm.userUID, vm.tasksProjectID, vm.project.project_slug, vm.task, $event)"
+      >
+        <tokk-tooltip message="Remove" vdistance="55px"></tokk-tooltip>
+      </span>
+
+      <tokk-checkbox
+        ng-if="!vm.task.editing"
+        size="23px"
+        checked="vm.taskCompleted"
+        disabled="!vm.editable"
+        click="vm.toggleStatus(vm.userUID, vm.tasksProjectID, vm.task); $event.stopPropagation();"
+        class="{{::vm.styles.checkbox}}"
+      >
+      </tokk-checkbox>
+    </div>
+
+    <div
+      class="taskdraghandler {{::vm.styles.right}}"
+      ng-click="vm.toggleExpanded(vm.tasksProjectID, vm.task.$id, vm.task.editing, $event)"
+    >
+      <div class="{{::vm.task.$id}}-noclose {{::vm.styles.lineOne}}">
+        <div class="{{::vm.styles.inputContainer}}" ng-class="{'{{::vm.styles.completed}}': vm.taskCompleted}">
+          <tokk-autocomplete
+            group="tasks"
+            search-property="task_slug"
+            view-property="task_name"
+            key="{{::vm.autocompleteKey}}"
+            set-input="vm.setTaskName(text)"
+            opened=""
+          >
+            <div
+              contenteditable="{{vm.task.editing}}"
+              tokk-contenteditable
+              set-input="vm.setTaskName(text)"
+              ng-bind="vm.task.task_name"
+              tokk-enter="vm.updateTaskName(vm.isoDate, vm.userUID, vm.tasksProjectID, vm.project.project_slug, vm.task, $event)"
+              tokk-escape="vm.cancelEditing(vm.tasksProjectID, vm.task, $event)"
+              ng-keyup="vm.resetTaskExists($event)"
+              class="autocomplete-input {{::vm.task.$id}} {{::vm.styles.input}}"
+              max-length="256"
+              spellcheck="false"
+              tokk-click-outside
+              container="{{::vm.task.$id}}-noclose"
+              action="vm.cancelEditing(vm.tasksProjectID, vm.task, $event)"
+            ></div>
+          </tokk-autocomplete>
+        </div>
+
+        <div class="{{::vm.styles.buttons}}">
+          <span
+            class="icon-edit-outlined {{::vm.styles.edit}} {{::vm.styles.button}}"
+            ng-if="!vm.task.editing && vm.editable"
+            ng-click="vm.startEditing(vm.tasksProjectID, vm.task, $event)"
+          >
+            <tokk-tooltip message="Edit" vdistance="42px"></tokk-tooltip>
+          </span>
+
+          <span
+            class="{{::vm.styles.button}}"
+            ng-if="!vm.task.editing && vm.editable"
+            ng-click="vm.togglePin(vm.isPinned, vm.entry, vm.isoDate, vm.project, vm.tasksProjectID, vm.task, vm.entryCount); $event.stopPropagation();"
+            ng-class="{
+								'icon-pin-outlined {{::vm.styles.pin}}': !vm.isPinned,
+								'icon-pin-filled {{::vm.styles.unpin}}': vm.isPinned
+							}"
+          >
+            <tokk-tooltip ng-if="!vm.isPinned" message="Pin" vdistance="42px"></tokk-tooltip>
+            <tokk-tooltip ng-if="vm.isPinned" message="Unpin" vdistance="42px"></tokk-tooltip>
+          </span>
+
+          <span
+            class="icon-done {{::vm.styles.update}} {{::vm.styles.button}}"
+            ng-if="vm.task.editing"
+            ng-click="vm.updateTaskName(vm.isoDate, vm.userUID, vm.tasksProjectID, vm.project.project_slug, vm.task, $event)"
+          >
+            <tokk-tooltip message="Save" vdistance="42px"></tokk-tooltip>
+          </span>
+
+          <span
+            class="icon-close {{::vm.styles.cancel}} {{::vm.styles.button}}"
+            ng-if="vm.task.editing"
+            ng-click="vm.cancelEditing(vm.tasksProjectID, vm.task, $event)"
+          >
+            <tokk-tooltip message="Cancel" vdistance="42px"></tokk-tooltip>
+          </span>
+        </div>
+      </div>
+
+      <tokk-error visible="vm.taskExists" message="vm.taskExistsMessage" padding-top="10px" padding-bottom="0px">
+      </tokk-error>
+
+      <div class="{{::vm.styles.lineTwo}}" ng-if="vm.subtasksCount">
+        <ng-pluralize
+          class="{{::vm.styles.subtaskCount}}"
+          ng-if="!vm.task.expanded"
+          count="vm.subtasksCount"
+          when="{'0': '', 'one': '{} subtask', 'other': '{} subtasks'}"
+        >
+        </ng-pluralize>
+      </div>
+    </div>
+  </div>
+
+  <div class="animationAccordion {{::vm.styles.content}}" ng-if="vm.task.expanded">
+    <div
+      class="{{::vm.styles.paddingTop}}"
+      ng-if="!vm.subtasksCount"
+      ng-click="vm.toggleExpanded(vm.tasksProjectID, vm.task.$id, vm.task.editing, $event)"
+    ></div>
+
+    <tokk-add-subtask
+      useruid="{{::vm.userUID}}"
+      projectid="{{::vm.projectID}}"
+      tasksprojectid="{{::vm.tasksProjectID}}"
+      taskid="{{::vm.task.$id}}"
+    >
+    </tokk-add-subtask>
+
+    <ul
+      tokk-dragula
+      class="{{::vm.styles.subtasks}}"
+      isdraggable="vm.editable"
+      update="vm.updateSubtaskPositions(oldIndex, newIndex, draggedItemID)"
+    >
+      <li
+        tokk-subtask
+        class="{{::vm.styles.subtask}}"
+        ng-repeat="subtask in vm.subtasks track by subtask.$id"
+        itemid="{{::subtask.$id}}"
+      >
+        <tokk-subtask
+          useruid="{{::vm.userUID}}"
+          projectid="{{::vm.projectID}}"
+          tasksprojectid="{{::vm.tasksProjectID}}"
+          taskid="{{::vm.task.$id}}"
+          subtaskid="{{::subtask.$id}}"
+          editable="vm.editable"
+        >
+        </tokk-subtask>
+      </li>
+    </ul>
+
+    <tokk-tags
+      ng-if="vm.subscriptionType === 'business'"
+      useruid="{{::vm.userUID}}"
+      projectid="{{::vm.projectID}}"
+      tasksprojectid="{{::vm.tasksProjectID}}"
+      taskid="{{::vm.task.$id}}"
+    >
+    </tokk-tags>
+
+    <div
+      class="{{::vm.styles.paddingBottom}}"
+      ng-class="{'{{::vm.styles.noTags}}': vm.subscriptionType === 'free'}"
+    ></div>
+  </div>
+</div>

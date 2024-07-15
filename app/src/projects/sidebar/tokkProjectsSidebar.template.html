@@ -1,0 +1,51 @@
+<div class="{{::vm.styles.container}}">
+
+    <div class="{{::vm.styles.header}}">
+
+        <div class="{{::vm.styles.lineOne}}">
+            <div class="{{::vm.styles.titleContainer}}">
+                <div class="{{::vm.styles.title}}">To-do list</div>
+            </div>
+
+            <div class="icon-add modal-noclose {{::vm.styles.headerIcon}}" ng-click="vm.openModal()">
+                <tokk-tooltip message="New list" vdistance="50px" ng-show="!vm.modalOpened"></tokk-tooltip>
+            </div>
+        </div>
+
+        <div class="{{::vm.styles.lineTwo}}">
+			<tokk-dropdown 
+                dropdownname="projects" 
+                list="vm.projectsFilters" 
+                viewname="name"
+                valuename="value">
+			</tokk-dropdown>
+        </div>
+
+    </div>
+
+    <div class="sidebarContent {{::vm.styles.content}}" ng-class="{'{{::vm.styles.noLists}}': vm.isEmpty}" >
+
+        <tokk-projects-list></tokk-projects-list>
+
+        <div class="{{::vm.styles.messageContainer}}" ng-if="vm.isEmpty">
+
+            <div class="{{::vm.styles.message}}">
+
+                <div class="{{::vm.styles.text}}">You don't have any<br />{{vm.filterName}} to-do lists</div>
+
+                <tokk-button 
+                    ng-if="vm.filterName === 'active'"
+                    text="Create a to-do list" 
+                    type="secondary" 
+                    class="modal-noclose" 
+                    ng-click="vm.openModal()">
+                </tokk-button>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<tokk-add-project opened="vm.modalOpened" close="vm.closeModal()"></tokk-add-project>

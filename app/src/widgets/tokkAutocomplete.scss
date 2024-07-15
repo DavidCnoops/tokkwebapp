@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex: 1;
+  position: relative;
+
+  .transclude {
+    display: flex;
+    flex: 1;
+  }
+
+  .dropdownContainer {
+    background-color: #fff;
+    border: solid 1px #333;
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    border-radius: 5px;
+    z-index: 3;
+    display: flex;
+    overflow: hidden;
+
+    .dropdown {
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative;
+
+      .item {
+        cursor: pointer;
+        font-weight: 400;
+
+        &.selected {
+          background-color: #eee;
+        }
+
+        :global(.highlighted) {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

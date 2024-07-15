@@ -1,0 +1,80 @@
+.window {
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+  background: #fff;
+
+  .logo {
+    fill: #000;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    tokk-logo {
+      height: 40px;
+      display: inline-block;
+    }
+  }
+
+  .contentContainer {
+    width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+
+    .email,
+    .firstName,
+    .lastName,
+    .password {
+      width: 100%;
+      height: 48px;
+      position: relative;
+      margin-top: -1px;
+
+      .input {
+        width: 100%;
+        height: 100%;
+        font-size: 18px;
+        font-weight: 400;
+        padding-left: 14px;
+        padding-right: 14px;
+        border-style: solid;
+        border-color: #ccc;
+        border-width: 1px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        -webkit-appearance: none;
+
+        &:hover {
+          z-index: 1;
+          border-color: #888;
+        }
+
+        &:focus {
+          z-index: 1;
+          border-color: #000;
+        }
+      }
+
+      .firstNameInput {
+        width: 100%;
+      }
+    }
+
+    .email .input {
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+
+    .password {
+      margin-bottom: 20px;
+
+      .input {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+    }
+  }
+}

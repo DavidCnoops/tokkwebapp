@@ -1,0 +1,71 @@
+<div class="{{::vm.styles.container}}">
+
+    <div class="{{::vm.styles.box}}">
+
+        <div class="{{::vm.styles.logo}}">
+            <tokk-logo></tokk-logo>
+        </div>
+
+        <div class="{{::vm.styles.inputs}}">
+            <div>
+                <input class="firstName {{::vm.styles.input}} {{::vm.styles.first}} {{::vm.styles.borderTop}}" 
+                        type="text" 
+                        autocomplete="fname" 
+                        placeholder="First name" 
+                        ng-model="vm.firstName" 
+                        ng-change="vm.resetError()" />
+            </div>
+
+            <div>
+                <input class="lastName {{::vm.styles.input}} {{::vm.styles.noBorder}}" 
+                        type="text" 
+                        autocomplete="lname" 
+                        placeholder="Last name" 
+                        ng-model="vm.lastName" 
+                        ng-change="vm.resetError()" />
+            </div>
+
+            <div>
+                <input class="email {{::vm.styles.input}} {{::vm.styles.noBorder}}" 
+                        type="text" 
+                        autocomplete="email" 
+                        spellcheck="false" 
+                        placeholder="Email" 
+                        ng-model="vm.email" 
+                        ng-change="vm.resetError()" />
+            </div>
+
+            <div>
+                <input class="password {{::vm.styles.input}} {{::vm.styles.borderBottom}}" 
+                        type="password" 
+                        autocomplete="new-password" 
+                        placeholder="Password" 
+                        ng-model="vm.password" 
+                        ng-change="vm.resetError()"
+                        tokk-enter="vm.signup(vm.firstName, vm.lastName, vm.email, vm.password)" />
+            </div>
+        </div>
+
+        <tokk-error 
+            visible="vm.error !== null" 
+            message="vm.error.message" 
+            padding-top="0px" 
+            padding-bottom="20px">
+        </tokk-error>
+
+        <div class="{{::vm.styles.button}}" ng-disabled="vm.processing" ng-click="vm.signup(vm.firstName, vm.lastName, vm.email, vm.password)">
+            <span class="{{::vm.styles.inner}}">
+                <span class="{{::vm.styles.text}}" ng-if="!vm.processing">Sign up</span>
+                <span ng-if="vm.processing" class="{{::vm.styles.spinner}}">
+                    <tokk-spinner size="24px" color="#fff" thickness="3px"></tokk-spinner>
+                </span>
+            </span>
+        </div>
+
+    </div>
+
+    <div class="{{::vm.styles.link}}">
+        <span>Already have an account? <a href="/bleh/login">Log in</a>.</span>
+    </div>
+
+</div>

@@ -1,0 +1,41 @@
+<tokk-page-section ng-if="vm.loaded">
+
+	<tokk-page-section-header>
+		<div class="{{::vm.styles.title}}">Archived</div>
+	</tokk-page-section-header>
+
+    <tokk-page-section-content>
+        <div class="{{::vm.styles.empty}}" ng-if="!vm.archivedUsers || vm.archivedUsers.length === 0">
+            <span>There are no archived users</span>
+        </div>
+
+        <tokk-table class="{{::vm.styles.table}}" ng-if="vm.archivedUsers && vm.archivedUsers.length > 0">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="alignLeft">Name</th>
+                        <th width="200" ng-if="vm.me.admin">Unarchive</th>
+                        <th width="60" ng-if="vm.me.admin">Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="user in vm.archivedUsers track by user.$id">
+                        <td class="alignLeft">
+                            <span>{{user.first_name}} {{user.last_name}}</span>
+                        </td>
+
+                        <td ng-if="vm.me.admin">
+                            <tokk-unarchive-user useruid="{{::user.$id}}"></tokk-unarchive-user>
+                        </td>
+
+                        <td ng-if="vm.me.admin">
+                            <tokk-delete-user useruid="{{::user.$id}}"></tokk-delete-user>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </tokk-table>
+    </tokk-page-section-content>
+
+</tokk-page-section>

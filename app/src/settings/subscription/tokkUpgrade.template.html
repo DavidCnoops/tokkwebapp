@@ -1,0 +1,51 @@
+<tokk-page-section>
+
+	<tokk-page-section-header class="{{::vm.styles.header}}">
+		<div class="{{::vm.styles.title}}">Start a free 30-day trial</div>
+	</tokk-page-section-header>
+
+	<tokk-page-section-content class="{{::vm.styles.content}}">
+
+		<div class="{{::vm.styles.form}}">
+
+			<div class="{{::vm.styles.line}}">
+				<tokk-label>First name</tokk-label>
+
+				<tokk-input>
+					<input type="text" 
+							ng-model="vm.firstName" 
+							ng-change="vm.resetError()" />
+				</tokk-input>
+			</div>
+
+			<div class="{{::vm.styles.line}}">
+				<tokk-label>Last name</tokk-label>
+
+				<tokk-input>
+					<input type="text" 
+							ng-model="vm.lastName" 
+							ng-change="vm.resetError()" 
+							tokk-enter="vm.upgrade(vm.firstName, vm.lastName)" />
+				</tokk-input>
+			</div>
+
+			<tokk-error 
+				visible="vm.error !== null" 
+				message="vm.error.message" 
+				padding-top="0px" 
+				padding-bottom="15px">
+			</tokk-error>
+
+            <tokk-button 
+                class="{{::vm.styles.button}}" 
+                text="Try Tokk for Business" 
+                type="primary" 
+                loading="vm.processing" 
+                ng-click="vm.upgrade(vm.firstName, vm.lastName)">
+            </tokk-button>
+
+		</div>
+
+	</tokk-page-section-content>
+
+</tokk-page-section>

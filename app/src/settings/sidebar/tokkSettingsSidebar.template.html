@@ -1,0 +1,34 @@
+<div class="{{::vm.styles.container}}">
+
+    <div class="{{::vm.styles.header}}">
+        <div class="{{::vm.styles.title}}">Settings</div>
+    </div>
+
+    <ul class="{{::vm.styles.content}}" ng-if="vm.loaded">
+
+        <li class="{{::vm.styles.item}}" ui-sref-active="active">
+            <span class="{{::vm.styles.name}}" ui-sref="loggedin.settings.account">My account</span>
+        </li>
+
+        <li class="{{::vm.styles.item}}" ng-if="vm.subscription.type === 'business'" ui-sref-active="active">
+            <span class="{{::vm.styles.name}}" ui-sref="loggedin.settings.invitations">Invitations</span>
+        </li>
+
+        <li class="{{::vm.styles.item}}" ng-if="vm.subscription.type === 'business'" ui-sref-active="active">
+            <span class="{{::vm.styles.name}}" ui-sref="loggedin.settings.users">Users</span>
+        </li>
+
+        <li class="{{::vm.styles.item}}" 
+            ng-if="(vm.subscription.type === 'free') || (vm.subscription.type === 'business' && vm.user.admin)" 
+            ui-sref-active="active">
+
+            <span class="{{::vm.styles.name}}" ui-sref="loggedin.settings.subscription">
+                <span ng-if="vm.subscription.type === 'free'">Tokk for Business</span>
+                <span ng-if="vm.subscription.type === 'business'">Subscription</span>
+            </span>
+
+        </li>
+
+    </ul>
+
+</div>

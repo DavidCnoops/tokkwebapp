@@ -1,0 +1,246 @@
+$lineColor: #d8dadd;
+
+.container {
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+
+  .close {
+    color: #888;
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    border-radius: 50%;
+
+    &:hover {
+      color: #333;
+    }
+  }
+
+  .paddingTop {
+    height: 0px;
+  }
+
+  .paddingBottom {
+    height: 20px;
+  }
+
+  .inner {
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    padding: 15px;
+    border-radius: 10px;
+    border: solid 1px $lineColor;
+    background: #fff;
+
+    .pikadayContainer {
+      :global {
+        .pika-single {
+          display: block;
+          position: relative;
+          color: #333;
+          background: #fff;
+        }
+
+        .pika-single:before,
+        .pika-single:after {
+          content: " ";
+          display: table;
+        }
+
+        .pika-single:after {
+          clear: both;
+        }
+        .pika-single {
+          *zoom: 1;
+        }
+
+        .pika-single.is-hidden {
+          display: none;
+        }
+
+        .pika-single.is-bound {
+          position: absolute;
+        }
+
+        .pika-lendar {
+          width: 260px;
+          margin: 0;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .pika-title {
+          width: 200px;
+          text-align: center;
+          margin-left: auto;
+          margin-right: auto;
+          position: relative;
+        }
+
+        .pika-label {
+          display: inline-block;
+          *display: inline;
+          position: relative;
+          overflow: hidden;
+          margin: 0;
+          margin-left: auto;
+          margin-right: auto;
+          padding: 5px 3px;
+          font-size: 20px;
+          line-height: 20px;
+          font-weight: 400;
+        }
+
+        .pika-title select {
+          cursor: pointer;
+          position: absolute;
+          margin: 0;
+          left: 0;
+          top: 5px;
+          filter: alpha(opacity=0);
+          opacity: 0;
+        }
+
+        .pika-prev,
+        .pika-next {
+          display: block;
+          cursor: pointer;
+          position: relative;
+          border: 0;
+          padding: 0;
+          width: 20px;
+          height: 30px;
+          text-indent: 20px;
+          white-space: nowrap;
+          overflow: hidden;
+          background-color: transparent;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: 75% 75%;
+          opacity: 0.5;
+          *position: absolute;
+          *top: 0;
+        }
+
+        .pika-prev:hover,
+        .pika-next:hover {
+          opacity: 1;
+        }
+
+        .pika-prev,
+        .is-rtl .pika-next {
+          float: left;
+          background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAUklEQVR42u3VMQoAIBADQf8Pgj+OD9hG2CtONJB2ymQkKe0HbwAP0xucDiQWARITIDEBEnMgMQ8S8+AqBIl6kKgHiXqQqAeJepBo/z38J/U0uAHlaBkBl9I4GwAAAABJRU5ErkJggg==");
+          *left: 0;
+        }
+
+        .pika-next,
+        .is-rtl .pika-prev {
+          float: right;
+          background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAU0lEQVR42u3VOwoAMAgE0dwfAnNjU26bYkBCFGwfiL9VVWoO+BJ4Gf3gtsEKKoFBNTCoCAYVwaAiGNQGMUHMkjGbgjk2mIONuXo0nC8XnCf1JXgArVIZAQh5TKYAAAAASUVORK5CYII=");
+          *right: 0;
+        }
+
+        .pika-prev.is-disabled,
+        .pika-next.is-disabled {
+          cursor: default;
+          opacity: 0.2;
+        }
+
+        .pika-select {
+          display: inline-block;
+          *display: inline;
+        }
+
+        .pika-table {
+          width: 100%;
+          border-collapse: collapse;
+          border-spacing: 0;
+          border: 0;
+        }
+
+        .pika-table th,
+        .pika-table td {
+          padding: 0;
+          margin: 0;
+          text-align: center;
+        }
+
+        .pika-table th {
+          color: #888;
+          font-size: 12px;
+          line-height: 25px;
+          font-weight: bold;
+          text-align: center;
+        }
+
+        .pika-button {
+          width: 27px;
+          height: 27px;
+          margin-top: 2px;
+          margin-bottom: 2px;
+          cursor: pointer;
+          border: solid 1px transparent;
+          border-radius: 50%;
+          background: transparent;
+        }
+
+        .pika-week {
+          font-size: 11px;
+          color: #888;
+        }
+
+        .is-today .pika-button {
+          border-color: #333;
+        }
+
+        .is-selected .pika-button {
+          color: #fff;
+          background: #333;
+        }
+
+        .is-inrange .pika-button {
+          background: #d5e9f7;
+        }
+
+        .is-startrange .pika-button {
+          color: #fff;
+          background: #6cb31d;
+          border-radius: 3px;
+        }
+
+        .is-endrange .pika-button {
+          color: #fff;
+          background: #33aaff;
+          border-radius: 3px;
+        }
+
+        .is-disabled .pika-button {
+          pointer-events: none;
+          cursor: default;
+          color: #888;
+          opacity: 0.3;
+        }
+      }
+    }
+
+    .buttons {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+
+      .todayBtn {
+        margin-right: 10px;
+      }
+    }
+  }
+}

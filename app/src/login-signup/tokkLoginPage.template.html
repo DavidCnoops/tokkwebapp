@@ -1,0 +1,58 @@
+<div class="{{::vm.styles.container}}">
+
+    <div class="{{::vm.styles.box}}">
+
+        <div class="{{::vm.styles.logo}}">
+            <tokk-logo></tokk-logo>
+        </div>
+
+        <div class="{{::vm.styles.inputs}}">
+            <div>
+                <input class="email {{::vm.styles.input}} {{::vm.styles.first}} {{::vm.styles.borderTop}}" 
+                        type="text" 
+                        autocomplete="email" 
+                        spellcheck="false" 
+                        placeholder="Email" 
+                        ng-model="vm.email" 
+                        ng-change="vm.resetError()"
+                        tokk-enter="vm.login(vm.email, vm.password)" />
+            </div>
+
+            <div>
+                <input class="password {{::vm.styles.input}} {{::vm.styles.borderBottom}}" 
+                        type="password" 
+                        autocomplete="password" 
+                        placeholder="Password" 
+                        ng-model="vm.password" 
+                        ng-change="vm.resetError()" 
+                        tokk-enter="vm.login(vm.email, vm.password)" />
+            </div>
+        </div>
+
+        <tokk-error 
+            visible="vm.error !== null" 
+            message="vm.error.message" 
+            padding-top="0px" 
+            padding-bottom="20px">
+        </tokk-error>
+
+        <div class="{{::vm.styles.button}}" ng-disabled="vm.processing" ng-click="vm.login(vm.email, vm.password)">
+            <span class="{{::vm.styles.inner}}">
+                <span class="{{::vm.styles.text}}" ng-if="!vm.processing">Log in</span>
+                <span ng-if="vm.processing" class="{{::vm.styles.spinner}}">
+                    <tokk-spinner size="26px" color="#333" thickness="3px"></tokk-spinner>
+                </span>
+            </span>
+        </div>
+
+        <div class="{{::vm.styles.link}}">
+            <a href="/bleh/passwordreset">Forgot your password?</a>
+        </div>
+
+    </div>
+
+    <div class="{{::vm.styles.link}}">
+        <span>Don't have an account? <a href="/bleh/signup">Create a Tokk account</a></span>
+    </div>
+
+</div>

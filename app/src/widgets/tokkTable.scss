@@ -1,0 +1,68 @@
+.container {
+    width: 100%;
+    display: block;
+
+    > table {
+        width: 100%;
+        border: none;
+
+        > thead {
+            > tr {
+                border: none;
+
+                > th {
+                    font-size: 13px;
+                    font-weight: 600;
+                    text-align: center;
+                    text-transform: uppercase;
+                    padding-top: 6px;
+                    padding-bottom: 6px;
+
+                    &:global(.alignLeft) {
+                        text-align: left;
+                    }
+
+                    &:global(.alignRight) {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
+        > tbody {
+            > tr {
+                border: none;
+
+                > td {
+                    text-align: center;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    vertical-align: middle;
+
+                    &:global(.alignLeft) {
+                        text-align: left;
+                    }
+
+                    &:global(.alignRight) {
+                        text-align: right;
+                    }
+
+                    &:global(.icon) {
+                        padding: 0px;
+
+                        > span {
+                            color: #888;
+                            font-size: 22px;
+                            cursor: pointer;
+                            position: relative;
+
+                            &:hover {
+                                color: #000;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

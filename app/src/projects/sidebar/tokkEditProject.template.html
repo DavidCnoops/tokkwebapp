@@ -1,0 +1,86 @@
+<tokk-modal opened="vm.opened && vm.confirmationModalOpened === false" close="vm.close()" background="true">
+
+	<tokk-modal-header>
+		<div class="{{::vm.styles.titleContainer}}">
+			<div class="{{::vm.styles.title}}">{{vm.project.project_name}}</div>
+			<div class="icon-add {{::vm.styles.close}}" ng-click="vm.close()"></div>
+		</div>
+	</tokk-modal-header>
+
+	<tokk-modal-content>
+		<div class="{{::vm.styles.statusContainer}}">
+			<tokk-label>Status</tokk-label>
+
+			<tokk-select class="{{::vm.styles.selectBox}}">
+				<select ng-model="vm.currentStatus" ng-options="vm.boolToString(item) for item in [true, false]"></select>
+			</tokk-select>
+		</div>
+
+		<div class="{{::vm.styles.colorContainer}}">
+			<tokk-label>Color</tokk-label>
+
+			<div class="colors">
+				<div class="color" 
+					ng-repeat="(key, value) in vm.colors" 
+					ng-class="{'{{::vm.styles.checked}}': vm.currentColor === key}" 
+					ng-style="{'border-color': value, 'background': (vm.currentColor === key ? value : '#fff')}"
+					ng-click="vm.selectColor(key)">
+					<div class="icon-done {{::vm.styles.check}}" ng-style="{'color': (vm.currentColor === key ? '#fff' : value)}"></div>
+				</div>
+			</div>
+		</div>
+	</tokk-modal-content>
+
+	<tokk-modal-footer>
+
+		<tokk-button class="{{::vm.styles.doneBtn}}" 
+			text="Save" 
+			type="primary" 
+			ng-click="vm.update(vm.project, vm.currentStatus, vm.currentColor)">
+		</tokk-button>
+
+		<tokk-button class="{{::vm.styles.cancelBtn}}" 
+			text="Cancel" 
+			type="secondary" 
+			ng-click="vm.close()">
+		</tokk-button>
+
+		<span class="icon-trash {{::vm.styles.deleteBtn}}" ng-click="vm.openConfirmationModal()">
+			<tokk-tooltip message="Delete list" vdistance="-20px"></tokk-tooltip>
+		</span>
+
+	</tokk-modal-footer>
+
+</tokk-modal>
+
+
+
+<tokk-modal opened="vm.opened && vm.confirmationModalOpened === true" close="vm.openConfirmationModal()" background="true">
+
+	<tokk-modal-header>
+		<div class="{{::vm.styles.titleContainer}}">
+			<div class="{{::vm.styles.title}}">Delete list</div>
+		</div>
+	</tokk-modal-header>
+
+	<tokk-modal-content>
+		<div class="{{::vm.styles.confirmationMessage}}">
+			Are you sure you want to delete the list <span  class="{{::vm.styles.projectName}}">{{vm.project.project_name}}</span>?
+		</div>
+	</tokk-modal-content>
+
+	<tokk-modal-footer>
+		<tokk-button class="{{::vm.styles.doneBtn}}" 
+			text="Delete list" 
+			type="primary" 
+			ng-click="vm.removeProject(vm.project, vm.myFullName)">
+		</tokk-button>
+
+		<tokk-button class="{{::vm.styles.cancelBtn}}" 
+			text="Cancel" 
+			type="secondary" 
+			ng-click="vm.closeConfirmationModal()">
+		</tokk-button>
+	</tokk-modal-footer>
+
+</tokk-modal>

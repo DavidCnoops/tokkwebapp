@@ -1,0 +1,154 @@
+<div ng-switch="vm.notification.type" 
+		class="{{::vm.styles.notification}}"
+		ng-class="{'{{::vm.styles.viewed}}': vm.notification.viewed2}">
+
+	<div ng-switch-when="projectrequest">
+		<div class="{{::vm.styles.meta}}">
+			<span class="{{::vm.styles.timeAgo}}">{{vm.timeAgo}}</span>
+			<span class="{{::vm.styles.separator}}" ng-if="vm.notification.status !== 'pending'">-<span>
+			<span class="{{::vm.styles.remove}}" ng-if="vm.notification.status !== 'pending'" ng-click="vm.removeNotification(vm.notification); $event.stopPropagation();">remove</span>
+		</div>
+
+		<div class="{{::vm.styles.content}}">
+			{{vm.notification.sender_name}} wants to share the list 
+			<span ng-style="{'color': vm.color}">{{vm.notification.project_name}}</span> with you.
+		</div>
+
+		<div class="{{::vm.styles.buttons}}">
+			<tokk-button 
+				ng-if="vm.notification.status === 'pending'"
+				class="{{::vm.styles.button}}" 
+				text="Accept" 
+				type="primary" 
+				loading="vm.processingAccepted" 
+				disabled="vm.processingDeclined" 
+				ng-click="vm.acceptProject(vm.notification, vm.myFullName, vm.activeProjectsCount); $event.stopPropagation();">
+			</tokk-button>
+
+			<tokk-button 
+				ng-if="vm.notification.status === 'pending'"
+				class="{{::vm.styles.button}}" 
+				text="Decline" 
+				type="primary" 
+				loading="vm.processingDeclined" 
+				disabled="vm.processingAccepted" 
+				ng-click="vm.declineProject(vm.notification, vm.myFullName, vm.project); $event.stopPropagation();">
+			</tokk-button>
+
+			<div class="{{::vm.styles.accepted}}" ng-if="vm.notification.status === 'accepted'">
+				<span class="icon-done {{::vm.styles.icon}}"></span>
+				<span class="{{::vm.styles.text}}">You accepted</span>
+			</div>
+
+			<div class="{{::vm.styles.declined}}" ng-if="vm.notification.status === 'declined'">
+				<div class="icon-close {{::vm.styles.icon}}"></div>
+				<div class="{{::vm.styles.text}}">You declined</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div ng-switch-when="projectdeclined">
+		<div class="{{::vm.styles.meta}}">
+			<span class="{{::vm.styles.timeAgo}}">{{vm.timeAgo}}</span>
+			<span class="{{::vm.styles.separator}}">-<span>
+			<span class="{{::vm.styles.remove}}" ng-click="vm.removeNotification(vm.notification); $event.stopPropagation();">remove</span>
+		</div>
+
+		<div class="{{::vm.styles.content}}">
+			{{vm.notification.sender_name}} declined your sharing request for 
+			<span ng-style="{'color': vm.color}">{{vm.notification.project_name}}</span>.
+		</div>
+	</div>
+
+
+	<div ng-switch-when="projectaccepted">
+		<div class="{{::vm.styles.meta}}">
+			<span class="{{::vm.styles.timeAgo}}">{{vm.timeAgo}}</span>
+			<span class="{{::vm.styles.separator}}">-<span>
+			<span class="{{::vm.styles.remove}}" ng-click="vm.removeNotification(vm.notification); $event.stopPropagation();">remove</span>
+		</div>
+
+		<div class="{{::vm.styles.content}}">
+			{{vm.notification.sender_name}} accepted your sharing request for 
+			<span ng-style="{'color': vm.color}">{{vm.notification.project_name}}</span>.
+		</div>
+	</div>
+
+
+	<div ng-switch-when="projectrevoked">
+		<div class="{{::vm.styles.meta}}">
+			<span class="{{::vm.styles.timeAgo}}">{{vm.timeAgo}}</span>
+			<span class="{{::vm.styles.separator}}">-<span>
+			<span class="{{::vm.styles.remove}}" ng-click="vm.removeNotification(vm.notification); $event.stopPropagation();">remove</span>
+		</div>
+
+		<div class="{{::vm.styles.content}}">
+			{{vm.notification.sender_name}} stopped sharing 
+			<span ng-style="{'color': vm.color}">{{vm.notification.project_name}}</span> with you.
+		</div>
+	</div>
+
+
+	<div ng-switch-when="taskassigned">
+		<div class="{{::vm.styles.meta}}">
+			<span class="{{::vm.styles.timeAgo}}">{{vm.timeAgo}}</span>
+			<span class="{{::vm.styles.separator}}">-<span>
+			<span class="{{::vm.styles.remove}}" ng-click="vm.removeNotification(vm.notification); $event.stopPropagation();">remove</span>
+		</div>
+
+		<div class="{{::vm.styles.content}}">
+			{{vm.notification.sender_name}} added <span>{{vm.notification.task_name}}</span> 
+			to your tasks for <span ng-style="{'color': vm.color}">{{vm.notification.project_name}}</span>.
+		</div>
+	</div>
+
+
+	<div ng-switch-when="subtaskassigned">
+		<div class="{{::vm.styles.meta}}">
+			<span class="{{::vm.styles.timeAgo}}">{{vm.timeAgo}}</span>
+			<span class="{{::vm.styles.separator}}">-<span>
+			<span class="{{::vm.styles.remove}}" ng-click="vm.removeNotification(vm.notification); $event.stopPropagation();">remove</span>
+		</div>
+
+		<div class="{{::vm.styles.content}}">
+			{{vm.notification.sender_name}} added 
+			the subtask <span>{{vm.notification.subtask_name}}</span> to your task <span>{{vm.notification.task_name}}</span> of 
+			<span ng-style="{'color': vm.color}">{{vm.notification.project_name}}</span>.
+		</div>
+	</div>
+
+
+	<div ng-switch-when="tagassigned">
+		<div class="{{::vm.styles.meta}}">
+			<span class="{{::vm.styles.timeAgo}}">{{vm.timeAgo}}</span>
+			<span class="{{::vm.styles.separator}}">-<span>
+			<span class="{{::vm.styles.remove}}" ng-click="vm.removeNotification(vm.notification); $event.stopPropagation();">remove</span>
+		</div>
+
+		<div class="{{::vm.styles.content}}">
+			{{vm.notification.sender_name}} added 
+			the tag <span>{{vm.notification.tag_name}}</span> to your task <span>{{vm.notification.task_name}}</span> of 
+			<span ng-style="{'color': vm.color}">{{vm.notification.project_name}}</span>.
+		</div>
+	</div>
+
+
+	<div ng-switch-when="invitationaccepted">
+		<div class="{{::vm.styles.meta}}">
+			<span class="{{::vm.styles.timeAgo}}">{{vm.timeAgo}}</span>
+			<span class="{{::vm.styles.separator}}">-<span>
+			<span class="{{::vm.styles.remove}}" ng-click="vm.removeNotification(vm.notification); $event.stopPropagation();">remove</span>
+		</div>
+
+		<div class="{{::vm.styles.content}}">
+			{{vm.notification.sender_name}} accepted your invitation.
+		</div>
+	</div>
+
+
+	<div ng-switch-default>
+		<p>No notifications</p>
+	</div>
+
+</div>

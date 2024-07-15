@@ -1,0 +1,9 @@
+<div class="{{::vm.styles.container}} {{::vm.type}} {{::vm.styles[vm.layout]}}" ng-disabled="vm.loading || vm.disabled">
+    <span class="{{::vm.styles.inner}}">
+        <span class="{{::vm.styles.text}}" ng-class="{'hidden': vm.loading}">{{::vm.text}}</span>
+
+        <span ng-if="vm.loading" class="{{::vm.styles.spinner}}">
+            <tokk-spinner size="{{::vm.spinnerSize}}" color="#333" thickness="3px"></tokk-spinner>
+        </span>
+    </span>
+</div>

@@ -1,0 +1,161 @@
+<div class="selectedProject {{::vm.styles.project}}">
+
+    <div class="selectedProjectHeader animationPageHeader {{::vm.styles.header}}" ng-if="vm.projectLoaded">
+
+        <div class="{{::vm.styles.lineOne}}">
+            <div class="{{::vm.styles.titleContainer}}">
+                <div class="{{::vm.styles.title}}" ng-style="{'color': vm.color}">{{::vm.projectHeader.project_name}}</div>
+            </div>
+
+            <!--
+            <div class="icon-share modal-noclose {{::vm.styles.headerIcon}}" ng-click="vm.openSharingModal()">
+                <tokk-tooltip message="Share list" vdistance="50px" ng-show="vm.showTooltip"></tokk-tooltip>
+            </div>
+            -->
+        </div>
+
+        <div class="{{::vm.styles.lineTwo}}">
+            <div ng-if="vm.subscriptionType !== 'business'">
+                <span class="{{::vm.styles.text}}" ng-if="!vm.activeTasks || vm.activeTasks.length === 0">
+                    No active tasks
+                </span>
+                <span class="{{::vm.styles.text}}" ng-if="vm.activeTasks && vm.activeTasks.length === 1">
+                    1 active task
+                </span>
+                <span class="{{::vm.styles.text}}" ng-if="vm.activeTasks && vm.activeTasks.length > 1">
+                    {{vm.activeTasks.length}} active tasks
+                </span>
+            </div>
+
+            <!--
+            <tokk-sharing-list ng-if="vm.subscriptionType === 'business'"></tokk-sharing-list>
+            -->
+
+            <tokk-sharing-dropdown ng-if="vm.subscriptionType === 'business'"></tokk-sharing-dropdown>
+        </div>
+
+        <div class="{{::vm.styles.line}}"></div>
+
+    </div>
+
+    <div class="selectedProjectContent animationPageContent {{::vm.styles.contentContainer}}" 
+            ng-if="vm.projectLoaded && vm.tasksLoaded" 
+            tokk-scrollspy scrolling="vm.scrolling(position)">
+
+        <div class="{{::vm.styles.content}}">
+
+            <tokk-add-task 
+                class="{{::vm.styles.addTask}}"
+                ng-if="vm.selectedUser.$id === vm.Auth.userUID || vm.isOnline" 
+                useruid="vm.userUID" 
+                projectid="vm.projectID" 
+                tasksprojectid="vm.tasksProjectID">
+            </tokk-add-task>
+
+            <ul tokk-dragula 
+                isdraggable="vm.editable" 
+                update="vm.updatePositions(vm.activeTasks, oldIndex, newIndex, draggedItemID)" 
+                scrollcontainer=".selectedProjectContent" 
+                handler="taskdraghandler"
+                class="{{::vm.styles.activeTasks}}"  >
+
+                <li class="{{::vm.styles.task}}" 
+                    ng-repeat="task in vm.activeTasks track by task.$id"
+                    itemid="{{::task.$id}}">
+
+                    <tokk-task 
+                        useruid="{{::vm.userUID}}"
+                        projectid="{{::vm.projectID}}"
+                        tasksprojectid="{{::vm.tasksProjectID}}"
+                        taskid="{{::task.$id}}" 
+                        editable="vm.editable">
+                    </tokk-task>
+
+                </li>
+
+            </ul>
+
+            <div class="{{::vm.styles.completedTitle}}" 
+                    ng-class="{'{{::vm.styles.closed}}': !vm.showCompletedTasks}"
+                    ng-if="vm.completedTasks && vm.completedTasks.length > 0"
+                    ng-click="vm.toggleCompletedTasks()">
+                <span class="icon-arrowdown {{::vm.styles.icon}}" ng-class="{'{{::vm.styles.opened}}': vm.showCompletedTasks}"></span>
+                <span class="{{::vm.styles.text}}" ng-if="vm.completedTasks.length === 1">1 completed task</span>
+                <span class="{{::vm.styles.text}}" ng-if="vm.completedTasks.length > 1">{{vm.completedTasks.length}} completed tasks</span>
+            </div>
+
+            <ul class="{{::vm.styles.completedTasks}}"  
+                ng-if="vm.completedTasks && vm.completedTasks.length > 0 && vm.showCompletedTasks">
+
+                <li class="{{::vm.styles.task}}" 
+                    ng-repeat="task in vm.completedTasks track by task.$id"
+                    itemid="{{::task.$id}}">
+
+                    <tokk-task 
+                        useruid="{{::vm.userUID}}"
+                        projectid="{{::vm.projectID}}"
+                        tasksprojectid="{{::vm.tasksProjectID}}"
+                        taskid="{{::task.$id}}" 
+                        editable="vm.editable">
+                    </tokk-task>
+
+                </li>
+
+            </ul>
+
+            <div class="{{::vm.styles.noTasks}}" ng-if="(!vm.activeTasks || vm.activeTasks.length === 0) && (!vm.completedTasks || vm.completedTasks.length === 0)">
+
+                <div class="{{::vm.styles.message}}">
+
+                    <div class="{{::vm.styles.text}}">
+                        <span ng-if="vm.selectedUser.$id === vm.Auth.userUID">
+                            You don't have any tasks for {{::vm.projectHeader.project_name}}
+                        </span>
+
+                        <span ng-if="vm.selectedUser.$id !== vm.Auth.userUID && vm.isOnline">
+                            {{vm.selectedUser.first_name}} doesn't have any tasks for {{::vm.projectHeader.project_name}}
+                        </span>
+
+                        <span ng-if="vm.selectedUser.$id !== vm.Auth.userUID && !vm.isOnline">
+                            {{vm.selectedUser.first_name}}'s tasks for {{::vm.projectHeader.project_name}}<br /> could not be retrieved because you are offline.
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<tokk-modal class="{{::vm.styles.sharingModal}}" opened="vm.sharingModalOpened" close="vm.closeSharingModal()">
+
+    <tokk-modal-header>
+        <div class="{{::vm.styles.titleContainer}}">
+            <div class="{{::vm.styles.titles}}">
+                <div class="{{::vm.styles.title}}">Share list</div>
+                <div class="{{::vm.styles.subtitle}}" ng-style="{'color': vm.color}">{{::vm.projectHeader.project_name}}</div>
+            </div>
+            <div class="icon-add {{::vm.styles.close}}" ng-click="vm.closeSharingModal()"></div>
+        </div>
+    </tokk-modal-header>
+
+    <tokk-modal-content>
+        <tokk-sharing-select-user projectid="vm.projectID"></tokk-sharing-select-user>
+        <tokk-sharing-shared-users projectid="vm.projectID"></tokk-sharing-shared-users>
+    </tokk-modal-content>
+
+    <tokk-modal-footer>
+		<tokk-button 
+            class="{{::vm.styles.addBtn}}" 
+			text="Close" 
+			type="primary" 
+			ng-click="vm.closeSharingModal()">
+		</tokk-button>
+    </tokk-modal-footer>
+
+</tokk-modal>

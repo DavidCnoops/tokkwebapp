@@ -1,0 +1,19 @@
+.header {
+    .title {
+        flex: 1;
+        font-size: 23px;
+        line-height: 23px;
+    }
+}
+
+.content {
+    .form {
+        width: 320px;
+        display: block;
+        margin-bottom: 40px;
+
+        .line {
+            padding-bottom: 20px;
+        }
+    }
+}

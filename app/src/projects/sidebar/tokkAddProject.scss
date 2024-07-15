@@ -1,0 +1,134 @@
+.titleContainer {
+  display: flex;
+
+  .title {
+    flex: 1;
+    color: #333;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 18px;
+  }
+
+  .close {
+    width: 28px;
+    height: 28px;
+    color: #888;
+    font-size: 28px;
+    flex: 0 0 28px;
+    cursor: pointer;
+    transform: rotate(45deg);
+
+    &:hover {
+      color: #000;
+    }
+  }
+}
+
+.nameContainer {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 30px;
+
+  .inputContainer {
+    width: 100%;
+    display: block;
+    position: relative;
+
+    tokk-input {
+      width: 100%;
+      display: block;
+
+      input {
+        height: 44px !important;
+        padding-right: 28px;
+      }
+    }
+
+    :global(.autocompleteDropdownContainer) {
+      top: 43px;
+      left: 0px;
+      right: 0px;
+
+      :global(.autocompleteDropdown) {
+        max-height: 175px;
+
+        :global(.autocompleteItem) {
+          font-size: 18px;
+          line-height: 24px;
+          padding: 10px;
+        }
+      }
+    }
+  }
+
+  .showlistBtn {
+    width: 24px;
+    height: 24px;
+    color: #888;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    right: 6px;
+    top: 10px;
+
+    &:hover {
+      color: #000;
+    }
+  }
+}
+
+.colorContainer {
+  width: 100%;
+  margin-bottom: 10px;
+
+  :global(.colors) {
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    margin-left: -2px;
+
+    :global(.color) {
+      flex: 0 0 48px;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50%;
+      border: solid 2px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      transform: scale(0.9);
+
+      &:hover {
+        opacity: 1;
+
+        .check {
+          opacity: 1;
+        }
+      }
+
+      &.checked {
+        opacity: 1;
+
+        .check {
+          opacity: 1;
+        }
+      }
+
+      .check {
+        color: #fff;
+        width: 29px;
+        height: 29px;
+        font-size: 29px;
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.addBtn {
+  margin-right: 8px;
+}

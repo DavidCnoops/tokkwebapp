@@ -1,0 +1,36 @@
+<tokk-page ng-if="vm.loaded">
+
+    <tokk-page-header>
+        <div class="tokkPageHeaderTitle">
+            <span ng-if="vm.subscription.type === 'free'">Tokk for Business</span>
+            <span ng-if="vm.subscription.type === 'business'">Subscription</span>
+        </div>
+    </tokk-page-header>
+
+    <tokk-page-content>
+        <div ng-if="vm.subscription.type === 'free'">
+            <tokk-business-features></tokk-business-features>
+            <tokk-upgrade></tokk-upgrade>
+        </div>
+
+        <div ng-if="vm.subscription.type === 'business'">
+            <tokk-subscription-details></tokk-subscription-details>
+
+            <div ng-if="vm.subscription.status === 'trial'">
+                <tokk-purchase></tokk-purchase>
+            </div>
+
+            <div ng-if="vm.subscription.status === 'active' || vm.subscription.status === 'cancelled'">
+                <tokk-payment-details></tokk-payment-details>
+                <tokk-billing-details></tokk-billing-details>
+                <tokk-invoice-history></tokk-invoice-history>
+            </div>
+        </div>
+    </tokk-page-content>
+
+</tokk-page>
+
+<tokk-success-modal opened="vm.modalOpened" close="vm.closeModal()">
+    <tokk-success-modal-title>{{vm.modalTitle}}</tokk-success-modal-title>
+    <tokk-success-modal-content>{{vm.modalContent}}</tokk-success-modal-content>
+</tokk-success-modal>

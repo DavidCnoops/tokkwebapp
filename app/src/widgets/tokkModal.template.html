@@ -1,0 +1,13 @@
+<div ng-if="vm.opened" class="{{::vm.styles.modalContainer}}">
+
+    <div class="{{::vm.styles.paddingTop}}"></div>
+
+    <div class="modal modal-noclose {{::vm.styles.modal}}" ng-style="{'max-width': (vm.width ? vm.width : '500px')}">
+
+        <div class="{{::vm.styles.header}}" ng-transclude="header"></div>
+        <div class="{{::vm.styles.content}}" ng-transclude="content"></div>
+        <div class="{{::vm.styles.footer}}" ng-transclude="footer"></div>
+
+    </div>
+
+</div>

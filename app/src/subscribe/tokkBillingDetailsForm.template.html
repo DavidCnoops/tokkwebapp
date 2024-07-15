@@ -1,0 +1,145 @@
+<div class="{{::vm.styles.container}}">
+
+	<div class="{{::vm.styles.line}}">
+		<tokk-label>Email address (will receive invoices)</tokk-label>
+
+		<tokk-input>
+			<input type="text" 
+					autocomplete="email" 
+					spellcheck="false" 
+					ng-model="vm.email"
+					ng-change="vm.resetEmailValidation()" />
+		</tokk-input>
+
+		<tokk-error visible="vm.noEmail" 
+					message="vm.noEmailMessage" 
+					padding-top="5px" 
+					padding-bottom="0px">
+		</tokk-error>
+
+		<tokk-error visible="vm.invalidEmail" 
+					message="vm.invalidEmailMessage" 
+					padding-top="5px" 
+					padding-bottom="0px">
+		</tokk-error>
+	</div>
+
+	<div class="{{::vm.styles.line}}">
+		<tokk-label>Street address</tokk-label>
+
+		<tokk-input>
+			<input type="text" 
+					autocomplete="street-address" 
+					ng-model="vm.address"
+					ng-change="vm.resetAddressValidation()" />
+		</tokk-input>
+
+		<tokk-error visible="vm.noAddress" 
+					message="vm.noAddressMessage" 
+					padding-top="5px" 
+					padding-bottom="0px">
+		</tokk-error>
+	</div>
+
+	<div class="{{::vm.styles.line}} {{::vm.styles.lineCityCountry}}">
+		<div class="{{::vm.styles.city}}">
+			<tokk-label>City</tokk-label>
+
+			<tokk-input>
+				<input type="text" 
+						autocomplete="city" 
+						ng-model="vm.city"
+						ng-change="vm.resetCityValidation()" />
+			</tokk-input>
+
+			<tokk-error visible="vm.noCity" 
+						message="vm.noCityMessage" 
+						padding-top="5px" 
+						padding-bottom="0px">
+			</tokk-error>
+		</div>
+
+		<div class="{{::vm.styles.postalCode}}">
+			<tokk-label>Postal code</tokk-label>
+
+			<tokk-input>
+				<input type="text" 
+						autocomplete="postal-code" 
+						ng-model="vm.postalCode"
+						ng-change="vm.resetPostalCodeValidation()" />
+			</tokk-input>
+
+			<tokk-error visible="vm.noPostalCode" 
+						message="vm.noPostalCodeMessage" 
+						padding-top="5px" 
+						padding-bottom="0px">
+			</tokk-error>
+		</div>
+	</div>
+
+	<div class="{{::vm.styles.line}}">
+		<tokk-label>Country</tokk-label>
+
+		<tokk-select>
+			<select ng-model="vm.country"
+					ng-options="country.name for country in vm.Countries.list | orderBy:'name' track by country.code"
+					ng-change="vm.resetCountryValidation()">
+				<option value="" default selected disabled>Select your country</option>
+			</select>
+		</tokk-select>
+
+		<tokk-error 
+			visible="vm.noCountry" 
+			message="vm.noCountryMessage" 
+			padding-top="5px" 
+			padding-bottom="0px">
+		</tokk-error>
+	</div>
+
+	<div class="{{::vm.styles.line}} {{::vm.styles.lineIsBusiness}}" ng-if="!(vm.fill && vm.isBusinessBeforeUpdate)">
+		<tokk-checkbox class="{{::vm.styles.isBusinessCheckbox}}"
+						size="22px"
+						checked="vm.isBusiness" 
+						click="vm.toggleCustomerType(vm.isBusiness)" >
+		</tokk-checkbox>
+
+		<div class="{{::vm.styles.isBusinessLabel}}" ng-click="vm.toggleCustomerType(vm.isBusiness)">I am purchasing for a company</div>
+	</div>
+
+	<div class="{{::vm.styles.line}} {{::vm.styles.lineCompany}}" ng-if="vm.isBusiness">
+		<div class="{{::vm.styles.companyName}}">
+			<tokk-label>Company name</tokk-label>
+
+			<tokk-input>
+				<input type="text" 
+						autocomplete="organization" 
+						ng-model="vm.companyName"
+						ng-change="vm.resetCompanyNameValidation()" />
+			</tokk-input>
+
+			<tokk-error visible="vm.noCompanyName" 
+						message="vm.noCompanyNameMessage" 
+						padding-top="5px" 
+						padding-bottom="0px">
+			</tokk-error>
+		</div>
+
+		<div class="{{::vm.styles.companyVAT}}" ng-if="vm.country.EU">
+			<tokk-label>Company VAT number</tokk-label>
+
+			<tokk-input>
+				<input type="text" 
+						autocomplete="off" 
+						ng-model="vm.companyVAT"
+						ng-change="vm.resetCompanyVATValidation()" />
+			</tokk-input>
+
+			<tokk-error visible="vm.noCompanyVAT" 
+						message="vm.noCompanyVATMessage" 
+						padding-top="5px" 
+						padding-bottom="0px">
+			</tokk-error>
+		</div>
+	</div>
+
+</div>

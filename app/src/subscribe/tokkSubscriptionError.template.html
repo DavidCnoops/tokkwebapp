@@ -1,0 +1,68 @@
+<div class="{{::vm.styles.window}}" ng-if="vm.loaded">
+
+    <div class="{{::vm.styles.logo}}">
+        <tokk-logo></tokk-logo>
+    </div>
+
+	<div class="{{::vm.styles.contentContainer}}" ng-if="!vm.success">
+
+		<div class="{{::vm.styles.title}}">
+			An error occured while trying to charge your card
+		</div>
+
+		<div class="{{::vm.styles.content}}">
+
+			<div class="{{::vm.styles.left}}">
+
+				<div class="{{::vm.styles.paragraph}}">
+					An error occured while trying to charge your credit card 
+					(<span class="{{::vm.styles.bold}}">{{vm.billingInformation.card_type}} ending in {{vm.billingInformation.card_last_digits}}</span>). 
+					This may be because your card expired. Please update your payment details in order 
+					to continue using Tokk for Business. 
+				</div>
+
+				<tokk-error 
+					visible="vm.errorMessage !== null" 
+					message="vm.errorMessage" 
+					padding-top="0px" 
+					padding-bottom="20px">
+				</tokk-error>
+
+				<div class="{{::vm.styles.button}}">
+					<tokk-button 
+						text="Update payment details" 
+						type="primary" 
+						loading="vm.processing" 
+						layout="big" 
+						ng-click="vm.subscribe(vm.broadcastKey, vm.processing, vm.loaded)">
+					</tokk-button>
+				</div>
+			</div>
+
+
+			<div class="{{::vm.styles.right}}">
+				<form>
+					<tokk-payment-details-form broadcast-key="vm.broadcastKey"></tokk-payment-details-form>
+				</form>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="{{::vm.styles.successContainer}}" ng-if="vm.success">
+
+		<div class="icon-success {{::vm.styles.icon}}"></div>
+		<div class="{{::vm.styles.title}}">Payment details updated</div>
+		<div class="{{::vm.styles.content}}">You successfully updated your payment details.</div>
+
+		<tokk-button 
+			class="{{::vm.styles.button}}" 
+			text="Continue to your account" 
+			type="primary" 
+			ng-click="vm.$state.go('loggedin.projects')">
+		</tokk-button>
+
+	</div>
+
+</div>

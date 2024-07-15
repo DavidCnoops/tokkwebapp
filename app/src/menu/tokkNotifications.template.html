@@ -1,0 +1,31 @@
+<div ng-if="vm.opened" 
+        class="{{::vm.styles.notifications}} notifications-noclose"
+        tokk-click-outside container="notifications-noclose" action="vm.close()">
+
+    <div class="{{::vm.styles.header}}">
+        <h1>Notifications</h1>
+
+        <span class="{{::vm.styles.removeAll}}" 
+                ng-click="vm.removeAll(vm.notifications)"
+                ng-class="{'{{::vm.styles.visible}}': vm.canRemove}">
+            remove all
+        </span>
+    </div>
+
+    <div class="{{::vm.styles.content}}">
+
+        <tokk-notification ng-repeat="notification in vm.notifications track by notification.$id" 
+                            notificationid="{{::notification.$id}}">
+        </tokk-notification>
+
+        <div class="{{::vm.styles.loading}}" ng-if="vm.loading">
+            <tokk-spinner size="24px" color="#333" thickness="3px"></tokk-spinner>
+        </div>
+
+        <div class="{{::vm.styles.noNotifications}}" ng-if="!vm.loading && !vm.notifications">
+            <span class="{{::vm.styles.message}}">You don't have any notifications</span>
+        </div>
+
+    </div>
+
+</div>

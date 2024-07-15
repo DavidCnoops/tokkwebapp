@@ -1,0 +1,37 @@
+<div class="{{::vm.styles.tokkTags}}">
+
+	<span class="icon-tag autocomplete-noclose {{::vm.styles.tagIcon}}" ng-click="vm.toggleAutocomplete()"></span>
+
+    <div class="{{::vm.styles.container}}">
+
+        <ul class="{{::vm.styles.tags}}" ng-repeat="tag in vm.tags track by tag.$id">
+            <li class="{{::vm.styles.tag}}" ng-class="{'{{::vm.styles.disabled}}': !vm.canRemove}">
+                <span class="{{::vm.styles.name}}">{{tag.tag_name}}</span>
+                <span class="icon-close {{::vm.styles.remove}}"
+                        ng-if="vm.canRemove" 
+                        ng-click="vm.removeTag(vm.userUID, vm.tasksProjectID, vm.project, vm.task, tag); $event.stopPropagation();">
+                </span>
+            </li>
+        </ul>
+
+        <tokk-autocomplete group="tags" 
+                            search-property="tag_slug"
+                            view-property="tag_name"
+                            key="{{::vm.autocompleteKey}}"
+                            set-input="vm.setInputText(text)"
+                            opened="vm.autocompleteOpened"
+                            class="{{::vm.styles.inputContainer}}">
+
+            <input class="autocomplete-input {{::vm.styles.input}}"
+                    type="text" 
+                    placeholder="Add a tag{{vm.nameExtension}}" 
+                    ng-model="vm.inputText" 
+                    tokk-enter="vm.addTag(vm.userUID, vm.tasksProjectID, vm.project, vm.task, vm.myFullName, vm.inputText, vm.tags)" 
+                    autocomplete="off" 
+                    maxlength="256">
+
+        </tokk-autocomplete>
+
+    </div>
+
+</div>
